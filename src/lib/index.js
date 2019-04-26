@@ -9,4 +9,3 @@ export const config = {
     messagingSenderId: "965513198263"
 }
 
-
