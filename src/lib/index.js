@@ -1,12 +1,12 @@
 // aqui exportaras las funciones que necesites
 
 export const config = {
-    apiKey: "AIzaSyCyGEFNsa3tdjepmFh5S6yhM0-FCePDjF0",
-    authDomain: "taxi-app-db.firebaseapp.com",
-    databaseURL: "https://taxi-app-db.firebaseio.com",
-    projectId: "taxi-app-db",
-    storageBucket: "taxi-app-db.appspot.com",
-    messagingSenderId: "387581643214"  
+    apiKey: "AIzaSyAcvFV-lwmPM9sSm-UTVHR7LK9gz3Tf7Es",
+    authDomain: "social-network-52a55.firebaseapp.com",
+    databaseURL: "https://social-network-52a55.firebaseio.com",
+    projectId: "social-network-52a55",
+    storageBucket: "social-network-52a55.appspot.com",
+    messagingSenderId: "965513198263"
 }
 
 
