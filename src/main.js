@@ -46,11 +46,11 @@ firebase.auth().onAuthStateChanged( firebaseUser => {
 // inicio de sesion con facebook
 const authFacebook = () => {
 	const provider = new firebase.auth.FacebookAuthProvider();
-	firebase.auth().signInWithPopup(provider).then(result => {
+	firebase.auth().signInWithRedirect(provider).then(result => {
 		console.log(result.user.displayName);
 	})
 	.catch(error => {
-		console.log(error);
+		console.log(error.message);
 	});
 }
 
