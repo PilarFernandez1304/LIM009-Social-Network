@@ -12,7 +12,8 @@
   "scripts": {
     "htmlhint": "htmlhint dist/*.html ",
     "eslint": "eslint --ext .js src/ test/",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "dev": "lite-server"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -23,6 +24,7 @@
     "eslint-plugin-jest": "^22.1.2",
     "htmlhint": "^0.10.1",
     "jest": "^23.6.0",
+    "lite-server": "^2.4.0",
     "regenerator-runtime": "^0.13.1"
   }
 }

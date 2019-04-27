@@ -10,6 +10,7 @@ const logOutBtn = document.getElementById('log-out-btn');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const facebookBtn = document.getElementById('log-in-fb');
+const gmailBtn = document.getElementById('log-in-gmail')
 
 logInBtn.addEventListener('click', e => {
 	const email = emailInput.value;
@@ -57,4 +58,18 @@ const authFacebook = () => {
 facebookBtn.addEventListener('click', () => {
 	authFacebook();
 });
-
+// Inicio con Gmail
+const authGmail = ()=>{
+	const provider1= new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithRedirect(provider1).then(result => {
+	
+	console.log(result);
+	})
+	.catch(error => {
+		console.log(error.message);
+	});
+	
+}
+gmailBtn.addEventListener('click', () =>{
+	authGmail(); 	
+})
