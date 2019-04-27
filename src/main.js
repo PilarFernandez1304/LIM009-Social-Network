@@ -58,14 +58,15 @@ const authFacebook = () => {
 facebookBtn.addEventListener('click', () => {
 	authFacebook();
 });
-
+// Inicio con Gmail
 const authGmail = ()=>{
 	const provider1= new firebase.auth.GoogleAuthProvider()
     firebase.auth().signInWithRedirect(provider1).then(result => {
+	
 	console.log(result);
 	})
 	.catch(error => {
-	console.log(error.message);
+		console.log(error.message);
 	});
 	
 }
