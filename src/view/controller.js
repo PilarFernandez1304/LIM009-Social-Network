@@ -5,12 +5,23 @@ const changeHash = (hash) =>  {
   location.hash = hash;
 }
 
+const inputValidator = (email, password) => {
+	if (email === '') {
+		alert('Ingrese un email válido');
+	} else if (password === '') {
+		alert('Ingrese un password válido');
+	}
+}
 export const logIn = () => {
   let email = document.querySelector('#email').value;
   let password  = document.querySelector('#password').value;
-  emailLogIn(email, password)
-    .then(() => changeHash('#/logIn'))
-    .catch(() => {});
+  if (email !== '' && password !== '') {
+    emailLogIn(email, password)
+      .then(() => changeHash('#/logIn'))
+      .catch(() => {});
+  } else {
+  	inputValidator(email, password);
+  }
 };
 
 export const logInFacebook = () => {
@@ -28,7 +39,11 @@ export const logInGoogle = () =>{
 export default () => {
   let email = document.querySelector('#email-register').value;
   let password  = document.querySelector('#password-register').value;
-  register(email, password)
-  .then(() => changeHash('#/signIn'))
-  .catch(() => {});
+  if (email !== '' && password !== '') {
+    register(email, password)
+    .then(() => changeHash('#/signIn'))
+    .catch(() => {});
+  } else {
+  	inputValidator(email, password);
+  }
 };
