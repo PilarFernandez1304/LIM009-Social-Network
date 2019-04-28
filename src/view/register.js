@@ -1,4 +1,4 @@
-import signIn from '../controller/con-register.js';
+import signIn from './controller.js';
 
 export default () => {
   const form = `<form>
@@ -9,10 +9,9 @@ export default () => {
   `;
   let div = document.createElement('div');
   div.innerHTML = form;
-	div.querySelector('#sign-in-btn').addEventListener('click', () => {
-  	const email = div.querySelector('#email-register').value;
-	const password  = div.querySelector('#password-register').value;
-  	signIn(email, password);
+  const signInBtn = div.querySelector('#sign-in-btn')
+  signInBtn.addEventListener('click', () => {
+  	signIn();
   });
   return div;
 }

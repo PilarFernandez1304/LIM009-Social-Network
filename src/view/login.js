@@ -1,4 +1,4 @@
-import { emailLogIn, authFacebook, authGmail } from '../controller/con-login.js';
+import { logIn, logInFacebook, logInGoogle } from './controller.js';
 
 export default () => {
   const form = `<form>
@@ -9,19 +9,18 @@ export default () => {
 		<button id="log-in-fb" type="button">FB</button>
 		<button id="log-in-gmail" type="button">GG</button>
     </form>
-    <p>¿No tienes una cuenta? </p><a href="#" title="link de registro">Regístrate</a>`;
+    <p>¿No tienes una cuenta? </p><a href="#/signIn" title="link de registro">Regístrate</a>`;
   let div = document.createElement('div');
   div.innerHTML = form;
-	div.querySelector('#log-in-btn').addEventListener('click', () => {
-  	const email = div.querySelector('#email').value;
-	const password  = div.querySelector('#password').value;
-  	emailLogIn(email, password);
-  });
-  div.querySelector('#log-in-fb').addEventListener('click', () => {
-	authFacebook();
-  });
-  div.querySelector('#log-in-gmail').addEventListener('click', () =>{
-	authGmail(); 	
-  });
+  
+  const logInBtn = div.querySelector('#log-in-btn');
+  logInBtn.addEventListener('click', logIn);
+
+  const facebookLogInBtn = div.querySelector('#log-in-fb');
+  facebookLogInBtn.addEventListener('click', logInFacebook);
+  
+  const googleLogInBtn = div.querySelector('#log-in-gmail');
+  googleLogInBtn.addEventListener('click', logInGoogle);
+  
   return div;
 }

@@ -1,13 +1,10 @@
-// Este es el punto de entrada de tu aplicacion
 
 import config from './lib/index.js';
-import logIn from './view/login.js';
-import register from './view/register.js';
+import { initRouter } from "./router.js";
 
-firebase.initializeApp(config);
 window.addEventListener('load', () => {
-  document.getElementById('root').appendChild(logIn());
-  document.getElementById('root').appendChild(register());
+  firebase.initializeApp(config);
+  initRouter();
 });
 
 /*

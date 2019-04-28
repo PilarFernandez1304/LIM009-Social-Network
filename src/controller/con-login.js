@@ -2,7 +2,8 @@
 export const emailLogIn = (email, password) => {
 	const auth = firebase.auth();
 	const promise = auth.signInWithEmailAndPassword(email, password);
-	promise.catch(e => console.log(e.message));
+	promise.then(data => console.log(Object.values(data.user.ba.b.b)))
+	  .catch(e => console.log(e.message));
 };
 // inicio de sesion con facebook
 export const authFacebook = () => {
