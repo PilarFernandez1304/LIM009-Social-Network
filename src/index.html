@@ -4,19 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+	<title>Document</title>	
+	<link rel="stylesheet" href="main.css">
+	<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+
 </head>
 <body>
-	<form>
-		<input id="email" type="email" name="email" placeholder="Enter your email">
-		<input id="password" type="password" name="password" placeholder="Enter your password">
-		<button id="sign-in-btn" type="button">sign in</button>
-		<button id="log-in-btn" type="button">log in</button>
-		<button id="log-out-btn" type="button">log out</button>
-		<button id="log-in-fb" type="button">facebook</button>
-		<button id='log-in-gmail' type='button'>Gmail</button>
-	</form>
-	<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
-  <script type="module" src="main.js"></script>
+	<div id="formLogin" class="login"> 
+		<form>
+			<input id="email" type="email" name="email" placeholder="Enter your email">
+			<input id="password" type="password" name="password" placeholder="Enter your password">
+			<button id="log-in-btn" type="button">log in</button>
+			<button id="log-in-fb" type="button">facebook</button>
+			<button id='log-in-gmail' type='button'>Gmail</button>
+		</form>
+	</div>
+
+
+	<script type="module" src="main.js"></script>
+	<script type="module" src="lib/index.js"></script>
+	<script type="module" src="./view/login.js"></script>
+	<script type="module" src="controller/con-login.js"></script>
+	
 </body>
 </html>

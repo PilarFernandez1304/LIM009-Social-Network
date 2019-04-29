@@ -1,11 +1,47 @@
-// aqui exportaras las funciones que necesites
+// aqui exportaras las funciones que necesites de firebase
 
-export const config = {
-    apiKey: "AIzaSyAcvFV-lwmPM9sSm-UTVHR7LK9gz3Tf7Es",
-    authDomain: "social-network-52a55.firebaseapp.com",
-    databaseURL: "https://social-network-52a55.firebaseio.com",
-    projectId: "social-network-52a55",
-    storageBucket: "social-network-52a55.appspot.com",
-    messagingSenderId: "965513198263" 
+export const singIn=(email,password)=>{
+  firebase.auth().signInWithEmailAndPassword(email, password);
+  promise.catch(e => console.log(e.message));  
 }
 
+ export const createLog =()=>{
+    firebase.auth.createUserWithEmailAndPassword(email, password);
+	promise.catch(e => console.log(e.message));
+}
+
+export const statusAuth =()=>{
+    firebase.auth().onAuthStateChanged(firebaseUser => {
+        if (firebaseUser) {
+            console.log(firebaseUser);
+        } else {
+            console.log('no logueado');
+        }
+    });   
+};
+
+export const authFacebook = () => {
+	const provider = new firebase.auth.FacebookAuthProvider();
+	firebase.auth().signInWithRedirect(provider).then(result => {
+		console.log(result.user.displayName);
+	})
+		.catch(error => {
+			console.log(error.message);
+		});
+}
+
+export const authGmail = () => {
+	const provider1 = new firebase.auth.GoogleAuthProvider()
+	firebase.auth().signInWithRedirect(provider1).then(result => {
+	})
+		.catch(error => {
+			console.log(error.message);
+		});
+
+}
+
+export const goOut=()=>{
+    firebase.auth().signOut()
+    .then( e=> console.log('Salida exitosa'))
+    .catch(error=>console.log(error.message))
+}

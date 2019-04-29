@@ -1,75 +1,17 @@
 // Este es el punto de entrada de tu aplicacion
 
-import { config } from './lib/index.js';
-
-firebase.initializeApp(config);
-
-const logInBtn = document.getElementById('log-in-btn');
-const signInBtn = document.getElementById('sign-in-btn');
-const logOutBtn = document.getElementById('log-out-btn');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const facebookBtn = document.getElementById('log-in-fb');
-const gmailBtn = document.getElementById('log-in-gmail')
-
-logInBtn.addEventListener('click', e => {
-	const email = emailInput.value;
-	const password  = passwordInput.value;
-	const auth = firebase.auth();
-
-	const promise = auth.signInWithEmailAndPassword(email, password);
-	promise.catch(e => console.log(e.message));
-});
-
-signInBtn.addEventListener('click', e => {
-	const email = emailInput.value;
-	const password  = passwordInput.value;
-	// toDo: escribir funcion que valide el email y el password
-	const auth = firebase.auth();
-
-	const promise = auth.createUserWithEmailAndPassword(email, password);
-	promise.catch(e => console.log(e.message));
-});
-
-logOutBtn.addEventListener('click', e => {
-	firebase.auth().signOut();
-});
-
-firebase.auth().onAuthStateChanged( firebaseUser => {
-	if (firebaseUser) {
-		console.log(firebaseUser);
-	} else {
-		console.log('no logueado');
+const init = () => {
+	
+	const config = {
+		apiKey: "AIzaSyAcvFV-lwmPM9sSm-UTVHR7LK9gz3Tf7Es",
+		authDomain: "social-network-52a55.firebaseapp.com",
+		databaseURL: "https://social-network-52a55.firebaseio.com",
+		projectId: "social-network-52a55",
+		storageBucket: "social-network-52a55.appspot.com",
+		messagingSenderId: "965513198263"
 	}
-});
-
-
-// inicio de sesion con facebook
-const authFacebook = () => {
-	const provider = new firebase.auth.FacebookAuthProvider();
-	firebase.auth().signInWithRedirect(provider).then(result => {
-		console.log(result.user.displayName);
-	})
-	.catch(error => {
-		console.log(error.message);
-	});
-}
-
-facebookBtn.addEventListener('click', () => {
-	authFacebook();
-});
-// Inicio con Gmail
-const authGmail = ()=>{
-	const provider1= new firebase.auth.GoogleAuthProvider()
-    firebase.auth().signInWithRedirect(provider1).then(result => {
+	firebase.initializeApp(config);
 	
-	console.log(result);
-	})
-	.catch(error => {
-		console.log(error.message);
-	});
 	
-}
-gmailBtn.addEventListener('click', () =>{
-	authGmail(); 	
-})
+};
+window.onload=init();
