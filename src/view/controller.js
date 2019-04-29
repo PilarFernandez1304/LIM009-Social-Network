@@ -1,9 +1,5 @@
-import { emailLogIn, authFacebook, authGmail } from '../controller/con-login.js';
-import register from '../controller/con-register.js';
-
-const changeHash = (hash) =>  {
-  location.hash = hash;
-}
+import { emailLogIn, authFacebook, authGmail } from '../controller/login.js';
+import register from '../controller/signup.js';
 
 const inputValidator = (email, password) => {
 	if (email === '') {
@@ -12,38 +8,31 @@ const inputValidator = (email, password) => {
 		alert('Ingrese un password válido');
 	}
 }
-export const logIn = () => {
-  let email = document.querySelector('#email').value;
-  let password  = document.querySelector('#password').value;
+export const logIn = (email, password) => {
   if (email !== '' && password !== '') {
-    emailLogIn(email, password)
-      .then(() => changeHash('#/logIn'))
-      .catch(() => {});
+    return emailLogIn(email, password)
   } else {
-  	inputValidator(email, password);
+  	return inputValidator(email, password);
   }
 };
 
 export const logInFacebook = () => {
 	authFacebook()
 	.then(() => changeHash('#/logIn'))
-    .catch(() => {});
+  .catch(() => {});
 };
 
 export const logInGoogle = () =>{
 	authGmail()
 	.then(() => changeHash('#/logIn'))
-    .catch(() => {}); 	
+  .catch(() => {}); 	
 };
 
-export default () => {
-  let email = document.querySelector('#email-register').value;
-  let password  = document.querySelector('#password-register').value;
+export const signUp = (email, password) => {
   if (email !== '' && password !== '') {
-    register(email, password)
-    .then(() => changeHash('#/signIn'))
-    .catch(() => {});
+    return register(email, password)
+
   } else {
-  	inputValidator(email, password);
+  	return inputValidator(email, password);
   }
 };
