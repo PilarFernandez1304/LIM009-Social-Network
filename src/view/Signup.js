@@ -1,4 +1,5 @@
-import signIn from './controller.js';
+import { signUp } from './controller.js';
+import changeHash from './utils.js';
 
 export default () => {
   const form = `<form>
@@ -11,7 +12,11 @@ export default () => {
   div.innerHTML = form;
   const signInBtn = div.querySelector('#sign-in-btn')
   signInBtn.addEventListener('click', () => {
-  	signIn();
+  	let email = document.querySelector('#email-register').value;
+    let password  = document.querySelector('#password-register').value;
+  	signUp(email, password)
+      .then(() => changeHash('#/signIn'))
+      .catch(() => {});
   });
   return div;
 }

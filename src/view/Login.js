@@ -1,4 +1,5 @@
 import { logIn, logInFacebook, logInGoogle } from './controller.js';
+import changeHash from './utils.js';
 
 export default () => {
   const form = `<form>
@@ -14,7 +15,13 @@ export default () => {
   div.innerHTML = form;
   
   const logInBtn = div.querySelector('#log-in-btn');
-  logInBtn.addEventListener('click', logIn);
+  logInBtn.addEventListener('click', () => {
+    let email = document.querySelector('#email').value;
+    let password  = document.querySelector('#password').value;
+    logIn(email, password)
+      .then(() => changeHash('#/logIn'))
+      .catch(() => {});
+  });
 
   const facebookLogInBtn = div.querySelector('#log-in-fb');
   facebookLogInBtn.addEventListener('click', logInFacebook);
