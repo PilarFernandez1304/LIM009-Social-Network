@@ -1,4 +1,6 @@
+// FUNCIONES PARA INICIAR SESIÓN //
 
+//iniciar sesión con correo y contraseña//
 export const emailLogIn = (email, password) => {
 	const auth = firebase.auth();
 	const promise = auth.signInWithEmailAndPassword(email, password);
