@@ -41,7 +41,7 @@ body {
 	border-radius: 50%;
 }
 
-.login-form {
+.login-form-container {
 	height: 75vh;
 }
 
@@ -61,4 +61,27 @@ body {
 
 .links {
 	text-decoration: none;
+}
+
+@media screen and (min-width: 720px) {
+  .flex-container {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .logo, .login-form-container {
+	width: 50%;
+  }
+
+  .logo {
+	height: 100vh;
+  }
+
+  .login-input {
+	width: 50%;
+  }
+
+  .login-form-container {
+	height: 100%;
+  }
 }

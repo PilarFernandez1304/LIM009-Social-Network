@@ -6,7 +6,7 @@ export default () => {
     <div id="logo" class="border-box logo text-center">
       <img class="img-logo" src="../assets/logo1.png" alt="mano-amiga-logo">
     </div>
-    <div id="login" class="border-box login-form">
+    <div id="login" class="border-box login-form-container">
       <h2 class="text-center">MANO AMIGA</h2>
       <p class="text-center content">¡Bienvenida amiga!</p>
       <form>
