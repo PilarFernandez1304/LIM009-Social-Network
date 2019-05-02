@@ -2,7 +2,7 @@
   "name": "social-network",
   "version": "1.0.0",
   "description": "Social Network @ Laboratoria",
-  "main": "src/index.html",
+  "main": "/src/index.html",
   "keywords": [
     "javascript",
     "firebase",
@@ -12,7 +12,8 @@
   "scripts": {
     "htmlhint": "htmlhint dist/*.html ",
     "eslint": "eslint --ext .js src/ test/",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "dev": "lite-server"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -21,8 +22,10 @@
     "babel-jest": "^23.6.0",
     "eslint": "^5.10.0",
     "eslint-plugin-jest": "^22.1.2",
+    "firebase-mock": "^2.2.10",
     "htmlhint": "^0.10.1",
     "jest": "^23.6.0",
+    "lite-server": "^2.4.0",
     "regenerator-runtime": "^0.13.1"
   }
 }
