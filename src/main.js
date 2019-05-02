@@ -1,22 +1,18 @@
 
-import config from './lib/index.js';
 import { initRouter } from "./router.js";
 
-window.addEventListener('load', () => {
-  firebase.initializeApp(config);
-  initRouter();
-});
+const init = () => {
+const config = {
+    apiKey: "AIzaSyAcvFV-lwmPM9sSm-UTVHR7LK9gz3Tf7Es",
+    authDomain: "social-network-52a55.firebaseapp.com",
+    databaseURL: "https://social-network-52a55.firebaseio.com",
+    projectId: "social-network-52a55",
+    storageBucket: "social-network-52a55.appspot.com",
+    messagingSenderId: "965513198263"
+}
+firebase.initializeApp(config);
+initRouter();
+}
 
-/*
-logOutBtn.addEventListener('click', e => {
-	firebase.auth().signOut();
-});
+window.addEventListener('load', init());
 
-firebase.auth().onAuthStateChanged( firebaseUser => {
-	if (firebaseUser) {
-		console.log(firebaseUser);
-	} else {
-		console.log('no logueado');
-	}
-});
-*/

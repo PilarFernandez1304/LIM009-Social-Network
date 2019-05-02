@@ -1,5 +1,8 @@
-import { signUp } from './controller.js';
-import changeHash from './utils.js';
+import signUp from './controller.js';
+
+const changeHash = (hash) =>  {
+  location.hash = hash;
+}
 
 export default () => {
   const form = `<form>
@@ -12,12 +15,11 @@ export default () => {
   div.innerHTML = form;
   const signInBtn = div.querySelector('#sign-in-btn')
   signInBtn.addEventListener('click', () => {
-  	let email = document.querySelector('#email-register').value;
-    let password  = document.querySelector('#password-register').value;
-  	signUp(email, password)
-      .then(() => changeHash('#/signIn'))
-      .catch(() => {});
-  });
+   return  signUp()
+    .then(() => changeHash('#/signup'))
+    .catch(() => {});
+      }
+  );
   return div;
 }
 

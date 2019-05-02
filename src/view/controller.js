@@ -1,38 +1,23 @@
-import { emailLogIn, authFacebook, authGmail } from '../controller/login.js';
-import register from '../controller/signup.js';
+import { emailLogIn, authFacebook, authGmail } from '../controller/con-login.js';
+import emailSignUp from '../controller/con-register.js';
 
-const inputValidator = (email, password) => {
-	if (email === '') {
-		alert('Ingrese un email válido');
-	} else if (password === '') {
-		alert('Ingrese un password válido');
-	}
-}
-export const logIn = (email, password) => {
-  if (email !== '' && password !== '') {
-    return emailLogIn(email, password)
-  } else {
-  	return inputValidator(email, password);
-  }
+
+export const logIn = () => {
+  let email = document.querySelector('#email').value;
+  let password  = document.querySelector('#password').value;
+  emailLogIn(email, password)
 };
 
 export const logInFacebook = () => {
 	authFacebook()
-	.then(() => changeHash('#/logIn'))
-  .catch(() => {});
 };
 
 export const logInGoogle = () =>{
-	authGmail()
-	.then(() => changeHash('#/logIn'))
-  .catch(() => {}); 	
+	authGmail()	
 };
 
-export const signUp = (email, password) => {
-  if (email !== '' && password !== '') {
-    return register(email, password)
-
-  } else {
-  	return inputValidator(email, password);
-  }
+export default () => {
+  let email = document.querySelector('#email-register').value;
+  let password  = document.querySelector('#password-register').value;
+  emailSignUp(email, password);
 };
