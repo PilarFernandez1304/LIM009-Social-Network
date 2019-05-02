@@ -1,0 +1,45 @@
+body {
+	font-family: Verdana;
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.login {
+	display: block;
+	margin: 12px auto;
+	height: 15px;
+	padding: 5px 10px;
+	border-radius: 15px;
+}
+
+.login-input {
+	width: 75%;
+}
+
+.btn-login {
+	width: 150px;
+	height: 30px;
+}
+.login-form {
+	height: 75vh;
+}
+
+.logo {
+	height: 25vh;
+}
+
+.border-box {
+	box-sizing: border-box;
+}
+
+.links {
+	text-decoration: none;
+}
