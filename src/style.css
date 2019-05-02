@@ -1,5 +1,7 @@
 body {
 	font-family: Verdana;
+	min-height: 100vh;
+	font-size: 14px;
 }
 
 .flex-container {
@@ -11,6 +13,9 @@ body {
 .text-center {
 	text-align: center;
 }
+.content {
+	margin-bottom: 25px;
+}
 
 .login {
 	display: block;
@@ -18,6 +23,7 @@ body {
 	height: 15px;
 	padding: 5px 10px;
 	border-radius: 15px;
+	line-height: 0.5;
 }
 
 .login-input {
@@ -26,14 +32,27 @@ body {
 
 .btn-login {
 	width: 150px;
-	height: 30px;
+	height: 28px;
 }
+
+.btn-social {
+	width: 25px;
+	height: auto;
+	border-radius: 50%;
+}
+
 .login-form {
 	height: 75vh;
 }
 
 .logo {
 	height: 25vh;
+	width: 100%;
+}
+
+.img-logo {
+	height: 100%;
+	width: auto;
 }
 
 .border-box {
