@@ -5,6 +5,10 @@ body {
 	font-size: 14px;
 }
 
+.title {
+	font-family: 'Pacifico', cursive;
+}
+
 .flex-container {
 	display: flex;
 	flex-direction: column;

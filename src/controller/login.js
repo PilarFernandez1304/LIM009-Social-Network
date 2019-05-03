@@ -14,8 +14,8 @@ export const authGmail = ()=>{
 // Callback to handle the result of the authentication
 export const authHandler = (error, authData) => {
   if (error) {
-    alert('Login Failed!');
+    alert('Login Falló!');
   } else {
-    alert('Authenticated successfully');
+    alert('Autenticación satisfactoria');
   }
 }
