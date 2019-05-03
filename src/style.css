@@ -1,4 +1,5 @@
 body {
+	margin: 0;
 	font-family: Verdana;
 	min-height: 100vh;
 	font-size: 14px;
@@ -67,25 +68,16 @@ body {
   .flex-container {
     flex-direction: row;
     justify-content: center;
+    min-height: 100vh;
   }
 
   .logo, .login-form-container {
 	width: 50%;
-  }
-
-  .logo {
-	height: 100vh;
+	height: 100%;
   }
 
   .login-input {
 	width: 50%;
   }
 
-  .login-form-container {
-	height: 100%;
-  }
-
-  .img-logo {
-  	
-  }
 }

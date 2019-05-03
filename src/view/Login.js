@@ -2,7 +2,7 @@ import { logIn, logInFacebook, logInGoogle } from './controller.js';
 import changeHash from './utils.js';
 
 export default () => {
-  const form = `<div id="test" class="flex-container">
+  const form = `<div class="flex-container">
     <div id="logo" class="border-box logo text-center">
       <img class="img-logo" src="../assets/laptop-logo.png" alt="mano-amiga-logo">
     </div>

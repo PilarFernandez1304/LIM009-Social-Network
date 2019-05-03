@@ -1,4 +1,4 @@
-import { emailLogIn, authFacebook, authGmail } from '../controller/login.js';
+import { emailLogIn, authFacebook, authGmail, authHandler } from '../controller/login.js';
 import register from '../controller/signup.js';
 
 const inputValidator = (email, password) => {
@@ -10,7 +10,7 @@ const inputValidator = (email, password) => {
 }
 export const logIn = (email, password) => {
   if (email !== '' && password !== '') {
-    return emailLogIn(email, password)
+    emailLogIn(email, password).then((data) => authHandler());
   } else {
   	return inputValidator(email, password);
   }
@@ -18,20 +18,20 @@ export const logIn = (email, password) => {
 
 export const logInFacebook = () => {
 	authFacebook()
-	.then(() => changeHash('#/logIn'))
+	.then(() => {changeHash('#/logIn'); return authHandler()})
   .catch(() => {});
 };
 
 export const logInGoogle = () =>{
 	authGmail()
-	.then(() => changeHash('#/logIn'))
+	.then(() => {changeHash('#/logIn'); return authHandler()})
   .catch(() => {}); 	
 };
 
 export const signUp = (email, password) => {
   if (email !== '' && password !== '') {
-    return register(email, password)
-
+    register(email, password)
+    .then(() => {changeHash('#/signIn'); return authHandler()})
   } else {
   	return inputValidator(email, password);
   }
