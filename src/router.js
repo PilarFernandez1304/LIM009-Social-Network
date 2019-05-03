@@ -1,6 +1,6 @@
 
-import templeteLogIn from './view/login.js';
-import templeteSignUp from './view/register.js';
+import templeteLogIn from './view/Login.js';
+import templeteSignUp from './view/SignUp.js';
 const changeView = (hash) => {
   if (hash === '#/' || hash === '' || hash === '#') {
     return viewToShow('#/login');

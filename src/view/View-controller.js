@@ -1,5 +1,6 @@
-import { emailLogIn, authFacebook, authGmail } from '../controller/con-login.js';
-import emailSignUp from '../controller/con-register.js';
+import { emailLogIn, authFacebook, authGmail } from '../controller/login.js';
+import emailSignUp from '../controller/signup.js';
+
 
 
 export const logIn = () => {

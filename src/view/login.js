@@ -1,18 +1,27 @@
-import { logIn, logInFacebook, logInGoogle } from './controller.js';
-
-const changeHash = (hash) =>  {
-  location.hash = hash;
-}
+import { logIn, logInFacebook, logInGoogle } from './View-controller.js';
+import changeHash from './utils.js';
 
 export default () => {
-  const form = `<form>
-    <button id="log-in-fb" type="button">FB</button>
-    <button id="log-in-gmail" type="button">GG</button>
-		<input id="email" type="email" name="email" placeholder="Email">
-		<input id="password" type="password" name="password" placeholder="Password">
-		<button id="log-in-btn" type="button">Log in</button>
+  const form = `<div id="test" class="flex-container">
+  <div id="logo" class="border-box logo text-center">
+    <img class="img-logo" src="../assets/laptop-logo.png" alt="mano-amiga-logo">
+  </div>
+  <div id="login" class="border-box login-form-container">
+    <h2 class="text-center">MANO AMIGA</h2>
+    <p class="text-center content">¡Bienvenida amiga!</p>
+    <form>
+      <input id="email" class="login login-input" type="email" name="email" placeholder="Email">
+      <input id="password" class="login login-input" type="password" name="password" placeholder="Password">
+      <button id="log-in-btn" type="button" class="login btn-login">Log in</button>
+      <p class="text-center">O bien ingresa con...</p>
+      <div class="text-center">
+        <img id="log-in-fb" class="btn-social" src="../assets/btn-login-facebook.png" alt="facebook-login-button"id="log-in-fb"  />
+        <img id="log-in-gmail" class="btn-social" src="../assets/btn-login-google.png" alt="google-login-button" />
+      </div>
     </form>
-    <p>¿No tienes una cuenta? </p><a href="#/signup" title="link de registro">Regístrate</a>`;
+    <p class="text-center">¿No tienes una cuenta? <a  class="links" href="#/signup" title="link de registro">Regístrate</a></p>
+  </div>
+</div>`;
   let div = document.createElement('div');
   div.innerHTML = form;
   

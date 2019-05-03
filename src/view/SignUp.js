@@ -1,8 +1,6 @@
-import signUp from './controller.js';
+import signUp from './View-controller.js';
+import changeHash from './utils.js';
 
-const changeHash = (hash) =>  {
-  location.hash = hash;
-}
 
 export default () => {
   const form = `<form>
