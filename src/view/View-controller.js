@@ -36,7 +36,7 @@ export default () => {
   let email = document.querySelector('#email-register').value;
   let password  = document.querySelector('#password-register').value;
   emailSignUp(email, password)
-  .then(()=>{
+  .then((result)=>{
    result = document.getElementById("register-correct").innerHTML = 'Te has registrado correctamente';
   })
   .catch(error => {
@@ -44,13 +44,13 @@ export default () => {
     let errorMessage = error.message;
     if (errorCode === 'auth/invalid-email') {
       document.getElementById('error-message-invalid-email').innerHTML = '¡Hey! Ingresa un correo electronico válido';
-    
+      throw new Error(errorMessage);
     } else if (errorCode === 'auth/weak-password') {
       document.getElementById('error-message-password').innerHTML = 'Tu contraseña debe tener 6 carácteres :)';
-      
+      throw new Error(errorMessage);
     } else if (errorCode === 'auth/email-already-in-use') { 
       document.getElementById('error-message-invalid-email').innerHTML = '¡Ups! Este correo esta en uso';
-      
+      throw new Error(errorMessage);
     };
   });
 };

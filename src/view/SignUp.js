@@ -31,8 +31,6 @@ export default () => {
   div.innerHTML = form;
   const signInBtn = div.querySelector('#sign-in-btn')
   signInBtn.addEventListener('click', () => {
-    document.getElementById('error-message-invalid-email').innerHTML="";
-    document.getElementById('error-message-password').innerHTML ="";
    return  signUp()
     .then(() => changeHash('#/signup'))
     .catch(() => {});
