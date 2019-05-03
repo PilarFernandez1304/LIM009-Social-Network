@@ -13,6 +13,10 @@ body {
 .text-center {
 	text-align: center;
 }
+
+h1 {
+	color: #ee4444 ;
+}
 .content {
 	margin-bottom: 25px;
 }
@@ -28,11 +32,21 @@ body {
 
 .login-input {
 	width: 75%;
+	background:#eebbcc;
+	border: 2px solid #ee4444;
+
 }
 
 .btn-login {
+	background:#ee4444 ;
 	width: 150px;
 	height: 28px;
+	color: #441122;
+	font-weight:bold;
+	font-size: 16px;
+	border: 1px solid #441122;
+
+	
 }
 
 .btn-social {
@@ -60,7 +74,7 @@ body {
 }
 
 .links {
-	text-decoration: none;
+	color: #441122
 }
 
 @media screen and (min-width: 720px) {
@@ -86,6 +100,6 @@ body {
   }
 
   .img-logo {
-  	
+		
   }
 }
