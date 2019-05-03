@@ -51,8 +51,8 @@ body {
 }
 
 .img-logo {
-	height: 100%;
-	width: auto;
+	width: 100%;
+	height: auto;
 }
 
 .border-box {
@@ -83,5 +83,9 @@ body {
 
   .login-form-container {
 	height: 100%;
+  }
+
+  .img-logo {
+  	
   }
 }
