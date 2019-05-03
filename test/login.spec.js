@@ -3,7 +3,7 @@ mockauth.autoFlush();
 
 global.firebase = mocksdk;
 
-import { emailLogIn, authFacebook } from '../src/controller/login.js';
+import { emailLogIn, authFacebook, authGmail } from '../src/controller/login.js';
 
 describe('emailLogIn', () => {
 	it('Debería ser una función', () => {
@@ -22,18 +22,23 @@ describe('authFacebook', () => {
 		expect(typeof authFacebook).toBe('function');
 	})
 	it('Debería iniciar sesión con facebook', () => {
-		mockauth.changeAuthState({
-  uid: 'BqWFRdKM8uNvYMk1wMA8L7LMxky2',
-  provider: 'facebook',
-  token: 'theToken',
-  expires: Math.floor(new Date() / 1000) + 24 * 60 * 60, // expire in 24 hours
-  auth: {
-    myAuthProperty: true
-  }
+		const expected = [{"providerId": "facebook.com"}];
+		return authFacebook().then((data) => {
+			expect(mockauth.getAuth().isAnonymous).toBe(false);
+			expect(mockauth.getAuth().providerData).toEqual(expect.arrayContaining(expected));
+		});
+	});
 });
-  return authFacebook(mockauth.getAuth())
-    .then((user) => {
-	expect(user.providerData[0].providerId).toBe('facebook.com');
+
+describe('authGmail', () => {
+	it('Debería ser una función', () => {
+		expect(typeof authGmail).toBe('function');
 	})
+	it('Debería iniciar sesión con google', () => {
+		const expected = [{"providerId": "google.com"}];
+		return authGmail().then((data) => {
+			expect(mockauth.getAuth().isAnonymous).toBe(false);
+			expect(mockauth.getAuth().providerData).toEqual(expect.arrayContaining(expected));
+		});
+	});
 });
-})

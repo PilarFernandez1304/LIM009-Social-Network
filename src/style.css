@@ -1,7 +1,12 @@
 body {
+	margin: 0;
 	font-family: Verdana;
 	min-height: 100vh;
 	font-size: 14px;
+}
+
+.title {
+	font-family: 'Pacifico', cursive;
 }
 
 .flex-container {
@@ -41,7 +46,7 @@ body {
 	border-radius: 50%;
 }
 
-.login-form {
+.login-form-container {
 	height: 75vh;
 }
 
@@ -51,8 +56,8 @@ body {
 }
 
 .img-logo {
-	height: 100%;
-	width: auto;
+	width: 100%;
+	height: auto;
 }
 
 .border-box {
@@ -61,4 +66,22 @@ body {
 
 .links {
 	text-decoration: none;
+}
+
+@media screen and (min-width: 720px) {
+  .flex-container {
+    flex-direction: row;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .logo, .login-form-container {
+	width: 50%;
+	height: 100%;
+  }
+
+  .login-input {
+	width: 50%;
+  }
+
 }
