@@ -1,10 +1,10 @@
 
 import logIn from './view/Login.js';
-import signIn from './view/Signup.js';
+import signUp from './view/Signup.js';
 const changeView = (hash) => {
   if (hash === '#/' || hash === '' || hash === '#') {
     return viewToShow('#/logIn');
-  } else if (hash === '#/signIn' || hash === '#/home') {
+  } else if (hash === '#/signUp' || hash === '#/home') {
     return viewToShow(hash);
   } else {
     return viewToShow('#/logIn');
@@ -16,8 +16,8 @@ const viewToShow = (routers) => {
   const root = document.getElementById('root');
   root.innerHTML = '';
   switch (router) {
-    case 'signIn':
-      root.appendChild(signIn());
+    case 'signUp':
+      root.appendChild(signUp());
       break;
     default:
       root.appendChild(logIn());

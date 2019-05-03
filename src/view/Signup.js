@@ -29,7 +29,7 @@ export default () => {
   	let email = document.querySelector('#email-register').value;
     let password  = document.querySelector('#password-register').value;
   	signUp(email, password)
-      .then(() => changeHash('#/signIn'))
+      .then(() => changeHash('#/signUp'))
       .catch(() => {});
   });
   return div;

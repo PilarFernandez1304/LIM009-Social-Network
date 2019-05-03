@@ -31,7 +31,7 @@ export const logInGoogle = () =>{
 export const signUp = (email, password) => {
   if (email !== '' && password !== '') {
     register(email, password)
-    .then(() => {changeHash('#/signIn'); return authHandler()})
+    .then(() => {changeHash('#/signUp'); return authHandler()})
   } else {
   	return inputValidator(email, password);
   }
