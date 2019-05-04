@@ -8,6 +8,9 @@ import Login, { loginOnClick } from '../../src/view/Login';
 describe('Login', () => {
 	beforeEach(() => {
 		document.body.appendChild(Login());
+		const errorContainer = document.createElement('div')
+		errorContainer.setAttribute('id', 'error-message')
+		document.body.appendChild(errorContainer)
 	})
 	it('Evento click de boton login funciona', () => {
 		const emailInput = document.getElementById('email');

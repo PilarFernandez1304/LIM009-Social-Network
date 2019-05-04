@@ -13,7 +13,7 @@
     "htmlhint": "htmlhint dist/*.html ",
     "eslint": "eslint --ext .js src/ test/",
     "test": "jest --coverage",
-    "dev": "lite-server"
+    "dev": "npx serve src/"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -26,6 +26,7 @@
     "htmlhint": "^0.10.1",
     "jest": "^23.6.0",
     "lite-server": "^2.4.0",
-    "regenerator-runtime": "^0.13.1"
+    "regenerator-runtime": "^0.13.1",
+    "serve": "^11.0.0"
   }
 }

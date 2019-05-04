@@ -1,6 +1,6 @@
+import { logIn } from './view/Login.js';
+import { signUp } from './view/Signup.js';
 
-import logIn from './view/Login.js';
-import signUp from './view/Signup.js';
 const changeView = (hash) => {
   if (hash === '#/' || hash === '' || hash === '#') {
     return viewToShow('#/logIn');
