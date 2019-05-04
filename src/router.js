@@ -1,10 +1,10 @@
 
-import templeteLogIn from './view/Login.js';
-import templeteSignUp from './view/SignUp.js';
+import logIn from './view/Login.js';
+import signUp from './view/Signup.js';
 const changeView = (hash) => {
   if (hash === '#/' || hash === '' || hash === '#') {
-    return viewToShow('#/login');
-  } else if (hash === '#/signup' || hash === '#/home') {
+    return viewToShow('#/logIn');
+  } else if (hash === '#/signUp' || hash === '#/home') {
     return viewToShow(hash);
   } else {
     return viewToShow('#/login');
@@ -16,11 +16,11 @@ const viewToShow = (routers) => {
   const root = document.getElementById('root');
   root.innerHTML = '';
   switch (router) {
-    case 'signup':
-      root.appendChild(templeteSignUp());
+    case 'signUp':
+      root.appendChild(signUp());
       break;
     case 'login':
-      root.appendChild(templeteLogIn());
+      root.appendChild(logIn());
       break;
   }
 }
