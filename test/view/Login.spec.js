@@ -3,11 +3,11 @@ mockauth.autoFlush();
 
 global.firebase = mocksdk;
 
-import Login, { loginOnClick } from '../../src/view/Login';
+import login, { loginOnClick } from '../../src/view/Login';
 
 describe('Login', () => {
 	beforeEach(() => {
-		document.body.appendChild(Login());
+		document.body.appendChild(login());
 	})
 	it('Evento click de boton login funciona', () => {
 		const emailInput = document.getElementById('email');

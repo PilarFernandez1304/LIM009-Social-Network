@@ -1,13 +1,14 @@
 
 import logIn from './view/Login.js';
-import signUp from './view/Signup.js';
+import signUp from './view/SignUp.js';
+
 const changeView = (hash) => {
   if (hash === '#/' || hash === '' || hash === '#') {
     return viewToShow('#/logIn');
   } else if (hash === '#/signUp' || hash === '#/home') {
     return viewToShow(hash);
   } else {
-    return viewToShow('#/login');
+    return viewToShow('#/logIn');
   }
 }
 
@@ -19,7 +20,7 @@ const viewToShow = (routers) => {
     case 'signUp':
       root.appendChild(signUp());
       break;
-    case 'login':
+    case 'logIn':
       root.appendChild(logIn());
       break;
   }

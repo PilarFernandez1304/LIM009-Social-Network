@@ -1,15 +1,14 @@
-import { logIn, logInFacebook, logInGoogle } from './controller.js';
+import {  emailLogIn, authFacebook, authGoogle } from '../controller/login.js';
 import changeHash from './utils.js';
 
 export const loginOnClick = (evt) => {
   const formElem = evt.target.closest('form')
   let email = formElem.querySelector('#email').value;
   let password  = formElem.querySelector('#password').value;
-  logIn(email, password)
+  emailLogIn(email, password)
     .then(() => changeHash('#/logIn'))
     .catch(error =>  {
         let errorCode = error.code;
-        let errorMessage = error.message;
         if (errorCode === 'auth/invalid-email') {
           document.getElementById('error-message').innerHTML = '¡Hey! Ingresa un correo electronico válido';
         
@@ -51,10 +50,18 @@ export default () => {
   logInBtn.addEventListener('click', loginOnClick);
 
   const facebookLogInBtn = div.querySelector('#log-in-fb');
-  facebookLogInBtn.addEventListener('click', logInFacebook);
+  facebookLogInBtn.addEventListener('click', () => {
+    authFacebook()
+	  .then(() => changeHash('#/logIn'))
+    .catch(() => {})
+  });
   
   const googleLogInBtn = div.querySelector('#log-in-gmail');
-  googleLogInBtn.addEventListener('click', logInGoogle);
+  googleLogInBtn.addEventListener('click',  () => {
+    authGoogle()
+	  .then(() => changeHash('#/logIn'))
+    .catch(() => {})
+  });
   
   return div;
 }
