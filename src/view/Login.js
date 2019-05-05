@@ -2,11 +2,11 @@ import { emailLogIn, authFacebook, authGmail } from '../controller/login.js';
 import changeHash from './utils.js';
 
 export const loginOnClick = (evt) => {
-  const formElem = evt.target.closest('form')
+  const formElem = evt.target.closest('form');
   let email = formElem.querySelector('#email').value;
   let password  = formElem.querySelector('#password').value;
   emailLogIn(email, password)
-    .then(() => changeHash('#/logIn'))
+    .then(() => changeHash('#/home'))
     .catch(error =>  {
         let errorCode = error.code;
         let errorMessage = error.message;
@@ -52,12 +52,12 @@ export const logIn = () => {
 
   const facebookLogInBtn = div.querySelector('#log-in-fb');
   facebookLogInBtn.addEventListener('click', () => authFacebook()
-    .then(() => changeHash('#/logIn'))
+    .then(() => changeHash('#/home'))
     .catch(() => {}));
   
   const googleLogInBtn = div.querySelector('#log-in-gmail');
   googleLogInBtn.addEventListener('click', () => authGmail()
-    .then(() => changeHash('#/logIn'))
+    .then(() => changeHash('#/home'))
     .catch(() => {})
     );
  

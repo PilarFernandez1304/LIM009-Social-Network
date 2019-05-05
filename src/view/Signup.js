@@ -7,7 +7,7 @@ export const signUpOnClick = () => {
     register(email, password)
     .then(() => {
       document.getElementById("register-correct").innerHTML = 'Te has registrado correctamente'; 
-      return changeHash('#/signUp')
+      return changeHash('#/home')
     })
     .catch(error => {
       let errorCode = error.code;
