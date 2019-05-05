@@ -1,4 +1,4 @@
-import {  emailLogIn, authFacebook, authGoogle } from '../controller/login.js';
+import { emailLogIn, authFacebook, authGmail } from '../controller/login.js';
 import changeHash from './utils.js';
 
 export const loginOnClick = (evt) => {
@@ -21,7 +21,7 @@ export const loginOnClick = (evt) => {
       });
 }
 
-export default () => {
+export const logIn = () => {
   const form = `<div class="flex-container">
     <div id="logo" class="border-box logo text-center">
       <img class="img-logo" src="../assets/laptop-logo.png" alt="mano-amiga-logo">
@@ -50,18 +50,15 @@ export default () => {
   logInBtn.addEventListener('click', loginOnClick);
 
   const facebookLogInBtn = div.querySelector('#log-in-fb');
-  facebookLogInBtn.addEventListener('click', () => {
-    authFacebook()
-	  .then(() => changeHash('#/logIn'))
-    .catch(() => {})
-  });
+  facebookLogInBtn.addEventListener('click', () => authFacebook()
+    .then(() => changeHash('#/logIn'))
+    .catch(() => {}));
   
   const googleLogInBtn = div.querySelector('#log-in-gmail');
-  googleLogInBtn.addEventListener('click',  () => {
-    authGoogle()
-	  .then(() => changeHash('#/logIn'))
+  googleLogInBtn.addEventListener('click', () => authGmail()
+    .then(() => changeHash('#/logIn'))
     .catch(() => {})
-  });
-  
+    );
+ 
   return div;
 }
