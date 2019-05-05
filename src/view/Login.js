@@ -1,4 +1,4 @@
-import { emailLogIn, authFacebook, authGmail } from '../controller/login.js';
+import { emailLogIn, authFacebook, authGoogle } from '../controller/login.js';
 import changeHash from './utils.js';
 
 export const loginOnClick = (evt) => {
@@ -55,7 +55,7 @@ export const logIn = () => {
     .catch(() => {}));
   
   const googleLogInBtn = div.querySelector('#log-in-gmail');
-  googleLogInBtn.addEventListener('click', () => authGmail()
+  googleLogInBtn.addEventListener('click', () => authGoogle()
     .then(() => changeHash('#/logIn'))
     .catch(() => {})
     );
