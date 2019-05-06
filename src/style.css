@@ -7,12 +7,15 @@ body {
 
 .title {
 	font-family: 'Pacifico', cursive;
+	font-size: 2.5rem;
 }
 
 .flex-container {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
+	background-color: #f4a6e1;
 }
 
 .text-center {
@@ -41,18 +44,20 @@ body {
 }
 
 .btn-social {
-	width: 25px;
-	height: auto;
+	width: 45px;
+	height: 45px;
 	border-radius: 50%;
 }
 
 .login-form-container {
-	height: 75vh;
+	width: 50%;
+	height: 80vh;
+
 }
 
 .logo {
 	height: 25vh;
-	width: 100%;
+	width: 50%;
 }
 
 .img-logo {
