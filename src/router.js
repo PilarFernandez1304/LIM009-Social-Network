@@ -1,6 +1,7 @@
+import { logIn } from './view/Login.js';
+import { signUp } from './view/Signup.js';
+import { home } from './view/Wall.js';
 
-import logIn from './view/Login.js';
-import signUp from './view/Signup.js';
 const changeView = (hash) => {
   if (hash === '#/' || hash === '' || hash === '#') {
     return viewToShow('#/logIn');
@@ -18,6 +19,9 @@ const viewToShow = (routers) => {
   switch (router) {
     case 'signUp':
       root.appendChild(signUp());
+      break;
+    case 'home':
+      root.appendChild(home());
       break;
     default:
       root.appendChild(logIn());

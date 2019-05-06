@@ -1,12 +1,12 @@
-import { logIn, logInFacebook, logInGoogle } from './controller.js';
+import { emailLogIn, authFacebook, authGmail } from '../controller/login.js';
 import changeHash from './utils.js';
 
 export const loginOnClick = (evt) => {
-  const formElem = evt.target.closest('form')
+  const formElem = evt.target.closest('form');
   let email = formElem.querySelector('#email').value;
   let password  = formElem.querySelector('#password').value;
-  logIn(email, password)
-    .then(() => changeHash('#/logIn'))
+  emailLogIn(email, password)
+    .then(() => changeHash('#/home'))
     .catch(error =>  {
         let errorCode = error.code;
         let errorMessage = error.message;
@@ -22,7 +22,7 @@ export const loginOnClick = (evt) => {
       });
 }
 
-export default () => {
+export const logIn = () => {
   const form = `<div class="flex-container">
     <div id="logo" class="border-box logo text-center">
       <img class="img-logo" src="../assets/laptop-logo.png">
@@ -51,10 +51,15 @@ export default () => {
   logInBtn.addEventListener('click', loginOnClick);
 
   const facebookLogInBtn = div.querySelector('#log-in-fb');
-  facebookLogInBtn.addEventListener('click', logInFacebook);
+  facebookLogInBtn.addEventListener('click', () => authFacebook()
+    .then(() => changeHash('#/home'))
+    .catch(() => {}));
   
   const googleLogInBtn = div.querySelector('#log-in-gmail');
-  googleLogInBtn.addEventListener('click', logInGoogle);
-  
+  googleLogInBtn.addEventListener('click', () => authGmail()
+    .then(() => changeHash('#/home'))
+    .catch(() => {})
+    );
+ 
   return div;
 }

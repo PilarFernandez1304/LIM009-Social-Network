@@ -14,8 +14,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
-	background-color: #f4a6e1;
 }
 
 .text-center {
@@ -44,15 +42,14 @@ body {
 }
 
 .btn-social {
-	width: 45px;
-	height: 45px;
+	width: 25px;
+	height: auto;
 	border-radius: 50%;
 }
 
 .login-form-container {
-	width: 50%;
-	height: 80vh;
-
+	height: 75vh;
+	width: 90%;
 }
 
 .logo {
