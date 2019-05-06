@@ -20,21 +20,26 @@ export const createPostOnClick = (event) => {
 	const formElem = event.target.closest('form')
 	const postDescription = formElem.querySelector('#post-content-input').value;
 	//const privacy = formElem.querySelector('#privacy-choice').value;
-	getCurrenUser(createPost, changeHash, postDescription, '#/logIn', postListTemplate);
+	const user = getCurrenUser();
+	if (user) {
+		document.getElementById('post-list').innerHTML = '';
+		createPost(user.email, postDescription, postListTemplate);
+		formElem.querySelector('#post-content-input').value = '';
+	}
 }
 
-export const postListTemplate = (postObject) => {
+export const postListTemplate = (postObject, postId) => {
 	const postsList = 
 				`<article>
 					<div>
-					  <h3>${postObject.user}</h3>
+					  <h3>Publicado por ${postObject.user}</h3>
 					</div>
 					<div>
 					  <p>${postObject.content}</p>
 					</div>
 					<div>
-					  <p>${postObject.likes}</p><img id="" src="" alt=""/>
-					  <img id="" src="" alt=""/>
+					  <p>likes: ${postObject.likes}</p><img data-likes="${postId}" src="" alt="likes"/>
+					  <img id="${postId}" src="../assets/paper-plane.png" alt="editar-post"/>
 					</div>
 				</article>`;
 	document.getElementById('post-list').innerHTML += postsList;
