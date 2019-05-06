@@ -1,6 +1,32 @@
 import signUp from './View-controller.js';
 import changeHash from './utils.js';
 
+<<<<<<< HEAD
+=======
+export const signUpOnClick = () => {
+    let email = document.querySelector('#email-register').value;
+    let password  = document.querySelector('#password-register').value;
+    register(email, password)
+    .then(() => {
+      document.getElementById("register-correct").innerHTML = 'Te has registrado correctamente'; 
+      return changeHash('#/home')
+    })
+    .catch(error => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      if (errorCode === 'auth/invalid-email') {
+        document.getElementById('error-message').innerHTML = '¡Hey! Ingresa un correo electronico válido';
+        throw new Error(errorMessage);
+      } else if (errorCode === 'auth/weak-password') {
+        document.getElementById('error-message').innerHTML = 'Tu contraseña debe tener 6 carácteres :)';
+        throw new Error(errorMessage);
+      } else if (errorCode === 'auth/email-already-in-use') { 
+        document.getElementById('error-message').innerHTML = '¡Ups! Este correo esta en uso';
+        throw new Error(errorMessage);
+      };
+    });
+  }
+>>>>>>> a6caf36d7d6a4205a238fa9aaa71a1b0f498bfb2
 
 export default () => {
   const form = 
