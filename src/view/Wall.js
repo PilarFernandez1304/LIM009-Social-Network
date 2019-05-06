@@ -38,8 +38,8 @@ export const postListTemplate = (postObject, postId) => {
 					  <p>${postObject.content}</p>
 					</div>
 					<div>
-					  <p>likes: ${postObject.likes}</p><img data-likes="${postId}" src="" alt="likes"/>
-					  <img id="${postId}" src="../assets/paper-plane.png" alt="editar-post"/>
+					  <p>likes: ${postObject.likes}</p><img class="btn-icon" data-likes="${postId}" src="" alt="likes"/>
+					  <img id="${postId}" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>
 					</div>
 				</article>`;
 	document.getElementById('post-list').innerHTML += postsList;
