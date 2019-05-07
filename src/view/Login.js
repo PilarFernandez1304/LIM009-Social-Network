@@ -51,9 +51,20 @@ export const logIn = () => {
   logInBtn.addEventListener('click', loginOnClick);
 
   const facebookLogInBtn = div.querySelector('#log-in-fb');
-  facebookLogInBtn.addEventListener('click', () => authFacebook()
-    .then(() => changeHash('#/home'))
-    .catch(() => {}));
+  facebookLogInBtn.addEventListener('click', () =>{
+    console.log("hola")
+    authFacebook()
+    .then((result) =>{
+      //var user = result.user;
+     
+
+     changeHash('#/home')
+    })
+    .catch(() => {})
+
+  //authFacebook()
+
+  });
   
   const googleLogInBtn = div.querySelector('#log-in-gmail');
   googleLogInBtn.addEventListener('click', () => authGmail()
