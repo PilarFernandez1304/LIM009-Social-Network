@@ -7,12 +7,13 @@ body {
 
 .title {
 	font-family: 'Pacifico', cursive;
+	font-size: 2.5rem;
 }
 
 .flex-container {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	justify-content: center;
 }
 
 .text-center {
@@ -53,7 +54,7 @@ body {
 
 .logo {
 	height: 25vh;
-	width: 100%;
+	width: 50%;
 }
 
 .img-logo {
