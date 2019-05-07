@@ -3,7 +3,7 @@ mockauth.autoFlush();
 
 global.firebase = mocksdk;
 
-import  { logIn, loginOnClick } from '../../src/view/Login';
+import { logIn, loginOnClick } from '../../src/view/Login';
 
 describe('Login', () => {
 	beforeEach(() => {

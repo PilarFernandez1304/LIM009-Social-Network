@@ -24,14 +24,19 @@ export const createPostOnClick = (event) => {
 	const formElem = event.target.closest('form')
 	const postDescription = formElem.querySelector('#post-content-input').value;
 	//const privacy = formElem.querySelector('#privacy-choice').value;
-	getCurrenUser(createPost, changeHash, postDescription, '#/logIn', postListTemplate);
+	const user = getCurrenUser();
+	if (user) {
+		document.getElementById('post-list').innerHTML = '';
+		createPost(user.email, postDescription, postListTemplate);
+		formElem.querySelector('#post-content-input').value = '';
+	}
 }
 
 export const postListTemplate = (postObject, postId) => {
 	const postsList = 
 				`<article>
 					<div>
-					  <h3>${postObject.user}</h3>
+					  <h3>Publicado por ${postObject.user}</h3>
 					</div>
 					<div>
 					  <textarea id= "post-edit-${postId}" disabled >${postObject.content}</textarea>
