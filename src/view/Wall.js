@@ -28,19 +28,19 @@ export const createPostOnClick = (event) => {
 	}
 }
 
-export const postListTemplate = (postObject, postId) => {
+export const postListTemplate = (postObject) => {
 	for (let i = postObject.length - 1; i >= 0; i--) {
 	  const postsList = 
-				`<article id ="${postId}">
+				`<article id ="${postObject[i][1]}">
 					<div>
-					  <h3>Publicado por ${postObject.user}</h3>
+					  <h3>Publicado por ${postObject[i][0].user}</h3>
 					</div>
 					<div>
-					  <textarea id="content-${postId}" disabled=true>${postObject.content}</textarea>
+					  <textarea id="content-${postObject[i][1]}" disabled=true>${postObject[i][0].content}</textarea>
 					</div>
 					<div>
-					  <p>${postObject.likes}</p><img class="btn-icon" data-likes="${postId}" src="../assets/heart.png" alt="likes"/>
-					  <img id="update-${postId}" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>
+					  <p>${postObject[i][0].likes}</p><img class="btn-icon" data-likes="${postObject[i][1]}" src="../assets/heart.png" alt="likes"/>
+					  <img id="update-${postObject[i][1]}" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>
 					</div>
 				</article>`;
 	  document.getElementById('post-list').innerHTML += postsList;
