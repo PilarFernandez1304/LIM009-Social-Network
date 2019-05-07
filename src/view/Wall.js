@@ -30,19 +30,22 @@ export const createPostOnClick = (event) => {
 	console.log(formElem)
 	const postDescription = formElem.querySelector('#post-content-input').value;
 	//const privacy = formElem.querySelector('#privacy-choice').value;
-  getCurrenUser(createPost, changeHash, postDescription, '#/logIn', postListTemplate);
+	const user = getCurrenUser(createPost, changeHash, postDescription, '#/logIn', postListTemplate);
+	if (user) {
+		document.getElementById('post-list').innerHTML = '';
+		createPost(user.email, postDescription, postListTemplate);
+		formElem.querySelector('#post-content-input').value = '';
+	}
 }
 
-export const postListTemplate = (postObject,postId) => {
-
-	let pos=document.getElementById('post-list');
+export const postListTemplate = (postObject, postId) => {
 	const postsList = 
 				`<article>
-				<div>
-					  <h3>${postId}</h3>
+					<div>
+					  <h3>Publicado por ${postObject.user}</h3>
 					</div>
 					<div>
-					  <h3>${postObject.user}</h3>
+					  <textarea>${postObject.content}</textarea>
 					</div>
 					<div>
 						<input id="btn-delete-post${contadorPost}" key=${postId} type="button" value="Borrar">
@@ -51,35 +54,28 @@ export const postListTemplate = (postObject,postId) => {
 						<input id="btn-update-post${contadorPost}" key=${postId} type="button" value="Edit">
 					</div>
 					<div>
-					  <p>${postObject.content}</p>
-					</div>
-					<div>
-					  <p>${postObject.likes}</p><img id="" src="" alt=""/>
-					  <img id="" src="" alt=""/>
+					  <p>likes: ${postObject.likes}</p><img class="btn-icon" data-likes="${postId}" src="../assets/heart.png" alt="likes"/>
+					  <img id="update-${postId}" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>
 					</div>
 				</article>`;
-	pos.innerHTML += postsList;
-
+	document.getElementById('post-list').innerHTML += postsList;
 	contadorPost++;
 	
-	 for(let i=0;i<contadorPost;i++){
-			document.getElementById(`btn-delete-post${i}`).addEventListener("click",function(){
-				let valor = this.getAttribute("key");
-				deletePost(valor);
+	for(let i=0;i<contadorPost;i++){
+		   document.getElementById(`btn-delete-post${i}`).addEventListener("click",function(){
+			   let valor = this.getAttribute("key");
+			   deletePost(valor);
 
-			});
-		
-
-			
-
-
-				document.getElementById(`btn-update-post${i}`).addEventListener("click",function(){
-				let valor = this.getAttribute("key");
-				updatePost(valor);
-				})
-		}
-		
-		
+		   });
+			   document.getElementById(`btn-update-post${i}`).addEventListener("click",function(){
+			   let valor = this.getAttribute("key");
+			   updatePost(valor);
+			   })
+	   }
+	
+	   document.querySelector(`#update-${postId}`).addEventListener('click', () => updatePostOnClick(postId));
 }
 
-
+export const updatePostOnClick = (id) => {
+   	document.querySelector(`#content-${id}`).removeAttribute('disabled');
+}
