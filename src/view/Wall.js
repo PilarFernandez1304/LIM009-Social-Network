@@ -40,7 +40,7 @@ export const postListTemplate = (postObject, postId) => {
 					</div>
 					<div>
 					  <textarea id= "post-edit-${postId}" disabled >${postObject.content}</textarea>
-					  <img id="btn-edit-${postId}" src="../assets/btn-login-facebook.png" alt=""/>
+					  <button id="btn-edit-${postId}" /> editar </button>
 					</div>
 					  <p>${postObject.likes}</p><img id="" src="" alt=""/>
 					</div>
@@ -50,12 +50,15 @@ export const postListTemplate = (postObject, postId) => {
 	const updateOnClick = document.getElementById('post-list');
     updateOnClick.addEventListener('click', (event) => {
 	const id= event.target.id;
-	const textArea = document.querySelector(`#post-edit-${postId}`);
+	const textArea = document.querySelector(`#${id}`);
 	textArea.disabled = false;
-	console.log(id);
+	console.log(id)
+	// const btnUpdate = document.getElementById(`btn-edit-${postId}`)
+	// btnUpdate.addEventListener('click', () => {
+	// 	console.log('hola')
+	// })
 
-} )
-
+})
 }
 
 //  const UpdateOnClick = () => {
