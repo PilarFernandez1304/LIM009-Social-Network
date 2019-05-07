@@ -25,7 +25,8 @@ export const loginOnClick = (evt) => {
 export const logIn = () => {
   const form = `<div class="flex-container">
     <div id="logo" class="border-box logo text-center">
-      <img class="img-logo" src="../assets/laptop-logo1.png" alt="mano-amiga-logo">
+      <img class="img-logo" src="../assets/laptop-logo.png">
+
     </div>
     <div id="login" class="border-box login-form-container">
       <h1 class="title text-center">Mano Amiga</h1>
@@ -51,9 +52,20 @@ export const logIn = () => {
   logInBtn.addEventListener('click', loginOnClick);
 
   const facebookLogInBtn = div.querySelector('#log-in-fb');
-  facebookLogInBtn.addEventListener('click', () => authFacebook()
-    .then(() => changeHash('#/home'))
-    .catch(() => {}));
+  facebookLogInBtn.addEventListener('click', () =>{
+    console.log("hola")
+    authFacebook()
+    .then((result) =>{
+      //var user = result.user;
+     
+
+     changeHash('#/home')
+    })
+    .catch(() => {})
+
+  //authFacebook()
+
+  });
   
   const googleLogInBtn = div.querySelector('#log-in-gmail');
   googleLogInBtn.addEventListener('click', () => authGmail()

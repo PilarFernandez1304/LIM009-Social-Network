@@ -1,3 +1,4 @@
 
-export default (email, password) => firebase.auth().createUserWithEmailAndPassword(email, password);
+export default (email, password) =>
+ firebase.auth().createUserWithEmailAndPassword(email, password);
 	

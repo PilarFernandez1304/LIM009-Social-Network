@@ -1,5 +1,6 @@
 
-export const emailLogIn = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password);
+export const emailLogIn = (email, password) => 
+firebase.auth().signInWithEmailAndPassword(email, password);
 
 export const authFacebook = () => {
   const provider = new firebase.auth.FacebookAuthProvider();

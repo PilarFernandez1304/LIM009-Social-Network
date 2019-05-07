@@ -12,6 +12,7 @@ const changeView = (hash) => {
   }
 }
 
+// funcion cambio de vistas para mostrar
 const viewToShow = (routers) => {
   const router = routers.substr(2, routers.length - 2)
   const root = document.getElementById('root');
