@@ -29,7 +29,8 @@ export const createPostOnClick = (event) => {
 }
 
 export const postListTemplate = (postObject, postId) => {
-	const postsList = 
+	for (let i = postObject.length - 1; i >= 0; i--) {
+	  const postsList = 
 				`<article id ="${postId}">
 					<div>
 					  <h3>Publicado por ${postObject.user}</h3>
@@ -38,14 +39,17 @@ export const postListTemplate = (postObject, postId) => {
 					  <textarea id="content-${postId}" disabled=true>${postObject.content}</textarea>
 					</div>
 					<div>
-					  <p>likes: ${postObject.likes}</p><img class="btn-icon" data-likes="${postId}" src="../assets/heart.png" alt="likes"/>
+					  <p>${postObject.likes}</p><img class="btn-icon" data-likes="${postId}" src="../assets/heart.png" alt="likes"/>
 					  <img id="update-${postId}" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>
 					</div>
 				</article>`;
-	document.getElementById('post-list').innerHTML += postsList;
-	document.querySelector(`#update-${postId}`).addEventListener('click', () => updatePostOnClick(postId));
+	  document.getElementById('post-list').innerHTML += postsList;
+    }
 }
 
 export const updatePostOnClick = (id) => {
    	document.querySelector(`#content-${id}`).removeAttribute('disabled');
 }
+
+//	document.getElementById('post-list').innerHTML += postsList;
+//	document.querySelector(`#update-${postId}`).addEventListener('click', () => updatePostOnClick(postId));

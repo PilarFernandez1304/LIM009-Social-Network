@@ -15,10 +15,10 @@ export const createPost = (userId, contentText, callback) => {
 
 export const getAllPosts = (callback) => {
 	firebase.firestore().collection('posts').get().then((querySnapshot) => {
-    querySnapshot.forEach((post) => {
-        return callback(post.data(), post.id);
-    });
-});
+    const query = (querySnapshot.docs.map((post) => post.data()));
+    return query;
+})
+	.then((query) => callback(query));
 }
 
 
