@@ -3,11 +3,11 @@ mockauth.autoFlush();
 
 global.firebase = mocksdk;
 
-import Login, { loginOnClick } from '../../src/view/Login';
+import  { logIn, loginOnClick } from '../../src/view/Login';
 
 describe('Login', () => {
 	beforeEach(() => {
-		document.body.appendChild(Login());
+		document.body.appendChild(logIn());
 		const errorContainer = document.createElement('div')
 		errorContainer.setAttribute('id', 'error-message')
 		document.body.appendChild(errorContainer)

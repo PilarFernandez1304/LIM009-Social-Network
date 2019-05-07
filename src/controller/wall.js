@@ -24,11 +24,21 @@ export const createPost = (userId, contentText, callback) => {
 export const getAllPosts = (callback) => {
 	firebase.firestore().collection('posts').get().then((querySnapshot) => {
     querySnapshot.forEach((post) => {
-        return callback(post.data());
+        return callback(post.data(), post.id);
     });
 });
 }
 
-
-export const updatePost = () => {}
-export const deletePost = () => {}
+export const updatePost = (idPost, content) => { 
+    let refPost = firebase.firestore().collection('posts').doc(idPost);
+    return refPost.update({
+    content: content,
+    })
+    .then(function() {
+        console.log("Document successfully updated!");
+    })
+    .catch(function(error) {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+    });
+}
