@@ -13,13 +13,27 @@ export const createPost = (userId, contentText, callback) => {
 
 } 
 
+// export const getAllPosts = (callback) => {
+// 	firebase.firestore().collection('posts').get().then((querySnapshot) => {
+//     querySnapshot.forEach((post) => {
+//         return callback(post.data(), post.id);
+//     });
+// });
+// }
+
+
+
 export const getAllPosts = (callback) => {
-	firebase.firestore().collection('posts').get().then((querySnapshot) => {
-    querySnapshot.forEach((post) => {
-        return callback(post.data(), post.id);
-    });
-});
-}
+    firebase.firestore().collection('posts')
+    .onSnapshot((querySnapshot) => {
+        const data = [];
+        querySnapshot.forEach((doc) => {
+          data.push({ id: doc.id, ...doc.data() })
+        });
+        callback(data);
+      }); 
+    }
+
 
 export const updatePost = (idPost, content) => { 
     let refPost = firebase.firestore().collection('posts').doc(idPost);
