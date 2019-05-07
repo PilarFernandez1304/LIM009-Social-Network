@@ -26,6 +26,7 @@ export const logIn = () => {
   const form = `<div class="flex-container">
     <div id="logo" class="border-box logo text-center">
       <img class="img-logo" src="../assets/laptop-logo.png">
+
     </div>
     <div id="login" class="border-box login-form-container">
       <h1 class="title text-center">Mano Amiga</h1>

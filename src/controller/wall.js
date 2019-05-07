@@ -32,6 +32,7 @@ export const getAllPosts = (callback) => {
       return callback(post.data(),post.id)
     });
 });
+
 }
 
 
