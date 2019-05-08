@@ -1,6 +1,7 @@
 import { logIn } from './view/Login.js';
 import { signUp } from './view/Signup.js';
 import { home } from './view/Wall.js';
+import { getAllPosts } from './controller/wall.js';
 
 const changeView = (hash) => {
   if (hash === '#/' || hash === '' || hash === '#') {
@@ -21,7 +22,10 @@ const viewToShow = (routers) => {
       root.appendChild(signUp());
       break;
     case 'home':
-      root.appendChild(home());
+    getAllPosts((posts) =>{
+      root.innerHTML = '';
+      root.appendChild(home(posts));
+    })
       break;
     default:
       root.appendChild(logIn());
