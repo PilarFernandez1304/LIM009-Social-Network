@@ -25,7 +25,7 @@ export const loginOnClick = (evt) => {
 export const logIn = () => {
   const form = `<div class="flex-container">
     <div id="logo" class="border-box logo text-center">
-      <img class="img-logo" src="../assets/laptop-logo.png">
+      <img class="img-logo" src="../assets/laptop-logo1.png">
 
     </div>
     <div id="login" class="border-box login-form-container">

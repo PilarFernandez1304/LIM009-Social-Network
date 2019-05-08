@@ -1,48 +1,43 @@
-
-export const createPost = (userId, contentText, callback) => {
+export const getCurrenUser = () => {
+	return firebase.auth().currentUser;
+}
+export const createPost = (uid, userName, contentText, callback) => {
 	firebase.firestore().collection('posts').add({
-    user: userId,
+    user: userName,
     content: contentText,
     likes: 0,
-    //state: privacy
+    userId: uid,
+    // state: privacy
 })
 .then((response) => getAllPosts(callback))
-.catch((error) => 
-console.error("Error creando el post: ",error));
+.catch((error) => console.error("Error creando el post: ", error));
 
-}
-
-export const getCurrenUser = (createPost, changeHash, postDescription, parameter2, postListTemplate) => {
-	firebase.auth().onAuthStateChanged( firebaseUser => {
-	  if (firebaseUser && firebaseUser.displayName) {
-		return createPost(firebaseUser.displayName, postDescription,postListTemplate);
-	  } else if (firebaseUser) {
-		return createPost(firebaseUser.email, postDescription, postListTemplate);
-	  } else {
-		return changeHash(parameter2);
-	  }
-    });
-}
-
+} 
 export const getAllPosts = (callback) => {
-	firebase.firestore().collection('posts').get()
-	.then((querySnapshot) => {
-    querySnapshot.forEach((post) => {
-      return callback(post.data(),post.id)
+    firebase.firestore().collection('posts')
+    .onSnapshot((querySnapshot) => {
+        let data = [];
+        querySnapshot.forEach((doc) => {
+          data.push({ id: doc.id, ...doc.data() })
+        });
+        callback(data);
+      }); 
+    }
+
+
+export const updatePost = (idPost, content) => { 
+    let refPost = firebase.firestore().collection('posts').doc(idPost);
+    return refPost.update({
+    content: content,
+    })
+    .then(function() {
+        console.log("Document successfully updated!");
+    })
+    .catch(function(error) {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
     });
-});
-
 }
 
 
-export const updatePost = () => {
-
-}
-export const deletePost = (id) => {
-firebase.firestore().collection('posts').doc(id).delete()
-.then(function() {
-		console.log("Document successfully deleted!");
-}).catch(function(error) {
-    console.error("Error removing document: ", error);
-});
-}
+export const deletePost = (idPost) => firebase.firestore().collection('posts').doc(idPost).delete();
