@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getCurrenUser ,updatePost } from '../controller/wall.js';
+import { createPost, getAllPosts, getCurrenUser ,updatePost, deletePost } from '../controller/wall.js';
 import changeHash from './utils.js';
 
 export const home = (posts) => {
@@ -12,6 +12,7 @@ export const home = (posts) => {
 	// getAllPosts(postListTemplate);
 	const createPostBtn = createPostContainer.querySelector('#create-post-btn');
 	createPostBtn.addEventListener('click', createPostOnClick);
+	
     const wallAll = createPostContainer.querySelector('#post-list');
     posts.forEach((post) => {
     wallAll.appendChild(postListTemplate(post));    
@@ -22,12 +23,12 @@ export const home = (posts) => {
 export const createPostOnClick = (event) => {
 	event.preventDefault();
 	const formElem = event.target.closest('form')
-	const postDescription = formElem.querySelector('#post-content-input').value;
+	const postDescription =  formElem.querySelector('#post-content-input').value;
 	//const privacy = formElem.querySelector('#privacy-choice').value;
 	const user = getCurrenUser();
 	if (user) {
 		document.getElementById('post-list').innerHTML = '';
-		createPost(user.email, postDescription, postListTemplate);
+		createPost(user.uid, user.email, postDescription, postListTemplate);
 		formElem.querySelector('#post-content-input').value = '';
 	}
 
@@ -49,7 +50,7 @@ export const createPostOnClick = (event) => {
 
 
 
-export const postListTemplate = (postObject, uid) => {
+export const postListTemplate = (postObject) => {
 	const postsList = 
 				`<article id ="${postObject.id}">
 					<div>
@@ -57,15 +58,19 @@ export const postListTemplate = (postObject, uid) => {
 					</div>
 					<div>
 					  <textarea id= "post-edit-${postObject.id}" disabled >${postObject.content}</textarea>
-					<div id="btn-edit-${postObject.id}">
-					${postObject.uid === uid ? '<input type=button  value = Editar />' : ''};
-					</div>
+					<input type=button id="btn-edit-${postObject.id}" value = Editar />
+					<input type=button id="btn-delete-${postObject.id}" value = Borrar />
 					</div>
 					  <p>${postObject.likes}</p><img id="" src="" alt=""/>
 					</div>
 				</article>`;
 				const div = document.createElement('div');
 				div.innerHTML = postsList;
+				const deleteBtn = div.querySelector(`#btn-delete-${postObject.id}`)
+				deleteBtn.addEventListener('click', () => {
+					alert ("Estas seguro de querer eliminar tu post");
+					deletePost(postObject.id)
+				})
 				const editBtn = div.querySelector(`#btn-edit-${postObject.id}`);
   			const textArea = div.querySelector(`#post-edit-${postObject.id}`);
   			editBtn.addEventListener('click', () => {
@@ -76,11 +81,14 @@ export const postListTemplate = (postObject, uid) => {
 					editBtn.value = "Editar";
 					updatePost(postObject.id, textArea.value);
 				})
+
    			//  liElement.querySelector('#save-post-edit').style.display = 'block';
   });
   
 				return div;
 }
+
+// ${postObject.uid === uid ? '<input type=button  value = Editar />' : ''};
 
 // liElement.querySelector('#save-post-edit').style.display = 'none';
 //   const editBtn = liElement.querySelector(`#btn-update-${dataPost.id}`);
