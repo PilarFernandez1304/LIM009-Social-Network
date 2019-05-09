@@ -22,6 +22,7 @@ export const home = (posts) => {
 }
 
 export const createPostOnClick = (event) => {
+
 	event.preventDefault();
 	const formElem = event.target.closest('form')
 	const postDescription = formElem.querySelector('#post-content-input').value;
@@ -49,6 +50,7 @@ export const postListTemplate = (postObject) => {
 					  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>`: ''}
 					</div>
 				</article>`;
+
 	const div = document.createElement('div');
 	div.innerHTML = postsList;
 	if (user.uid === postObject.userId) {
