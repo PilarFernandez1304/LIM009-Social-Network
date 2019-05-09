@@ -7,5 +7,7 @@ const config = {
     storageBucket: "social-network-52a55.appspot.com",
     messagingSenderId: "965513198263"
 }
-
+// gs://social-network-52a55.appspot.com
 export default config;
+
+// export const storage = firebase.storage();

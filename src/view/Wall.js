@@ -3,6 +3,7 @@ import changeHash from './utils.js';
 
 export const home = (posts) => {
 	const createPostForm = `<form>
+	<input type = "file" id="my-file"/>
 	<input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
 	<button id="create-post-btn" type="submit">Compartir</button>
 	</form>
