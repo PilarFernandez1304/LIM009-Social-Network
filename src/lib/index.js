@@ -9,9 +9,3 @@ const config = {
 }
 // gs://social-network-52a55.appspot.com
 export default config;
-
-<<<<<<< HEAD
-// export const storage = firebase.storage();
-=======
-export default config;
->>>>>>> c3e494b85cea266f1e3ea6eeacce9b8ef3f0d61b
