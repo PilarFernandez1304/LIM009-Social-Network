@@ -28,7 +28,7 @@ export const signUpOnClick = () => {
 export const signUp = () => {
   const form = `<div class="flex-container">
     <div id="logo" class="border-box logo text-center">
-      <img class="img-logo" src="../assets/laptop-logo.png" alt="mano-amiga-logo">
+      <img class="img-logo" src="../assets/laptop-logo1.png" alt="mano-amiga-logo">
     </div>
     <div id="login" class="border-box login-form-container">
       <h1 class="title text-center">Mano Amiga</h1>
@@ -41,8 +41,8 @@ export const signUp = () => {
         <p id="error-message" class="text-center error-message"></p>
         <p class="text-center">O bien regístrate con...</p>
         <div class="text-center">
-          <img id="log-in-fb" class="btn-social" src="../assets/btn-login-facebook.png" alt="facebook-login-button"id="log-in-fb"  />
-          <img id="log-in-gmail" class="btn-social" src="../assets/btn-login-google.png" alt="google-login-button" />
+          <img id="log-in-fb" class="btn-icon" src="../assets/btn-login-facebook.png" alt="facebook-login-button"id="log-in-fb"  />
+          <img id="log-in-gmail" class="btn-icon" src="../assets/btn-login-google.png" alt="google-login-button" />
         </div>
       </form>
       <p class="text-center">¿Ya tienes una cuenta? <a  class="links" href="#/logIn" title="link de registro">Ingresa</a></p>

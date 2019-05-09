@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getCurrenUser ,updatePost, deletePost } from '../controller/wall.js';
+import { createPost, getAllPosts, getCurrenUser, updatePost, deletePost } from '../controller/wall.js';
 import changeHash from './utils.js';
 
 export const home = (posts) => {
@@ -12,12 +12,13 @@ export const home = (posts) => {
 	createPostContainer.innerHTML = createPostForm;
 	// getAllPosts(postListTemplate);
 	const createPostBtn = createPostContainer.querySelector('#create-post-btn');
-	createPostBtn.addEventListener('click', createPostOnClick);
+    createPostBtn.addEventListener('click', createPostOnClick);
 	
-    const wallAll = createPostContainer.querySelector('#post-list');
+  const wallAll = createPostContainer.querySelector('#post-list');
     posts.forEach((post) => {
-    wallAll.appendChild(postListTemplate(post));    
-  });
+      wallAll.appendChild(postListTemplate(post));    
+    });
+
 	return createPostContainer;
 }
 
@@ -35,121 +36,62 @@ export const createPostOnClick = (event) => {
 
 }
 
-// ${post.uid === uid ? '<button class="btn-post btn-edit" >Editar</button>' : ''}  
-// </div>
-// <div id="btn-save-${post.id}" hidden> 
-// ${post.uid === uid ? '<button class="btn-post btn-edit"   >Guardar</button>' : ''}  
-// </div>
-// <div id="btn-deleted-${post.id}"> 
-// ${post.uid === uid ? '<button class="btn-post btn-edit" >Eliminar</button>' : ''}  
-// </div> </div>
-// `
-
-
-
-
-
-
-
 export const postListTemplate = (postObject) => {
+	const user = getCurrenUser();
 	const postsList = 
 				`<article id ="${postObject.id}">
 					<div>
 					  <h3>Publicado por ${postObject.user}</h3>
+					  ${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="btn-icon" src="../assets/close.png" alt="eliminar-post"/>`: ''}
 					</div>
 					<div>
 					  <textarea id= "post-edit-${postObject.id}" disabled >${postObject.content}</textarea>
-					<input type=button id="btn-edit-${postObject.id}" value = Editar />
-					<input type=button id="btn-delete-${postObject.id}" value = Borrar />
 					</div>
 					  <p>${postObject.likes}</p><img id="" src="" alt=""/>
+					  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>`: ''}
 					</div>
 				</article>`;
-				const div = document.createElement('div');
-				div.innerHTML = postsList;
-				const deleteBtn = div.querySelector(`#btn-delete-${postObject.id}`)
-				deleteBtn.addEventListener('click', () => {
-					alert ("Estas seguro de querer eliminar tu post");
-					deletePost(postObject.id)
-				})
-				const editBtn = div.querySelector(`#btn-edit-${postObject.id}`);
-  			const textArea = div.querySelector(`#post-edit-${postObject.id}`);
-  			editBtn.addEventListener('click', () => {
-					textArea.disabled = false;
-					editBtn.value = "Guardar";
-				  editBtn.addEventListener('click', () =>{
-					textArea.disabled = true;
-					editBtn.value = "Editar";
-					updatePost(postObject.id, textArea.value);
-				})
-
-   			//  liElement.querySelector('#save-post-edit').style.display = 'block';
-  });
-  
-				return div;
+	const div = document.createElement('div');
+	div.innerHTML = postsList;
+	if (user.uid === postObject.userId) {
+	  const deleteBtn = div.querySelector(`#btn-delete-${postObject.id}`);
+	  deleteBtn.addEventListener('click', () => {
+		deletePost(postObject.id)
+	  });
+	  const editBtn = div.querySelector(`#btn-edit-${postObject.id}`);
+  	  const textArea = div.querySelector(`#post-edit-${postObject.id}`);
+  	  editBtn.addEventListener('click', () => {
+		return toggleDisableTextarea(textArea, postObject);
+	  });
+	}
+	return div;
 }
 
-// ${postObject.uid === uid ? '<input type=button  value = Editar />' : ''};
+export const toggleDisableTextarea = (textArea, postObject) => {
+	if (textArea.disabled) {
+		textArea.disabled = false
+	} else {
+		textArea.disabled = true; 
+		return updatePost(postObject.id, textArea.value)
+	}
+}
 
-// liElement.querySelector('#save-post-edit').style.display = 'none';
-//   const editBtn = liElement.querySelector(`#btn-update-${dataPost.id}`);
-//   const textArea = liElement.querySelector(`#post-edit-${dataPost.id}`);
-//   editBtn.addEventListener('click', () => {
-//     textArea.disabled = false;
-//     liElement.querySelector('#save-post-edit').style.display = 'block';
-//   });
-  
-//   const saveEdit = liElement.querySelector('#save-post-edit');
-//   saveEdit.addEventListener('click', () => {
-//     textArea.disabled = true;
-//     updatePostOnClick(dataPost.id, textArea.value);
-//     liElement.querySelector('#save-post-edit').style.display = 'none';
-//   });
-  
-//   const deleted = liElement.querySelector(`#btn-delete-${dataPost.id}`);
-//   deleted.addEventListener('click', () => {
-//     deletePostOnClick(dataPost);
-//   });
-//   const likesBtn = liElement.querySelector(`#like-btn-${dataPost.id}`);
-//   likesBtn.addEventListener('click', () => {
-//     updateLikesOnClick(dataPost, dataPost.like += 1);  
-//   });
-//   const favoriteBtn = liElement.querySelector(`#favorite-btn-${dataPost.id}`);
-//   favoriteBtn.addEventListener('click', () => {
-//     updateFavoritesOnClick(dataPost, dataPost.favorite += 1);
-//   });
-//   const logOutBtn = liElement.querySelector('#log-out-btn');
-//   logOutBtn.addEventListener('click', logOutOnClick);
-//   return liElement;
-
-
-
-
-	// const updateOnClick = document.getElementById('post-list');
-  //   updateOnClick.addEventListener('click', (event) => {
-	// const id= event.target.id;
-	// const textArea = document.querySelector(`#${id}`);
-	// textArea.disabled = false;
-	// console.log(id)
-	// // const btnUpdate = document.getElementById(`btn-edit-${postId}`)
-	// // btnUpdate.addEventListener('click', () => {
-	// // 	console.log('hola')
-	// // })
-
-
-
-//  const UpdateOnClick = () => {
-// 	const btnUpData = document.querySelector(`btn-edit-${postId}`);
-// 	const textArea = document.querySelector(`post-edit-${postId}`);
-// 	btnUpData.addEventListener('click', () => {
-// 		textArea.disabled = false;
-// 	})
-
-
+// /*
+// export const postListTemplate = (postObject, userUid) => {
+// 	for (let i = postObject.length - 1; i >= 0; i--) {
+// 	  const postsList = 
+// 				`<article id ="">
+// 					<div>
+// 					  <h3>Publicado por ${postObject[i].user}</h3>
+// 					</div>
+// 					<div>
+// 					  <textarea id="content-" disabled=true>${postObject[i].content}</textarea>
+// 					</div>
+// 					<div>
+// 					${(userUid === postObject[i].userId) ? `<img id="update-" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>`: ''}
+// 					</div>
+// 				</article>`;
+// 	  document.getElementById('post-list').innerHTML += postsList;
+//     }
 // }
-// const updateOnClick = document.getElementById('post-list');
-// updateOnClick.addEventListener('click', (event) => {
-// 	const id= event.target.id;
-// 	textArea.disabled = false;
-
-// } )
+// */

@@ -6,47 +6,17 @@ export const createPost = (uid, userName, contentText, callback) => {
     user: userName,
     content: contentText,
     likes: 0,
-    userId:uid,
+    userId: uid,
+    // state: privacy
 })
 .then((response) => getAllPosts(callback))
 .catch((error) => console.error("Error creando el post: ", error));
 
 } 
-
-// export const getPosts = (callback) => {
-//     firebase.firestore().collection('posts').orderBy('date', 'desc')
-//       .onSnapshot((querySnapshot) => {
-//         let data = [];
-//         querySnapshot.forEach(doc => {
-//           data.push({ 
-//             id: doc.id,
-//             profileUid: doc.data().profileUid,
-//             name: doc.data().name,
-//             content: doc.data().content,
-//             privacy: doc.data().privacy,
-//             uid: doc.data().uid,
-//             likes: doc.data().likes,
-//           });
-//         });
-//         callback(data);
-//       });
-//   };
-  
-
-// export const getAllPosts = (callback) => {
-// 	firebase.firestore().collection('posts').get().then((querySnapshot) => {
-//     querySnapshot.forEach((post) => {
-//         return callback(post.data());
-//     });
-// });
-// }
-
-
-
 export const getAllPosts = (callback) => {
     firebase.firestore().collection('posts')
     .onSnapshot((querySnapshot) => {
-        const data = [];
+        let data = [];
         querySnapshot.forEach((doc) => {
           data.push({ id: doc.id, ...doc.data() })
         });
@@ -70,5 +40,4 @@ export const updatePost = (idPost, content) => {
 }
 
 
-  export const deletePost = (idPost) => 
-  firebase.firestore().collection('posts').doc(idPost).delete();
+export const deletePost = (idPost) => firebase.firestore().collection('posts').doc(idPost).delete();
