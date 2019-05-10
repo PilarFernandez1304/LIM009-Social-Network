@@ -1,8 +1,28 @@
 import { createPost, getAllPosts, getCurrenUser, updatePost, deletePost } from '../controller/wall.js';
 import changeHash from './utils.js';
 
+
+
+
+
 export const home = (posts) => {
-	const createPostForm = `<form>
+	const user = getCurrenUser();
+	const createPostForm = `
+	<div class="container">
+	<div class="container-profile">
+		<div class="ft-perfil">
+			<img src= "${user.photoURL}" class="ft" alt="foto de perfil"/>
+		</div>
+	</div>
+		<div class="information">
+		<p>Nombre:</p>
+			<span class="name">${user.displayName}</span>
+		<p>Email:</p>
+			<span class="name">${user.email}</span>
+		<p>Número de celular</p>
+			<span class="info">${user.phoneNumber}</span>
+		</div>
+	<form>
 	<input type = "file" id="my-file"/>
 	<input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
 	<button id="create-post-btn" type="submit">Compartir</button>

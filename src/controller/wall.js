@@ -1,5 +1,5 @@
 export const getCurrenUser = () => {
-	return (firebase.auth().currentUser);
+	return firebase.auth().currentUser;
 }
 export const createPost = (uid, userName, contentText, callback) => {
 	firebase.firestore().collection('posts').add({
@@ -41,3 +41,4 @@ export const updatePost = (idPost, content) => {
 
 
 export const deletePost = (idPost) => firebase.firestore().collection('posts').doc(idPost).delete();
+

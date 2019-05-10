@@ -25,8 +25,9 @@
     "firebase-mock": "^2.2.10",
     "htmlhint": "^0.10.1",
     "jest": "^23.6.0",
+    "lite": "^4.0.5",
     "lite-server": "^2.4.0",
     "regenerator-runtime": "^0.13.1",
-    "serve": "^11.0.0"
+    "server": "^1.0.18"
   }
 }
