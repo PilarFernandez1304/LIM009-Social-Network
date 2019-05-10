@@ -10,4 +10,8 @@ export const authFacebook = () => {
 export const authGmail = ()=>{
   const provider = new firebase.auth.GoogleAuthProvider()
   return firebase.auth().signInWithPopup(provider);
+} 
+
+export const logOut = () => {
+  return firebase.auth().signOut();
 }

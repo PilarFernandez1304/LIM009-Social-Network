@@ -103,8 +103,9 @@ body {
 
 .post-head {
 	height: 40px;
-	background-color: #00c89b;
-	color: #fff;
+	background-color:#c7faef;
+	color: black;
+	display : inline-flex;
 }
 
 .post-content {
