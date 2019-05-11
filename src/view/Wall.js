@@ -1,21 +1,15 @@
 import { createPost, getCurrenUser, updatePost, deletePost } from '../controller/wall.js';
 import {logOut} from "../controller/login.js";
 import changeHash from './utils.js';
-/*<p> Agrega una breve presentación para que las personas sepan más sobre ti.</p>
-	<input type="button" value="Agregar presentación"/>
-	<div>
-  <input id="post-content-input" type="text" name="post-content" placeholder="Describe quién eres" />
-	</div>*/
-
-
 
 
 export const home = (posts) => {
 	const user = getCurrenUser();
+	console.log(user);
 	const createPostForm = `
 	<section id="profile-container" class="profile border-box border">
-	<img  src="${user.photoURL}"/>
-	<h1> ${user.displayName} </h1>
+	${user.photoURL === null ? `<img  src="../assets/perfil-email.jpg"/>` : `<img  src="${user.photoURL}"/>`}
+    ${user.displayName === null ? `<h1> Aca debe ir el nombre dgit branche la variable del input del SignUp  name-email </h1>` :  `<h1> ${user.displayName} </h1>`}
 	<button id="logOut" type="submit">Cerrar Sesión</button>
 	</section>
 	<div class="posts">
@@ -32,9 +26,9 @@ export const home = (posts) => {
 	const buttonLogOut = createPostContainer.querySelector("#logOut")
 	buttonLogOut.addEventListener("click", () => {
 		logOut()
-		.then(() =>{
-     changeHash('#/login')
-    })
+		.then((result) =>{
+			changeHash('#/login')
+		 })
 	})
 	const createPostBtn = createPostContainer.querySelector('#create-post-btn');
     createPostBtn.addEventListener('click', createPostOnClick);
@@ -63,11 +57,13 @@ export const createPostOnClick = (event) => {
 
 export const postListTemplate = (postObject) => {
 	const user = getCurrenUser();
+	const date = (postObject.date.toDate()).toString();
+  const newDate = date.substr(4, date.length - 37);
 	const postsList = 
 				`<div class="post-article post-head border-box">
-					<img  src="${postObject.userPhoto}"/>
+				    ${postObject.userPhoto === null ? `<img class = "round-image" src="../assets/perfil-email.jpg"/>` : `<img class = "round-image" src="${postObject.userPhoto}"/>`}
 					<p class="col-11">Publicado por ${postObject.user}</p>
-					<p class="col-11"> ${postObject.date}</p>
+					<p class="col-11"> ${newDate}</p>
 					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="border-box btn-icon btn-icon-post col-1" src="../assets/close.png" alt="eliminar-post" />`: ''}
 				</div>
 				<div class="post-article clear">

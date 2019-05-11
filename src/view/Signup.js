@@ -35,6 +35,7 @@ export const signUp = () => {
       <p class="text-center content">¡Bienvenida amiga!</p>
       <form>
          <p id="register-correct" class="text-center register-correct"></p>
+         <input id="name-email" class=" login login-input" name="" placeholder="Nombre y Apellido">
         <input id="email-register" class="login login-input" type="email" name="email" placeholder="Email">
         <input id="password-register" class="login login-input" type="password" name="password" placeholder="Password">
         <button id="sign-in-btn" type="button" class="login btn-login">Registrarse</button>
