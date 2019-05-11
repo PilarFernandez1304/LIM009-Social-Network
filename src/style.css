@@ -15,6 +15,20 @@ body {
 	align-items: center;
 }
 
+.col-11 {
+	width: 91.6666%;
+	float: left;
+}
+.col-1 {
+	width: 8.3333%;
+	float: left;
+}
+
+.main-container {
+	width: 80%;
+	margin: auto;
+}
+
 .text-center {
 	text-align: center;
 }
@@ -46,6 +60,13 @@ body {
 	border-radius: 50%;
 }
 
+.btn-icon-post {
+	width: 20px;
+	background-color: #00c89b;
+	color: #fff;
+	padding: 4px;
+}
+
 .login-form-container {
 	height: 75vh;
 	width: 90%;
@@ -69,6 +90,46 @@ body {
 	text-decoration: none;
 }
 
+.post-box {
+	margin-bottom: 20px;
+	height: 120px;
+	font-size: 0.7rem;
+}
+
+.post-article {
+	width: 100%;
+	margin-top: 0px;
+}
+
+.post-head {
+	height: 40px;
+	background-color: #00c89b;
+	color: #fff;
+}
+
+.post-content {
+	height: 40px;
+	border-bottom: 1px solid #00c89b;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	background-color: #fff;
+}
+
+.profile {
+	width: 100%;
+	height: 120px;
+	margin-bottom: 20px;
+}
+
+.posts {
+	width: 100%;
+}
+
+.border {
+	border: 1px solid #00c89b;
+}
+
 @media screen and (min-width: 720px) {
   .flex-container {
     flex-direction: row;
@@ -85,4 +146,11 @@ body {
 	width: 50%;
   }
 
+  .profile, .posts {
+  	width: 50%;
+  }
+  
+  .main-container {
+  	align-items: flex-start;
+  }
 }

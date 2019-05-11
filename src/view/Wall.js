@@ -2,12 +2,16 @@ import { createPost, getAllPosts, getCurrenUser, updatePost, deletePost } from '
 import changeHash from './utils.js';
 
 export const home = (posts) => {
-	const createPostForm = `<form>
-	<input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
-	<button id="create-post-btn" type="submit">Compartir</button>
+	const createPostForm = `<section id="profile-container" class="profile border-box border"><p>Aquí irá el perfil</p></section>
+	<div class="posts">
+	<section id="create-post-container" class="post-article post-box border"><form>
+	  <input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
+	  <button id="create-post-btn" type="submit">Compartir</button>
 	</form>
-	<section id="post-list"></section>`;
-	const createPostContainer = document.createElement('div');
+	</section>
+	<section id="post-list" class="post-article border-box"></section></div>`;
+	const createPostContainer = document.createElement('main');
+	createPostContainer.classList.add('flex-container', 'border-box', 'main-container');
 	createPostContainer.innerHTML = createPostForm;
 	getAllPosts(postListTemplate);
 	const createPostBtn = createPostContainer.querySelector('#create-post-btn');
@@ -28,7 +32,7 @@ export const createPostOnClick = (event) => {
 	const postDescription = formElem.querySelector('#post-content-input').value;
 	//const privacy = formElem.querySelector('#privacy-choice').value;
 	const user = getCurrenUser();
-	if (user) {
+	if (user && postDescription !== '') {
 		document.getElementById('post-list').innerHTML = '';
 		createPost(user.uid, user.email, postDescription, postListTemplate);
 		formElem.querySelector('#post-content-input').value = '';
@@ -38,33 +42,33 @@ export const createPostOnClick = (event) => {
 export const postListTemplate = (postObject) => {
 	const user = getCurrenUser();
 	const postsList = 
-				`<article id ="${postObject.id}">
-					<div>
-					  <h3>Publicado por ${postObject.user}</h3>
-					  ${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="btn-icon" src="../assets/close.png" alt="eliminar-post"/>`: ''}
-					</div>
-					<div>
-					  <textarea id= "post-edit-${postObject.id}" disabled >${postObject.content}</textarea>
-					</div>
-					  <p>${postObject.likes}</p><img id="" src="" alt=""/>
-					  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>`: ''}
-					</div>
-				</article>`;
-
-	const div = document.createElement('div');
-	div.innerHTML = postsList;
+				`<div class="post-article post-head border-box">
+					<p class="col-11">Publicado por ${postObject.user}</p>
+					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="border-box btn-icon btn-icon-post col-1" src="../assets/close.png" alt="eliminar-post" />`: ''}
+				</div>
+				<div class="post-article clear">
+				  <textarea id="post-edit-${postObject.id}" class="border-box post-article post-content" disabled=true >${postObject.content}</textarea>
+				</div>
+				<div class="post-article">
+				  <img id="likes-count" class="border-box btn-icon btn-icon-post" src="../assets/heart.png" alt="${postObject.likes} likes" title="${postObject.likes}" />
+				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
+				</div>`;
+	const article = document.createElement('article');
+	article.setAttribute('id', postObject.id);
+	article.classList.add('post-box', 'border');
+	article.innerHTML = postsList;
 	if (user.uid === postObject.userId) {
-	  const deleteBtn = div.querySelector(`#btn-delete-${postObject.id}`);
+	  const deleteBtn = article.querySelector(`#btn-delete-${postObject.id}`);
 	  deleteBtn.addEventListener('click', () => {
 		deletePost(postObject.id)
 	  });
-	  const editBtn = div.querySelector(`#btn-edit-${postObject.id}`);
-  	  const textArea = div.querySelector(`#post-edit-${postObject.id}`);
+	  const editBtn = article.querySelector(`#btn-edit-${postObject.id}`);
+  	  const textArea = article.querySelector(`#post-edit-${postObject.id}`);
   	  editBtn.addEventListener('click', () => {
 		return toggleDisableTextarea(textArea, postObject);
 	  });
 	}
-	return div;
+	return article;
 }
 
 export const toggleDisableTextarea = (textArea, postObject) => {
@@ -75,23 +79,3 @@ export const toggleDisableTextarea = (textArea, postObject) => {
 		return updatePost(postObject.id, textArea.value)
 	}
 }
-
-/*
-export const postListTemplate = (postObject, userUid) => {
-	for (let i = postObject.length - 1; i >= 0; i--) {
-	  const postsList = 
-				`<article id ="">
-					<div>
-					  <h3>Publicado por ${postObject[i].user}</h3>
-					</div>
-					<div>
-					  <textarea id="content-" disabled=true>${postObject[i].content}</textarea>
-					</div>
-					<div>
-					${(userUid === postObject[i].userId) ? `<img id="update-" class="btn-icon" src="../assets/paper-plane.png" alt="editar-post"/>`: ''}
-					</div>
-				</article>`;
-	  document.getElementById('post-list').innerHTML += postsList;
-    }
-}
-*/
