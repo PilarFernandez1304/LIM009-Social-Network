@@ -1,8 +1,16 @@
 import { createPost, getAllPosts, getCurrenUser, updatePost, deletePost } from '../controller/wall.js';
 import changeHash from './utils.js';
-
 export const home = (posts) => {
-	const createPostForm = `<section id="profile-container" class="profile border-box border"><p>Aquí irá el perfil</p></section>
+	let User=getCurrenUser();
+	const createPostForm = `<section id="profile-container" class="profile border-box border">
+        <div class="container-background">
+						<img class="background-profile" src="../assets/coffe-code.jpg"/>
+        </div>
+        <div class="container-user">
+            <img src="${User.photoURL}" class="img-user"/>
+            <p id="inf-user"><strong>${User.displayName}</strong><p>    
+        </div>
+	</section>
 	<div class="posts">
 	<section id="create-post-container" class="post-article post-box border"><form>
 	  <input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />

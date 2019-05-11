@@ -25,8 +25,7 @@ const viewToShow = (routers) => {
     case 'signUp':
       root.appendChild(signUp());
       break;
-    case 'home':
-      
+    case 'home':      
     getAllPosts((posts) =>{
       root.innerHTML = '';
       root.appendChild(head());
