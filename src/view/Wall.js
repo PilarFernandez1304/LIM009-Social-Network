@@ -1,40 +1,50 @@
 import { createPost, getAllPosts, getCurrenUser, updatePost, deletePost } from '../controller/wall.js';
 import changeHash from './utils.js';
 export const home = (posts) => {
-	let User=getCurrenUser();
-	const createPostForm = `<section id="profile-container" class="profile border-box border">
+	let user = getCurrenUser();
+	const content = `
+	<section id="profile-container" class="profile border-box border">
         <div class="container-background">
-						<img class="background-profile" src="../assets/coffe-code.jpg"/>
+			<img class="background-profile" src="../assets/coffe-code.jpg"/>
         </div>
         <div class="container-user">
-            <img src="${User.photoURL}" class="img-user"/>
-            <p id="inf-user"><strong>${User.displayName}</strong><p>    
+            ${user.photoURL === null ? `<img class="img-user" src="../assets/perfil-email.jpg"/>` : `<img class="img-user" src="${user.photoURL}"/>`}
+            <p id="inf-user"><strong>${user.displayName}</strong><p>    
         </div>
 	</section>
-	<div class="posts">
-	<section id="create-post-container" class="post-article post-box border"><form>
-	  <input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
-	  <button id="create-post-btn" type="submit">Compartir</button>
-	</form>
-	</section>
-	<section id="post-list" class="post-article border-box"></section></div>`;
-	const createPostContainer = document.createElement('main');
-	createPostContainer.classList.add('flex-container', 'border-box', 'main-container');
-	createPostContainer.innerHTML = createPostForm;
+	<section class="posts">
+	<div id="post-list" class="post-article border-box"></div>
+	</section>`;
+	const contentContainer = document.createElement('main');
+	contentContainer.classList.add('flex-container', 'border-box', 'main-container');
+	contentContainer.innerHTML = content;
 	getAllPosts(postListTemplate);
-	const createPostBtn = createPostContainer.querySelector('#create-post-btn');
-    createPostBtn.addEventListener('click', createPostOnClick);
-	
-  const wallAll = createPostContainer.querySelector('#post-list');
+    const wallAll = contentContainer.querySelector('#post-list');
+    wallAll.appendChild(createPostTemplate());
     posts.forEach((post) => {
       wallAll.appendChild(postListTemplate(post));    
     });
 
+	return contentContainer;
+}
+
+
+export const createPostTemplate = () => {
+	const createPostContainer = document.createElement('div');
+	createPostContainer.classList.add('post-article', 'post-box', 'border');
+	createPostContainer.setAttribute('id', 'create-post-container');
+	const createPostForm = `
+	<form>
+	  <input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
+	  <button id="create-post-btn" type="submit">Compartir</button>
+	</form>`;
+	createPostContainer.innerHTML = createPostForm;
+	const createPostBtn = createPostContainer.querySelector('#create-post-btn');
+    createPostBtn.addEventListener('click', createPostOnClick);
 	return createPostContainer;
 }
 
 export const createPostOnClick = (event) => {
-
 	event.preventDefault();
 	const formElem = event.target.closest('form')
 	const postDescription = formElem.querySelector('#post-content-input').value;
@@ -42,17 +52,24 @@ export const createPostOnClick = (event) => {
 	const user = getCurrenUser();
 	if (user && postDescription !== '') {
 		document.getElementById('post-list').innerHTML = '';
-		createPost(user.uid, user.email, postDescription, postListTemplate);
+		createPost(user.uid, user.displayName, user.photoURL, postDescription, postListTemplate);
 		formElem.querySelector('#post-content-input').value = '';
 	}
 }
 
 export const postListTemplate = (postObject) => {
 	const user = getCurrenUser();
+	//const date = (postObject.date.toDate()).toString();
+	//const newDate = date.substr(4, date.length - 37);
 	const postsList = 
-				`<div class="post-article post-head border-box">
-					<p class="col-11">Publicado por ${postObject.user}</p>
-					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="border-box btn-icon btn-icon-post col-1" src="../assets/close.png" alt="eliminar-post" />`: ''}
+				`<div class="post-article post-head border-box bg-green">
+					<div class="col-2">
+					${postObject.userPhoto === null ? `<img class="round-image text-center" src="../assets/perfil-email.jpg"/>` : `<img class="round-image clear" src="${postObject.userPhoto}"/>`}
+					</div>
+					<p class="col-9">Publicado por ${postObject.user}</p>
+					<div class="col-1">
+					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="border-box btn-icon btn-icon-post col-1 bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
+					</div>
 				</div>
 				<div class="post-article clear">
 				  <textarea id="post-edit-${postObject.id}" class="border-box post-article post-content" disabled=true >${postObject.content}</textarea>

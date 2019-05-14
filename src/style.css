@@ -15,13 +15,37 @@ body {
 	align-items: center;
 }
 
-.col-11 {
-	width: 91.6666%;
+.col-10 {
+	width: 83.3333%;
 	float: left;
 }
+
+.col-9 {
+	width: 75%;
+	float: left;
+}
+
+.col-3 {
+	width: 25%;
+	float: left;
+}
+
+.col-2 {
+	width: 16.6666%;
+	float: left;
+}
+
 .col-1 {
 	width: 8.3333%;
 	float: left;
+}
+
+.float-left {
+	float: left;
+}
+
+.clear {
+	clear: both;
 }
 
 .main-container {
@@ -32,6 +56,7 @@ body {
 .text-center {
 	text-align: center;
 }
+
 .content {
 	margin-bottom: 25px;
 }
@@ -62,9 +87,16 @@ body {
 
 .btn-icon-post {
 	width: 20px;
-	background-color: #00c89b;
+	margin-top: 10px;
 	color: #fff;
 	padding: 4px;
+}
+
+.btn-menu {
+	width: 40px;
+	height: 30px;
+	border: 1px solid #fff;
+	margin: 10px 0px 10px 10px;
 }
 
 .login-form-container {
@@ -103,7 +135,6 @@ body {
 
 .post-head {
 	height: 40px;
-	background-color: #00c89b;
 	color: #fff;
 }
 
@@ -117,7 +148,7 @@ body {
 }
 
 .profile {
-	width: 100vw;
+	width: 100%;
 	height: 120px;
 	margin-bottom: 20px;
 }
@@ -130,33 +161,40 @@ body {
 	border: 1px solid #00c89b;
 }
 /*cabecera*/
-.container-head{
-	width: 100vw;
-	height: 10vh;
-	margin-bottom: 1.5rem;
+.container-head, .mobile-navbar{
+	width: 100%;
+	height: 50px;
+	margin: 0;
 }
-.container-header{
-	width: 100vw;
-	height: 10vh;
+
+.bg-green {
 	background-color: #00c89b;
 }
 
 .navbar{
-	width: 100vw;
-	height: 10vh;
-	display: flex;
+	width: 100%;
+	height: 50px;
+	margin: 0;
+	display: none;
 	justify-content: space-between;
 	align-items: center;
 }
+
 .img-header-logo{
 	width: 18vw;
 	height: 15vh;
 }
 
-a{
-	margin:0 2.5rem;
+header a {
+	display: inline-block;
 	text-decoration: none;
-	color: black;
+	color: #fff;
+	padding: 10px 0px;
+}
+
+header img {
+	display: inline-block;
+	margin-top: 10px;
 }
 .icon-rout-profile{
 	width: 15px;
@@ -179,16 +217,19 @@ a{
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
-
-
 }
+
 .img-user{
 	width: 60px;
 	height: 60px;
 	border-radius: 5rem;
 }
-div{
-	display:block;
+
+.round-image {
+	width: 35px;
+	height: auto;
+	border-radius: 50%;
+	margin: 2px auto;
 }
 
 @media screen and (min-width: 720px) {
@@ -213,5 +254,13 @@ div{
   
   .main-container {
   	align-items: flex-start;
+  }
+
+  .mobile-navbar {
+ 	display: none;
+  }
+
+  .navbar {
+  	display: flex;
   }
 }

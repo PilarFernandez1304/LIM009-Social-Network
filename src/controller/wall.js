@@ -1,13 +1,15 @@
 export const getCurrenUser = () => {
 	return firebase.auth().currentUser;
 }
-export const createPost = (uid, userName, contentText, callback) => {
+export const createPost = (uid, userName,userPhoto, contentText, callback) => {
 	firebase.firestore().collection('posts').add({
+    userId: uid,
     user: userName,
+    userPhoto: userPhoto,
     content: contentText,
     likes: 0,
-    userId: uid,
-    // state: privacy
+    date: firebase.firestore.FieldValue.serverTimestamp(),
+    //state: privacy
 })
 .then((response) => getAllPosts(callback))
 .catch((error) => console.error("Error creando el post: ", error));
@@ -15,6 +17,7 @@ export const createPost = (uid, userName, contentText, callback) => {
 } 
 export const getAllPosts = (callback) => {
     firebase.firestore().collection('posts')
+    .orderBy('date', 'desc')
     .onSnapshot((querySnapshot) => {
         let data = [];
         querySnapshot.forEach((doc) => {

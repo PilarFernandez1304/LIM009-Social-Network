@@ -1,8 +1,8 @@
 import { logIn } from './view/Login.js';
 import { signUp } from './view/Signup.js';
 import { home } from './view/Wall.js';
-import  head from './view/header.js'
-import profi from './view/Profile.js'
+import { navBar } from './view/Navbar.js'
+import profile from './view/Profile.js'
 import { getAllPosts } from './controller/wall.js';
 
 
@@ -28,13 +28,13 @@ const viewToShow = (routers) => {
     case 'home':      
     getAllPosts((posts) =>{
       root.innerHTML = '';
-      root.appendChild(head());
+      root.appendChild(navBar());
       root.appendChild(home(posts));
     })
       break;
     case 'profile':
-      root.appendChild(head());
-      root.appendChild(profi());
+      root.appendChild(navBar());
+      root.appendChild(profile());
       break;
     default:
       root.appendChild(logIn());
