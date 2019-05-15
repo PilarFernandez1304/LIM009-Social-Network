@@ -89,6 +89,9 @@ export const postListTemplate = (postObject) => {
 				<div class="post-article">
 				  <img id="likes-count" class="border-box btn-icon btn-icon-post" src="../assets/heart.png" alt="${postObject.likes} likes" title="${postObject.likes}" />
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
+				  <select id="edit-privacy-${postObject.id}" disabled="true">
+				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
+	  			  </select>
 				</div>`;
 	const article = document.createElement('article');
 	article.setAttribute('id', postObject.id);
@@ -101,18 +104,21 @@ export const postListTemplate = (postObject) => {
 	  });
 	  const editBtn = article.querySelector(`#btn-edit-${postObject.id}`);
   	  const textArea = article.querySelector(`#post-edit-${postObject.id}`);
+  	  const select = article.querySelector(`#edit-privacy-${postObject.id}`);
   	  editBtn.addEventListener('click', () => {
-		return toggleDisableTextarea(textArea, postObject);
+		return toggleDisableTextarea(textArea, select, postObject);
 	  });
 	}
 	return article;
 }
 
-export const toggleDisableTextarea = (textArea, postObject) => {
-	if (textArea.disabled) {
-		textArea.disabled = false
+export const toggleDisableTextarea = (textArea, select, postObject) => {
+	if (textArea.disabled && select.disabled) {
+		textArea.disabled = false;
+		select.disabled = false;
 	} else {
 		textArea.disabled = true; 
-		return updatePost(postObject.id, textArea.value)
+		select.disabled = true;
+		return updatePost(postObject.id, textArea.value, select.value)
 	}
 }

@@ -43,10 +43,11 @@ export const getPublicPosts = (callback) => {
 
 }
 
-export const updatePost = (idPost, content) => { 
+export const updatePost = (idPost, content, privacy) => { 
     let refPost = firebase.firestore().collection('posts').doc(idPost);
     return refPost.update({
     content: content,
+    state: privacy
     })
     .then(function() {
         console.log("Document successfully updated!");

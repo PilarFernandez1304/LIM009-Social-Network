@@ -3,7 +3,7 @@ mockauth.autoFlush();
 
 global.firebase = mocksdk;
 
-import { emailLogIn, authFacebook, authGmail } from '../src/controller/login.js';
+import { emailLogIn, authFacebook, authGmail, signInAnonimous, logOut } from '../src/controller/login.js';
 
 describe('emailLogIn', () => {
 	it('Debería ser una función', () => {
@@ -39,6 +39,30 @@ describe('authGmail', () => {
 		return authGmail().then((data) => {
 			expect(mockauth.getAuth().isAnonymous).toBe(false);
 			expect(mockauth.getAuth().providerData).toEqual(expect.arrayContaining(expected));
+		});
+	});
+});
+
+describe('signInAnonimous', () => {
+	it('Debería ser una función', () => {
+		expect(typeof signInAnonimous).toBe('function');
+	})
+	it('Debería iniciar sesión anónimamente', () => {
+		return signInAnonimous().then((data) => {
+			expect(mockauth.getAuth().isAnonymous).toBe(true);
+		});
+	});
+});
+
+describe('logOut', () => {
+	it('Debería ser una función', () => {
+		expect(typeof logOut).toBe('function');
+	})
+	it('Debería cerrar sesión', () => {
+		return authGmail()
+		.then(() => logOut())
+		.then((data) => {
+			expect(mockauth.getAuth()).toBe(null);
 		});
 	});
 });
