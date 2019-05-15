@@ -42,7 +42,7 @@ export const logIn = () => {
           <img id="log-in-gmail" class="btn-icon" src="../assets/btn-login-google.png" alt="google-login-button" />
         </div>
       </form>
-      <p class="text-center">¿No tienes una cuenta? <a  class="links" href="#/signUp" title="link de registro">Regístrate</a></p>
+      <p class="text-center">¿No tienes una cuenta? <a class="links" href="#/signUp" title="link de registro">Regístrate</a></p>
     </div>
   </div>`;
   let div = document.createElement('div');

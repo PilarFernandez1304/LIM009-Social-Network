@@ -1,8 +1,10 @@
-import { createPost, getAllPosts, getCurrenUser, updatePost, deletePost } from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, getCurrenUser, updatePost, deletePost } from '../controller/wall.js';
 import changeHash from './utils.js';
 export const home = (posts) => {
 	let user = getCurrenUser();
-	const content = `
+	let content;
+  if (!user.isAnonymous) {
+	content = `
 	<section id="profile-container" class="profile border-box border">
         <div class="container-background">
 			<img class="background-profile" src="../assets/coffe-code.jpg"/>
@@ -15,19 +17,25 @@ export const home = (posts) => {
 	<section class="posts">
 	<div id="post-list" class="post-article border-box"></div>
 	</section>`;
-	const contentContainer = document.createElement('main');
+	
+  } else {
+  	content = `
+  	<a href="#/signUp" title="link de registro">Registrarse</a>
+	<section class="posts">
+	<div id="post-list" class="post-article border-box"></div>
+	</section>`;
+  }
+  const contentContainer = document.createElement('main');
 	contentContainer.classList.add('flex-container', 'border-box', 'main-container');
 	contentContainer.innerHTML = content;
-	getAllPosts(postListTemplate);
     const wallAll = contentContainer.querySelector('#post-list');
-    wallAll.appendChild(createPostTemplate());
+    if (!user.isAnonymous) {wallAll.appendChild(createPostTemplate())};
     posts.forEach((post) => {
       wallAll.appendChild(postListTemplate(post));    
     });
 
 	return contentContainer;
 }
-
 
 export const createPostTemplate = () => {
 	const createPostContainer = document.createElement('div');

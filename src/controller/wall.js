@@ -23,10 +23,25 @@ export const getAllPosts = (callback) => {
         querySnapshot.forEach((doc) => {
           data.push({ id: doc.id, ...doc.data() })
         });
-        callback(data);
+        return callback(data);
       }); 
     }
 
+export const getPublicPosts = (callback) => {
+    firebase.firestore().collection('posts').where("state", "==", "public")
+    .get()
+    .then(function(querySnapshot) {
+        let data = [];
+        querySnapshot.forEach(function(doc) {
+            data.push({ id: doc.id, ...doc.data() })
+        });
+        callback(data);
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+}
 
 export const updatePost = (idPost, content) => { 
     let refPost = firebase.firestore().collection('posts').doc(idPost);
