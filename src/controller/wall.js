@@ -1,7 +1,7 @@
 export const getCurrenUser = () => {
 	return firebase.auth().currentUser;
 }
-export const createPost = (uid, userName,userPhoto, contentText, callback) => {
+export const createPost = (uid, userName,userPhoto, contentText, privacy, callback) => {
 	firebase.firestore().collection('posts').add({
     userId: uid,
     user: userName,
@@ -9,7 +9,7 @@ export const createPost = (uid, userName,userPhoto, contentText, callback) => {
     content: contentText,
     likes: 0,
     date: firebase.firestore.FieldValue.serverTimestamp(),
-    //state: privacy
+    state: privacy
 })
 .then((response) => getAllPosts(callback))
 .catch((error) => console.error("Error creando el post: ", error));
@@ -23,10 +23,25 @@ export const getAllPosts = (callback) => {
         querySnapshot.forEach((doc) => {
           data.push({ id: doc.id, ...doc.data() })
         });
-        callback(data);
+        return callback(data);
       }); 
     }
 
+export const getPublicPosts = (callback) => {
+    firebase.firestore().collection('posts').where("state", "==", "public")
+    .get()
+    .then(function(querySnapshot) {
+        let data = [];
+        querySnapshot.forEach(function(doc) {
+            data.push({ id: doc.id, ...doc.data() })
+        });
+        callback(data);
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+}
 
 export const updatePost = (idPost, content) => { 
     let refPost = firebase.firestore().collection('posts').doc(idPost);
