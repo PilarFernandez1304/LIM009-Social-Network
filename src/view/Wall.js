@@ -36,6 +36,10 @@ export const createPostTemplate = () => {
 	const createPostForm = `
 	<form>
 	  <input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
+	  <select id="post-privacy-select">
+  		<option value="public">Public</option>
+  		<option value="private">Private</option>
+	  </select>
 	  <button id="create-post-btn" type="submit">Compartir</button>
 	</form>`;
 	createPostContainer.innerHTML = createPostForm;
@@ -48,11 +52,11 @@ export const createPostOnClick = (event) => {
 	event.preventDefault();
 	const formElem = event.target.closest('form')
 	const postDescription = formElem.querySelector('#post-content-input').value;
-	//const privacy = formElem.querySelector('#privacy-choice').value;
+	const postPrivacy = formElem.querySelector('#post-privacy-select').value;
 	const user = getCurrenUser();
 	if (user && postDescription !== '') {
 		document.getElementById('post-list').innerHTML = '';
-		createPost(user.uid, user.displayName, user.photoURL, postDescription, postListTemplate);
+		createPost(user.uid, user.displayName, user.photoURL, postDescription, postPrivacy, postListTemplate);
 		formElem.querySelector('#post-content-input').value = '';
 	}
 }
