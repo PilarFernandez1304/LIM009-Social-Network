@@ -1,4 +1,3 @@
-
 export const emailLogIn = (email, password) => 
 firebase.auth().signInWithEmailAndPassword(email, password);
 
@@ -16,4 +15,8 @@ export const signInAnonimous = () => firebase.auth().signInAnonymously();
 
 export const logOut = () => {
   return firebase.auth().signOut();
+}
+
+export const getCurrenUser = () => {
+	return firebase.auth().currentUser;
 }

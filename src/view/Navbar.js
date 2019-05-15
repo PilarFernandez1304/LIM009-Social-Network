@@ -1,5 +1,4 @@
-import { getCurrenUser } from '../controller/wall.js'
-import { logOut } from "../controller/login.js";
+import { logOut, getCurrenUser } from "../controller/login.js";
 import changeHash from './utils.js';
 
 export const navBar = () => {

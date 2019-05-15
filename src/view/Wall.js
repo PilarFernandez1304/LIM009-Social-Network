@@ -1,5 +1,7 @@
-import { createPost, getAllPosts, getPublicPosts, getCurrenUser, updatePost, deletePost } from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost } from '../controller/wall.js';
+import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
+
 export const home = (posts) => {
 	let user = getCurrenUser();
 	let content;
@@ -64,7 +66,8 @@ export const createPostOnClick = (event) => {
 	const user = getCurrenUser();
 	if (user && postDescription !== '') {
 		document.getElementById('post-list').innerHTML = '';
-		createPost(user.uid, user.displayName, user.photoURL, postDescription, postPrivacy, postListTemplate);
+		createPost(user.uid, user.displayName, user.photoURL, postDescription, postPrivacy)
+		.then((response) => getAllPosts(postListTemplate));
 		formElem.querySelector('#post-content-input').value = '';
 	}
 }
