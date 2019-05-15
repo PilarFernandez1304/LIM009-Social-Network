@@ -31,10 +31,6 @@ export const getPublicPosts = (callback) => {
         });
         callback(data);
     })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
-
 }
 
 export const updatePost = (idPost, content, privacy) => { 
