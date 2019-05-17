@@ -1,7 +1,8 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost } from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage } from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
+let postImage;
 export const home = (posts) => {
 	let user = getCurrenUser();
 	let content;
@@ -46,13 +47,20 @@ export const createPostTemplate = () => {
 	const createPostForm = `
 	<form>
 	  <input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
+	  <img id="btn-upload-image" class="border-box btn-icon bg-green" src="../assets/image.png" alt="subir-imagen" title="subir imagen" />
 	  <select id="post-privacy-select">
   		<option value="public">Public</option>
   		<option value="private">Private</option>
 	  </select>
+	  <input id="input-file" class="none" type="file" />
 	  <button id="create-post-btn" type="submit">Compartir</button>
 	</form>`;
 	createPostContainer.innerHTML = createPostForm;
+	postImage = createPostContainer.querySelector('#input-file');
+	const uploadImageBtn = createPostContainer.querySelector('#btn-upload-image');
+	uploadImageBtn.addEventListener('click', () => {
+		postImage.classList.remove('none');
+	});    
 	const createPostBtn = createPostContainer.querySelector('#create-post-btn');
     createPostBtn.addEventListener('click', createPostOnClick);
 	return createPostContainer;
@@ -66,16 +74,22 @@ export const createPostOnClick = (event) => {
 	const user = getCurrenUser();
 	if (user && postDescription !== '') {
 		document.getElementById('post-list').innerHTML = '';
+		if (postImage.files[0] == undefined) {
 		createPost(user.uid, user.displayName, user.photoURL, postDescription, postPrivacy)
 		.then((response) => getAllPosts(postListTemplate));
+	    } else {
+	    	const date = new Date().toString();
+	    	console.log(date);
+	    	uploadImage(date, postImage.files[0])
+	    	.then((url) => createPost(user.uid, user.displayName, user.photoURL, postDescription, postPrivacy, url))
+	    	.then((response) => getAllPosts(postListTemplate));
+	    }
 		formElem.querySelector('#post-content-input').value = '';
 	}
 }
 
 export const postListTemplate = (postObject) => {
 	const user = getCurrenUser();
-	//const date = (postObject.date.toDate()).toString();
-	//const newDate = date.substr(4, date.length - 37);
 	const postsList = 
 				`<div class="post-article post-head border-box bg-green">
 					<div class="col-2">
@@ -88,6 +102,7 @@ export const postListTemplate = (postObject) => {
 				</div>
 				<div class="post-article clear">
 				  <textarea id="post-edit-${postObject.id}" class="border-box post-article post-content" disabled=true >${postObject.content}</textarea>
+				  ${(postObject.image !== '') ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
 				<div class="post-article">
 				  <img id="likes-count" class="border-box btn-icon btn-icon-post" src="../assets/heart.png" alt="${postObject.likes} likes" title="${postObject.likes}" />

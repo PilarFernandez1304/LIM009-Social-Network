@@ -1,4 +1,4 @@
-export const createPost = (uid, userName,userPhoto, contentText, privacy) => {
+export const createPost = (uid, userName,userPhoto, contentText, privacy, postImage = "") => {
   return firebase.firestore().collection('posts').add({
     userId: uid,
     user: userName,
@@ -6,7 +6,8 @@ export const createPost = (uid, userName,userPhoto, contentText, privacy) => {
     content: contentText,
     likes: 0,
     date: new Date(),
-    state: privacy
+    state: privacy, 
+    image: postImage 
   })
 } 
 export const getAllPosts = (callback) => {
@@ -43,3 +44,11 @@ export const updatePost = (idPost, content, privacy) => {
 
 
 export const deletePost = (idPost) => firebase.firestore().collection('posts').doc(idPost).delete();
+
+export const uploadImage = (date, image) => {
+    const storageRef = firebase.storage().ref();
+    const postImageRef = storageRef.child(`images/${date}-${image.name}`);
+    const metadata = { contentType: image.type };
+    return postImageRef.put(image, metadata)
+    .then(snapshot => snapshot.ref.getDownloadURL());
+}
