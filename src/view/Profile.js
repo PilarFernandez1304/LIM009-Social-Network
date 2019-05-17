@@ -1,4 +1,4 @@
-import { getCurrenUser } from '../controller/wall.js'
+import { getCurrenUser } from '../controller/login.js'
 
 export default () => {
     const user = getCurrenUser();

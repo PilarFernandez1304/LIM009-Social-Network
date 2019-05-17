@@ -15,6 +15,17 @@ body {
 	align-items: center;
 }
 
+.none {
+	display: none;
+}
+
+.image-post {
+	display: block;
+	margin: 5px auto;
+	height: 150px;
+	width: auto;
+}
+
 .col-10 {
 	width: 83.3333%;
 	float: left;
@@ -124,7 +135,7 @@ body {
 
 .post-box {
 	margin-bottom: 20px;
-	height: 18vh;
+	min-height: 120px;
 	font-size: 0.7rem;
 }
 
@@ -134,17 +145,19 @@ body {
 	margin-top: 0px;
 }
 
+.post-article textarea {
+	border: none;
+	background-color: #fff;
+}
+
 .post-head {
 	height: 50px;	
 	color: #fff;
 }
 
 .post-content {
-	height: 60px;
-	border-bottom: 1px solid #00c89b;
-	border-top: none;
-	border-left: none;
-	border-right: none;
+	height: auto;
+	border: 1px solid #00c89b;
 	background-color: #fff;
 }
 

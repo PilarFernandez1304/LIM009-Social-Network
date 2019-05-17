@@ -1,4 +1,5 @@
 import register from '../controller/signup.js';
+import { authFacebook, authGmail } from '../controller/login.js';
 import changeHash from './utils.js';
 
 export const signUpOnClick = () => {
@@ -52,6 +53,22 @@ export const signUp = () => {
   div.innerHTML = form;
   const signUpBtn = div.querySelector('#sign-in-btn')
   signUpBtn.addEventListener('click', signUpOnClick);
+
+  const facebookLogInBtn = div.querySelector('#log-in-fb');
+  facebookLogInBtn.addEventListener('click', () => {
+    authFacebook()
+    .then((result) =>{
+     changeHash('#/home')
+    })
+    .catch(() => {})
+  });
+  
+  const googleLogInBtn = div.querySelector('#log-in-gmail');
+  googleLogInBtn.addEventListener('click', () => authGmail()
+    .then(() => changeHash('#/home'))
+    .catch(() => {})
+    );
+  
   return div;
 }
 
