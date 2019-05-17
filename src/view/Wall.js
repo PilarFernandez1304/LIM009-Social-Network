@@ -8,7 +8,7 @@ export const home = (posts) => {
 	let content;
   if (!user.isAnonymous) {
 	content = `
-	<section id="profile-container" class="profile border-box border">
+	<section id="profile-container" class="profile border-box">
         <div class="container-background">
 			<img class="background-profile" src="../assets/coffe-code.jpg"/>
         </div>
@@ -18,13 +18,13 @@ export const home = (posts) => {
         </div>
 	</section>
 	<section class="posts">
-	<div id="post-list" class="post-article border-box"></div>
+	<div id="post-list" class="post-list post-article border-box"></div>
 	</section>`;
 	
   } else {
   	content = `
-  	<a href="#/signUp" title="link de registro">Registrarse</a>
-	<section class="posts">
+  	<a href="#/login" title="link de iniciar sesion">Iniciar Sesión</a>
+	<section class="posts post-list">
 	<div id="post-list" class="post-article border-box"></div>
 	</section>`;
   }
@@ -46,14 +46,16 @@ export const createPostTemplate = () => {
 	createPostContainer.setAttribute('id', 'create-post-container');
 	const createPostForm = `
 	<form>
-	  <input id="post-content-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
-	  <img id="btn-upload-image" class="border-box btn-icon bg-green" src="../assets/image.png" alt="subir-imagen" title="subir imagen" />
-	  <select id="post-privacy-select">
+	  <input id="post-content-input" class="block post-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
+	  <div class="btn-post-input">
+	  <img id="btn-upload-image" class="block border-box btn-icon-post bg-green" src="../assets/image.png" alt="subir-imagen" title="subir imagen" />
+	  <select id="post-privacy-select" class="block select bg-green color-white border-none">
   		<option value="public">Public</option>
   		<option value="private">Private</option>
 	  </select>
-	  <input id="input-file" class="none" type="file" />
-	  <button id="create-post-btn" type="submit">Compartir</button>
+	  <button id="create-post-btn" type="submit" class="block btn-share bg-green color-white">Compartir</button>
+	  </div>
+	  <input id="input-file" class="none" type="file" accept="image/*" />
 	</form>`;
 	createPostContainer.innerHTML = createPostForm;
 	postImage = createPostContainer.querySelector('#input-file');
@@ -97,17 +99,17 @@ export const postListTemplate = (postObject) => {
 					</div>
 					<p class="col-9">Publicado por ${postObject.user}</p>
 					<div class="col-1">
-					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="border-box btn-icon btn-icon-post col-1 bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
+					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="block border-box btn-delete col-1 bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
 					</div>
 				</div>
 				<div class="post-content clear">
-				  <textarea id="post-edit-${postObject.id}" class="border-box post-article" disabled=true>${postObject.content}</textarea>
+				  <textarea id="post-edit-${postObject.id}" class="border-box post-article textarea" disabled=true>${postObject.content}</textarea>
 				  ${(postObject.image !== undefined && postObject.image !== null) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
-				<div class="post-article">
-				  <img id="likes-count" class="border-box btn-icon btn-icon-post" src="../assets/heart.png" alt="${postObject.likes} likes" title="${postObject.likes}" />
-				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
-				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" disabled="true">
+				<div class="post-article bg-light-green post-footer border-box">
+				  <img id="likes-count" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt="${postObject.likes} likes" title="${postObject.likes}" />
+				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
+				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true">
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
 	  			  </select>` : ``}
 				</div>`;
@@ -124,17 +126,19 @@ export const postListTemplate = (postObject) => {
   	  const textArea = article.querySelector(`#post-edit-${postObject.id}`);
   	  const select = article.querySelector(`#edit-privacy-${postObject.id}`);
   	  editBtn.addEventListener('click', () => {
-		return toggleDisableTextarea(textArea, select, postObject);
+		return toggleDisableTextarea(textArea, select, postObject, editBtn);
 	  });
 	}
 	return article;
 }
 
-export const toggleDisableTextarea = (textArea, select, postObject) => {
+export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 	if (textArea.disabled && select.disabled) {
+		btn.src = "../assets/save.png";
 		textArea.disabled = false;
 		select.disabled = false;
 	} else {
+		btn.src = "../assets/paper-plane.png";
 		textArea.disabled = true;
 		select.disabled = true;
 		return updatePost(postObject.id, textArea.value, select.value)
