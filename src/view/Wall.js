@@ -102,7 +102,7 @@ export const postListTemplate = (postObject) => {
 				</div>
 				<div class="post-content clear">
 				  <textarea id="post-edit-${postObject.id}" class="border-box post-article" disabled=true>${postObject.content}</textarea>
-				  ${(postObject.image !== undefined) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
+				  ${(postObject.image !== undefined && postObject.image !== null) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
 				<div class="post-article">
 				  <img id="likes-count" class="border-box btn-icon btn-icon-post" src="../assets/heart.png" alt="${postObject.likes} likes" title="${postObject.likes}" />

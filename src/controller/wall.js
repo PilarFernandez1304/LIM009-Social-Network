@@ -1,4 +1,4 @@
-export const createPost = (uid, userName,userPhoto, contentText, privacy, postImage = "") => {
+export const createPost = (uid, userName,userPhoto, contentText, privacy, postImage = null) => {
   return firebase.firestore().collection('posts').add({
     userId: uid,
     user: userName,
