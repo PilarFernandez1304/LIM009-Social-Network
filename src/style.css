@@ -20,6 +20,8 @@ body {
 }
 
 .image-post {
+	display: block;
+	margin: 5px auto;
 	height: 150px;
 	width: auto;
 }
@@ -28,12 +30,6 @@ body {
 	width: 83.3333%;
 	float: left;
 }
-
-usuario y password de tu laptop
-
-
-user valor
-pass ceroday
 
 .col-9 {
 	width: 75%;
@@ -139,7 +135,7 @@ pass ceroday
 
 .post-box {
 	margin-bottom: 20px;
-	height: 120px;
+	min-height: 120px;
 	font-size: 0.7rem;
 }
 
@@ -148,17 +144,19 @@ pass ceroday
 	margin-top: 0px;
 }
 
+.post-article textarea {
+	border: none;
+	background-color: #fff;
+}
+
 .post-head {
 	height: 40px;
 	color: #fff;
 }
 
 .post-content {
-	height: 40px;
-	border-bottom: 1px solid #00c89b;
-	border-top: none;
-	border-left: none;
-	border-right: none;
+	height: auto;
+	border: 1px solid #00c89b;
 	background-color: #fff;
 }
 

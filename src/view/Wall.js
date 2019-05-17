@@ -100,16 +100,16 @@ export const postListTemplate = (postObject) => {
 					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="border-box btn-icon btn-icon-post col-1 bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
 					</div>
 				</div>
-				<div class="post-article clear">
-				  <textarea id="post-edit-${postObject.id}" class="border-box post-article post-content" disabled=true >${postObject.content}</textarea>
-				  ${(postObject.image !== '') ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
+				<div class="post-content clear">
+				  <textarea id="post-edit-${postObject.id}" class="border-box post-article" disabled=true>${postObject.content}</textarea>
+				  ${(postObject.image !== undefined) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
 				<div class="post-article">
 				  <img id="likes-count" class="border-box btn-icon btn-icon-post" src="../assets/heart.png" alt="${postObject.likes} likes" title="${postObject.likes}" />
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
-				  <select id="edit-privacy-${postObject.id}" disabled="true">
+				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" disabled="true">
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
-	  			  </select>
+	  			  </select>` : ``}
 				</div>`;
 	const article = document.createElement('article');
 	article.setAttribute('id', postObject.id);
@@ -135,7 +135,7 @@ export const toggleDisableTextarea = (textArea, select, postObject) => {
 		textArea.disabled = false;
 		select.disabled = false;
 	} else {
-		textArea.disabled = true; 
+		textArea.disabled = true;
 		select.disabled = true;
 		return updatePost(postObject.id, textArea.value, select.value)
 	}
