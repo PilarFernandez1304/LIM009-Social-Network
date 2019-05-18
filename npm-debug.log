@@ -1,0 +1,427 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'lite',
+1 verbose cli   '-server',
+1 verbose cli   '-g' ]
+2 info using npm@3.5.2
+3 info using node@v8.10.0
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData lite
+8 silly fetchNamedPackageData lite
+9 silly mapToRegistry name lite
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry uri https://registry.npmjs.org/lite
+13 verbose request uri https://registry.npmjs.org/lite
+14 verbose request no auth needed
+15 info attempt registry request try #1 at 08:48:47
+16 verbose request id c47bdaa918a224a9
+17 verbose etag W/"28dfc42ce5ae56c0b4de385b127d31c7"
+18 verbose lastModified Sun, 27 May 2018 06:50:54 GMT
+19 http request GET https://registry.npmjs.org/lite
+20 http 304 https://registry.npmjs.org/lite
+21 verbose headers { date: 'Thu, 09 May 2019 13:48:48 GMT',
+21 verbose headers   connection: 'keep-alive',
+21 verbose headers   'set-cookie':
+21 verbose headers    [ '__cfduid=dbb08a495facaee476e4b40926550ec2a1557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+21 verbose headers   'cf-cache-status': 'HIT',
+21 verbose headers   'cache-control': 'max-age=300',
+21 verbose headers   'cf-ray': '4d44220ffc397d55-LIM',
+21 verbose headers   etag: '"28dfc42ce5ae56c0b4de385b127d31c7"',
+21 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+21 verbose headers   'last-modified': 'Sun, 27 May 2018 06:50:54 GMT',
+21 verbose headers   vary: 'accept-encoding, accept',
+21 verbose headers   server: 'cloudflare' }
+22 silly get cb [ 304,
+22 silly get   { date: 'Thu, 09 May 2019 13:48:48 GMT',
+22 silly get     connection: 'keep-alive',
+22 silly get     'set-cookie':
+22 silly get      [ '__cfduid=dbb08a495facaee476e4b40926550ec2a1557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+22 silly get     'cf-cache-status': 'HIT',
+22 silly get     'cache-control': 'max-age=300',
+22 silly get     'cf-ray': '4d44220ffc397d55-LIM',
+22 silly get     etag: '"28dfc42ce5ae56c0b4de385b127d31c7"',
+22 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+22 silly get     'last-modified': 'Sun, 27 May 2018 06:50:54 GMT',
+22 silly get     vary: 'accept-encoding, accept',
+22 silly get     server: 'cloudflare' } ]
+23 verbose etag https://registry.npmjs.org/lite from cache
+24 verbose get saving lite to /home/judith-c-q-i/.npm/registry.npmjs.org/lite/.cache.json
+25 silly install normalizeTree
+26 silly loadCurrentTree Finishing
+27 silly loadIdealTree Starting
+28 silly install loadIdealTree
+29 silly cloneCurrentTree Starting
+30 silly install cloneCurrentTreeToIdealTree
+31 silly cloneCurrentTree Finishing
+32 silly loadShrinkwrap Starting
+33 silly install loadShrinkwrap
+34 silly loadShrinkwrap Finishing
+35 silly loadAllDepsIntoIdealTree Starting
+36 silly install loadAllDepsIntoIdealTree
+37 silly resolveWithNewModule lite@4.0.5 checking installable status
+38 silly cache add args [ 'lite', null ]
+39 verbose cache add spec lite
+40 silly cache add parsed spec Result {
+40 silly cache add   raw: 'lite',
+40 silly cache add   scope: null,
+40 silly cache add   name: 'lite',
+40 silly cache add   rawSpec: '',
+40 silly cache add   spec: 'latest',
+40 silly cache add   type: 'tag' }
+41 silly addNamed lite@latest
+42 verbose addNamed "latest" is being treated as a dist-tag for lite
+43 info addNameTag [ 'lite', 'latest' ]
+44 silly mapToRegistry name lite
+45 silly mapToRegistry using default registry
+46 silly mapToRegistry registry https://registry.npmjs.org/
+47 silly mapToRegistry uri https://registry.npmjs.org/lite
+48 verbose addNameTag registry:https://registry.npmjs.org/lite not in flight; fetching
+49 verbose get https://registry.npmjs.org/lite not expired, no request
+50 silly addNameTag next cb for lite with tag latest
+51 silly addNamed lite@4.0.5
+52 verbose addNamed "4.0.5" is a plain semver version for lite
+53 silly cache afterAdd lite@4.0.5
+54 verbose afterAdd /home/judith-c-q-i/.npm/lite/4.0.5/package/package.json not in flight; writing
+55 verbose afterAdd /home/judith-c-q-i/.npm/lite/4.0.5/package/package.json written
+56 silly fetchNamedPackageData js-el
+57 silly mapToRegistry name js-el
+58 silly mapToRegistry using default registry
+59 silly mapToRegistry registry https://registry.npmjs.org/
+60 silly mapToRegistry uri https://registry.npmjs.org/js-el
+61 silly fetchNamedPackageData xmldom
+62 silly mapToRegistry name xmldom
+63 silly mapToRegistry using default registry
+64 silly mapToRegistry registry https://registry.npmjs.org/
+65 silly mapToRegistry uri https://registry.npmjs.org/xmldom
+66 silly fetchNamedPackageData xpath.js
+67 silly mapToRegistry name xpath.js
+68 silly mapToRegistry using default registry
+69 silly mapToRegistry registry https://registry.npmjs.org/
+70 silly mapToRegistry uri https://registry.npmjs.org/xpath.js
+71 silly fetchNamedPackageData asf
+72 silly mapToRegistry name asf
+73 silly mapToRegistry using default registry
+74 silly mapToRegistry registry https://registry.npmjs.org/
+75 silly mapToRegistry uri https://registry.npmjs.org/asf
+76 verbose request uri https://registry.npmjs.org/js-el
+77 verbose request no auth needed
+78 info attempt registry request try #1 at 08:48:48
+79 verbose etag W/"64cb20ca9dddab9c155ab1474ac893f2"
+80 verbose lastModified Sun, 27 May 2018 05:32:04 GMT
+81 http request GET https://registry.npmjs.org/js-el
+82 verbose request uri https://registry.npmjs.org/xmldom
+83 verbose request no auth needed
+84 info attempt registry request try #1 at 08:48:48
+85 verbose etag W/"cf272e7104c0280d193e81061dda57ab"
+86 verbose lastModified Thu, 28 Jun 2018 07:02:10 GMT
+87 http request GET https://registry.npmjs.org/xmldom
+88 verbose request uri https://registry.npmjs.org/xpath.js
+89 verbose request no auth needed
+90 info attempt registry request try #1 at 08:48:48
+91 verbose etag W/"4e65783befb4702c7cd915943532107b"
+92 verbose lastModified Sat, 25 Aug 2018 13:28:48 GMT
+93 http request GET https://registry.npmjs.org/xpath.js
+94 verbose request uri https://registry.npmjs.org/asf
+95 verbose request no auth needed
+96 info attempt registry request try #1 at 08:48:48
+97 verbose etag W/"cf32a411d893bd13c47e2dfa4ee5888a"
+98 verbose lastModified Sat, 26 May 2018 17:26:05 GMT
+99 http request GET https://registry.npmjs.org/asf
+100 http 304 https://registry.npmjs.org/js-el
+101 verbose headers { date: 'Thu, 09 May 2019 13:48:48 GMT',
+101 verbose headers   connection: 'keep-alive',
+101 verbose headers   'set-cookie':
+101 verbose headers    [ '__cfduid=dbb08a495facaee476e4b40926550ec2a1557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+101 verbose headers   'cf-cache-status': 'HIT',
+101 verbose headers   'cache-control': 'max-age=300',
+101 verbose headers   'cf-ray': '4d4422114cbc7d55-LIM',
+101 verbose headers   etag: '"64cb20ca9dddab9c155ab1474ac893f2"',
+101 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+101 verbose headers   'last-modified': 'Sun, 27 May 2018 05:32:04 GMT',
+101 verbose headers   vary: 'accept-encoding, accept',
+101 verbose headers   server: 'cloudflare' }
+102 silly get cb [ 304,
+102 silly get   { date: 'Thu, 09 May 2019 13:48:48 GMT',
+102 silly get     connection: 'keep-alive',
+102 silly get     'set-cookie':
+102 silly get      [ '__cfduid=dbb08a495facaee476e4b40926550ec2a1557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+102 silly get     'cf-cache-status': 'HIT',
+102 silly get     'cache-control': 'max-age=300',
+102 silly get     'cf-ray': '4d4422114cbc7d55-LIM',
+102 silly get     etag: '"64cb20ca9dddab9c155ab1474ac893f2"',
+102 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+102 silly get     'last-modified': 'Sun, 27 May 2018 05:32:04 GMT',
+102 silly get     vary: 'accept-encoding, accept',
+102 silly get     server: 'cloudflare' } ]
+103 verbose etag https://registry.npmjs.org/js-el from cache
+104 verbose get saving js-el to /home/judith-c-q-i/.npm/registry.npmjs.org/js-el/.cache.json
+105 silly resolveWithNewModule js-el@0.0.5 checking installable status
+106 silly cache add args [ 'js-el@*', null ]
+107 verbose cache add spec js-el@*
+108 silly cache add parsed spec Result {
+108 silly cache add   raw: 'js-el@*',
+108 silly cache add   scope: null,
+108 silly cache add   name: 'js-el',
+108 silly cache add   rawSpec: '*',
+108 silly cache add   spec: '*',
+108 silly cache add   type: 'range' }
+109 silly addNamed js-el@*
+110 verbose addNamed "*" is a valid semver range for js-el
+111 silly addNameRange { name: 'js-el', range: '*', hasData: false }
+112 silly mapToRegistry name js-el
+113 silly mapToRegistry using default registry
+114 silly mapToRegistry registry https://registry.npmjs.org/
+115 silly mapToRegistry uri https://registry.npmjs.org/js-el
+116 verbose addNameRange registry:https://registry.npmjs.org/js-el not in flight; fetching
+117 verbose get https://registry.npmjs.org/js-el not expired, no request
+118 silly addNameRange number 2 { name: 'js-el', range: '*', hasData: true }
+119 silly addNameRange versions [ 'js-el', [ '0.0.1', '0.0.2', '0.0.3', '0.0.4', '0.0.5' ] ]
+120 silly addNamed js-el@0.0.5
+121 verbose addNamed "0.0.5" is a plain semver version for js-el
+122 silly cache afterAdd js-el@0.0.5
+123 verbose afterAdd /home/judith-c-q-i/.npm/js-el/0.0.5/package/package.json not in flight; writing
+124 verbose afterAdd /home/judith-c-q-i/.npm/js-el/0.0.5/package/package.json written
+125 http 304 https://registry.npmjs.org/xmldom
+126 verbose headers { date: 'Thu, 09 May 2019 13:48:48 GMT',
+126 verbose headers   connection: 'keep-alive',
+126 verbose headers   'set-cookie':
+126 verbose headers    [ '__cfduid=dfe2bbffe30d004f5c81b4611b1e2486d1557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+126 verbose headers   'cf-cache-status': 'HIT',
+126 verbose headers   'cache-control': 'max-age=300',
+126 verbose headers   'cf-ray': '4d44221168a97da9-LIM',
+126 verbose headers   etag: '"cf272e7104c0280d193e81061dda57ab"',
+126 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+126 verbose headers   'last-modified': 'Thu, 28 Jun 2018 07:02:10 GMT',
+126 verbose headers   vary: 'accept-encoding, accept',
+126 verbose headers   server: 'cloudflare' }
+127 silly get cb [ 304,
+127 silly get   { date: 'Thu, 09 May 2019 13:48:48 GMT',
+127 silly get     connection: 'keep-alive',
+127 silly get     'set-cookie':
+127 silly get      [ '__cfduid=dfe2bbffe30d004f5c81b4611b1e2486d1557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+127 silly get     'cf-cache-status': 'HIT',
+127 silly get     'cache-control': 'max-age=300',
+127 silly get     'cf-ray': '4d44221168a97da9-LIM',
+127 silly get     etag: '"cf272e7104c0280d193e81061dda57ab"',
+127 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+127 silly get     'last-modified': 'Thu, 28 Jun 2018 07:02:10 GMT',
+127 silly get     vary: 'accept-encoding, accept',
+127 silly get     server: 'cloudflare' } ]
+128 verbose etag https://registry.npmjs.org/xmldom from cache
+129 verbose get saving xmldom to /home/judith-c-q-i/.npm/registry.npmjs.org/xmldom/.cache.json
+130 silly resolveWithNewModule xmldom@0.1.27 checking installable status
+131 silly cache add args [ 'xmldom@*', null ]
+132 verbose cache add spec xmldom@*
+133 silly cache add parsed spec Result {
+133 silly cache add   raw: 'xmldom@*',
+133 silly cache add   scope: null,
+133 silly cache add   name: 'xmldom',
+133 silly cache add   rawSpec: '*',
+133 silly cache add   spec: '*',
+133 silly cache add   type: 'range' }
+134 silly addNamed xmldom@*
+135 verbose addNamed "*" is a valid semver range for xmldom
+136 silly addNameRange { name: 'xmldom', range: '*', hasData: false }
+137 silly mapToRegistry name xmldom
+138 silly mapToRegistry using default registry
+139 silly mapToRegistry registry https://registry.npmjs.org/
+140 silly mapToRegistry uri https://registry.npmjs.org/xmldom
+141 verbose addNameRange registry:https://registry.npmjs.org/xmldom not in flight; fetching
+142 http 304 https://registry.npmjs.org/xpath.js
+143 verbose headers { date: 'Thu, 09 May 2019 13:48:48 GMT',
+143 verbose headers   connection: 'keep-alive',
+143 verbose headers   'set-cookie':
+143 verbose headers    [ '__cfduid=def32061d148174b6bd07d59c1d6ec4161557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+143 verbose headers   'cf-cache-status': 'HIT',
+143 verbose headers   'cache-control': 'max-age=300',
+143 verbose headers   'cf-ray': '4d44221179b67d7f-LIM',
+143 verbose headers   etag: '"4e65783befb4702c7cd915943532107b"',
+143 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+143 verbose headers   'last-modified': 'Sat, 25 Aug 2018 13:28:48 GMT',
+143 verbose headers   vary: 'accept-encoding, accept',
+143 verbose headers   server: 'cloudflare' }
+144 silly get cb [ 304,
+144 silly get   { date: 'Thu, 09 May 2019 13:48:48 GMT',
+144 silly get     connection: 'keep-alive',
+144 silly get     'set-cookie':
+144 silly get      [ '__cfduid=def32061d148174b6bd07d59c1d6ec4161557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+144 silly get     'cf-cache-status': 'HIT',
+144 silly get     'cache-control': 'max-age=300',
+144 silly get     'cf-ray': '4d44221179b67d7f-LIM',
+144 silly get     etag: '"4e65783befb4702c7cd915943532107b"',
+144 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+144 silly get     'last-modified': 'Sat, 25 Aug 2018 13:28:48 GMT',
+144 silly get     vary: 'accept-encoding, accept',
+144 silly get     server: 'cloudflare' } ]
+145 verbose etag https://registry.npmjs.org/xpath.js from cache
+146 verbose get saving xpath.js to /home/judith-c-q-i/.npm/registry.npmjs.org/xpath.js/.cache.json
+147 verbose get https://registry.npmjs.org/xmldom not expired, no request
+148 silly addNameRange number 2 { name: 'xmldom', range: '*', hasData: true }
+149 silly addNameRange versions [ 'xmldom',
+149 silly addNameRange   [ '0.1.0',
+149 silly addNameRange     '0.1.1',
+149 silly addNameRange     '0.1.2',
+149 silly addNameRange     '0.1.3',
+149 silly addNameRange     '0.1.4',
+149 silly addNameRange     '0.1.5',
+149 silly addNameRange     '0.1.6',
+149 silly addNameRange     '0.1.7',
+149 silly addNameRange     '0.1.8',
+149 silly addNameRange     '0.1.9',
+149 silly addNameRange     '0.1.10',
+149 silly addNameRange     '0.1.11',
+149 silly addNameRange     '0.1.12',
+149 silly addNameRange     '0.1.13',
+149 silly addNameRange     '0.1.14',
+149 silly addNameRange     '0.1.15',
+149 silly addNameRange     '0.1.16',
+149 silly addNameRange     '0.1.17',
+149 silly addNameRange     '0.1.18',
+149 silly addNameRange     '0.1.19',
+149 silly addNameRange     '0.1.20',
+149 silly addNameRange     '0.1.21',
+149 silly addNameRange     '0.1.22',
+149 silly addNameRange     '0.1.24',
+149 silly addNameRange     '0.1.25',
+149 silly addNameRange     '0.1.26',
+149 silly addNameRange     '0.1.27' ] ]
+150 silly addNamed xmldom@0.1.27
+151 verbose addNamed "0.1.27" is a plain semver version for xmldom
+152 silly cache afterAdd xmldom@0.1.27
+153 verbose afterAdd /home/judith-c-q-i/.npm/xmldom/0.1.27/package/package.json not in flight; writing
+154 silly resolveWithNewModule xpath.js@1.1.0 checking installable status
+155 silly cache add args [ 'xpath.js@*', null ]
+156 verbose cache add spec xpath.js@*
+157 silly cache add parsed spec Result {
+157 silly cache add   raw: 'xpath.js@*',
+157 silly cache add   scope: null,
+157 silly cache add   name: 'xpath.js',
+157 silly cache add   rawSpec: '*',
+157 silly cache add   spec: '*',
+157 silly cache add   type: 'range' }
+158 silly addNamed xpath.js@*
+159 verbose addNamed "*" is a valid semver range for xpath.js
+160 silly addNameRange { name: 'xpath.js', range: '*', hasData: false }
+161 silly mapToRegistry name xpath.js
+162 silly mapToRegistry using default registry
+163 silly mapToRegistry registry https://registry.npmjs.org/
+164 silly mapToRegistry uri https://registry.npmjs.org/xpath.js
+165 verbose addNameRange registry:https://registry.npmjs.org/xpath.js not in flight; fetching
+166 verbose get https://registry.npmjs.org/xpath.js not expired, no request
+167 silly addNameRange number 2 { name: 'xpath.js', range: '*', hasData: true }
+168 silly addNameRange versions [ 'xpath.js',
+168 silly addNameRange   [ '0.0.1',
+168 silly addNameRange     '0.0.2',
+168 silly addNameRange     '0.0.3',
+168 silly addNameRange     '0.0.4',
+168 silly addNameRange     '1.0.4',
+168 silly addNameRange     '1.0.5',
+168 silly addNameRange     '1.0.6',
+168 silly addNameRange     '1.0.7',
+168 silly addNameRange     '1.1.0' ] ]
+169 silly addNamed xpath.js@1.1.0
+170 verbose addNamed "1.1.0" is a plain semver version for xpath.js
+171 verbose afterAdd /home/judith-c-q-i/.npm/xmldom/0.1.27/package/package.json written
+172 silly cache afterAdd xpath.js@1.1.0
+173 verbose afterAdd /home/judith-c-q-i/.npm/xpath.js/1.1.0/package/package.json not in flight; writing
+174 verbose afterAdd /home/judith-c-q-i/.npm/xpath.js/1.1.0/package/package.json written
+175 http 304 https://registry.npmjs.org/asf
+176 verbose headers { date: 'Thu, 09 May 2019 13:48:48 GMT',
+176 verbose headers   connection: 'keep-alive',
+176 verbose headers   'set-cookie':
+176 verbose headers    [ '__cfduid=df91d44863d2b536e10397b8ab9a1f2601557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+176 verbose headers   'cf-cache-status': 'HIT',
+176 verbose headers   'cache-control': 'max-age=300',
+176 verbose headers   'cf-ray': '4d442211897b7dbb-LIM',
+176 verbose headers   etag: '"cf32a411d893bd13c47e2dfa4ee5888a"',
+176 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+176 verbose headers   'last-modified': 'Sat, 26 May 2018 17:26:05 GMT',
+176 verbose headers   vary: 'accept-encoding, accept',
+176 verbose headers   server: 'cloudflare' }
+177 silly get cb [ 304,
+177 silly get   { date: 'Thu, 09 May 2019 13:48:48 GMT',
+177 silly get     connection: 'keep-alive',
+177 silly get     'set-cookie':
+177 silly get      [ '__cfduid=df91d44863d2b536e10397b8ab9a1f2601557409728; expires=Fri, 08-May-20 13:48:48 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+177 silly get     'cf-cache-status': 'HIT',
+177 silly get     'cache-control': 'max-age=300',
+177 silly get     'cf-ray': '4d442211897b7dbb-LIM',
+177 silly get     etag: '"cf32a411d893bd13c47e2dfa4ee5888a"',
+177 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+177 silly get     'last-modified': 'Sat, 26 May 2018 17:26:05 GMT',
+177 silly get     vary: 'accept-encoding, accept',
+177 silly get     server: 'cloudflare' } ]
+178 verbose etag https://registry.npmjs.org/asf from cache
+179 verbose get saving asf to /home/judith-c-q-i/.npm/registry.npmjs.org/asf/.cache.json
+180 silly resolveWithNewModule asf@0.1.2 checking installable status
+181 silly cache add args [ 'asf@*', null ]
+182 verbose cache add spec asf@*
+183 silly cache add parsed spec Result {
+183 silly cache add   raw: 'asf@*',
+183 silly cache add   scope: null,
+183 silly cache add   name: 'asf',
+183 silly cache add   rawSpec: '*',
+183 silly cache add   spec: '*',
+183 silly cache add   type: 'range' }
+184 silly addNamed asf@*
+185 verbose addNamed "*" is a valid semver range for asf
+186 silly addNameRange { name: 'asf', range: '*', hasData: false }
+187 silly mapToRegistry name asf
+188 silly mapToRegistry using default registry
+189 silly mapToRegistry registry https://registry.npmjs.org/
+190 silly mapToRegistry uri https://registry.npmjs.org/asf
+191 verbose addNameRange registry:https://registry.npmjs.org/asf not in flight; fetching
+192 verbose get https://registry.npmjs.org/asf not expired, no request
+193 silly addNameRange number 2 { name: 'asf', range: '*', hasData: true }
+194 silly addNameRange versions [ 'asf', [ '0.1.0', '0.1.2' ] ]
+195 silly addNamed asf@0.1.2
+196 verbose addNamed "0.1.2" is a plain semver version for asf
+197 silly cache afterAdd asf@0.1.2
+198 verbose afterAdd /home/judith-c-q-i/.npm/asf/0.1.2/package/package.json not in flight; writing
+199 verbose afterAdd /home/judith-c-q-i/.npm/asf/0.1.2/package/package.json written
+200 silly loadAllDepsIntoIdealTree Finishing
+201 silly idealTree:prePrune lib
+201 silly idealTree:prePrune └─┬ lite@4.0.5
+201 silly idealTree:prePrune   ├── asf@0.1.2
+201 silly idealTree:prePrune   ├── js-el@0.0.5
+201 silly idealTree:prePrune   ├── xmldom@0.1.27
+201 silly idealTree:prePrune   └── xpath.js@1.1.0
+202 silly loadIdealTree Finishing
+203 silly currentTree lib
+204 silly idealTree lib
+204 silly idealTree └─┬ lite@4.0.5
+204 silly idealTree   ├── asf@0.1.2
+204 silly idealTree   ├── js-el@0.0.5
+204 silly idealTree   ├── xmldom@0.1.27
+204 silly idealTree   └── xpath.js@1.1.0
+205 silly generateActionsToTake Starting
+206 silly install generateActionsToTake
+207 warn checkPermissions Missing write access to /usr/local/lib
+208 silly rollbackFailedOptional Starting
+209 silly rollbackFailedOptional Finishing
+210 silly runTopLevelLifecycles Starting
+211 silly runTopLevelLifecycles Finishing
+212 silly install printInstalled
+213 verbose stack Error: EACCES: permission denied, access '/usr/local/lib'
+214 verbose cwd /home/judith-c-q-i/Escritorio/LIM009-Social-Network
+215 error Linux 4.18.0-18-generic
+216 error argv "/usr/bin/node" "/usr/bin/npm" "install" "lite" "-server" "-g"
+217 error node v8.10.0
+218 error npm  v3.5.2
+219 error path /usr/local/lib
+220 error code EACCES
+221 error errno -13
+222 error syscall access
+223 error Error: EACCES: permission denied, access '/usr/local/lib'
+223 error  { Error: EACCES: permission denied, access '/usr/local/lib'
+223 error   errno: -13,
+223 error   code: 'EACCES',
+223 error   syscall: 'access',
+223 error   path: '/usr/local/lib' }
+224 error Please try running this command again as root/Administrator.
+225 verbose exit [ -13, true ]

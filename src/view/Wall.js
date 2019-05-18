@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage } from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost } from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
@@ -88,10 +88,13 @@ export const createPostOnClick = (event) => {
 	    }
 		formElem.querySelector('#post-content-input').value = '';
 	}
+
 }
 
 export const postListTemplate = (postObject) => {
 	const user = getCurrenUser();
+	/*const date = (postObject.date.toDate()).toString();
+  const newDate = date.substr(4, date.length - 37);*/
 	const postsList = 
 				`<div class="post-article post-head border-box bg-green">
 					<div class="col-2">
@@ -106,8 +109,8 @@ export const postListTemplate = (postObject) => {
 				  <textarea id="post-edit-${postObject.id}" class="border-box post-article textarea" disabled=true>${postObject.content}</textarea>
 				  ${(postObject.image !== undefined && postObject.image !== null) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
-				<div class="post-article bg-light-green post-footer border-box">
-				  <img id="likes-count" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt="${postObject.likes} likes" title="${postObject.likes}" />
+        <div class="post-article bg-light-green post-footer border-box">
+				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="" /> <span class="post-total-like registry">${postObject.likes}</span>
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
 				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true">
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
@@ -127,8 +130,15 @@ export const postListTemplate = (postObject) => {
   	  const select = article.querySelector(`#edit-privacy-${postObject.id}`);
   	  editBtn.addEventListener('click', () => {
 		return toggleDisableTextarea(textArea, select, postObject, editBtn);
-	  });
-	}
+      });
+    }
+    let number = postObject.likes;
+    const btnLike = article.querySelector(`#btnLike-${postObject.id}`);
+    btnLike.addEventListener('click', () => {
+      number = number + 1 ;
+      likePost(postObject.id, number);
+    });
+
 	return article;
 }
 
