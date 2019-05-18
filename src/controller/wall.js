@@ -74,4 +74,3 @@ export const likePost = (id, counter) => {
     });
   }; 
 
-  

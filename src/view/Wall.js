@@ -147,8 +147,6 @@ export const postListTemplate = (postObject) => {
 	return article;
 }
 
-
-
 export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 	if (textArea.disabled && select.disabled) {
 		btn.src = "../assets/save.png";
