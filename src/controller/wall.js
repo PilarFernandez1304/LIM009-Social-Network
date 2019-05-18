@@ -10,6 +10,21 @@ export const createPost = (uid, userName,userPhoto, contentText, privacy, postIm
     image: postImage 
   })
 } 
+
+export const createPostComment = (uid, userName,userPhoto, contentText, privacy, postImage = null) => {
+  return firebase.firestore().collection('posts').doc(id).collection('postComments').add({
+    userId: uid,
+    user: userName,
+    userPhoto: userPhoto,
+    content: contentText,
+    likes: 0,
+    date: new Date(),
+    state: privacy, 
+    image: postImage 
+  })
+}
+
+
 export const getAllPosts = (callback) => {
     firebase.firestore().collection('posts')
     .orderBy('date', 'desc')

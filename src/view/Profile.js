@@ -8,8 +8,8 @@ export default () => {
             <img id="img-Logo"/>
         </div>
         <div class="container-user">
-            <img src="${user.photoURL}" class="img-user"/>
-            <p id="inf-user">${user.displayName}<p>    
+        ${user.photoURL === null ? `<img  src="../assets/perfil-email.jpg" class="img-user"/>` : `<img src="${user.photoURL}" class="img-user"/>`}
+        ${user.displayName === null ? `<p id="inf-user">${user.email}<p>   `:`<p id="inf-user">${user.displayName}<p>` } 
         </div>
     </div>`;
 
