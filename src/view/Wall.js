@@ -109,7 +109,7 @@ export const postListTemplate = (postObject) => {
 				  <textarea id="post-edit-${postObject.id}" class="border-box post-article textarea" disabled=true>${postObject.content}</textarea>
 				  ${(postObject.image !== undefined && postObject.image !== null) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
-                <div class="post-article bg-light-green post-footer border-box">
+        <div class="post-article bg-light-green post-footer border-box">
 				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="" /> <span class="post-total-like registry">${postObject.likes}</span>
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
 				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true">
@@ -141,8 +141,6 @@ export const postListTemplate = (postObject) => {
 
 	return article;
 }
-
-
 
 export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 	if (textArea.disabled && select.disabled) {
