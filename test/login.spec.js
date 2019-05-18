@@ -3,7 +3,7 @@ mockauth.autoFlush();
 
 global.firebase = mocksdk;
 
-import { emailLogIn, authFacebook, authGmail } from '../src/controller/login.js';
+import { emailLogIn, authFacebook, authGmail, signInAnonimous, logOut, getCurrenUser } from '../src/controller/login.js';
 
 describe('emailLogIn', () => {
 	it('Debería ser una función', () => {
@@ -42,3 +42,53 @@ describe('authGmail', () => {
 		});
 	});
 });
+
+describe('signInAnonimous', () => {
+	it('Debería ser una función', () => {
+		expect(typeof signInAnonimous).toBe('function');
+	})
+	it('Debería iniciar sesión anónimamente', () => {
+		return signInAnonimous().then((data) => {
+			expect(mockauth.getAuth().isAnonymous).toBe(true);
+		});
+	});
+});
+
+describe('logOut', () => {
+	it('Debería ser una función', () => {
+		expect(typeof logOut).toBe('function');
+	})
+	it('Debería cerrar sesión', () => {
+		return authGmail()
+		.then(() => logOut())
+		.then((data) => {
+			expect(mockauth.getAuth()).toBe(null);
+		});
+	});
+});
+
+describe('getCurrenUser', () => {
+	it('Debería ser una función', () => {
+		expect(typeof getCurrenUser).toBe('function');
+	})
+	
+    it('Debería obtener null si ningún usuario se ha logueado', () => {
+		const user = getCurrenUser();
+		expect(user).toEqual(null);
+    })
+
+    it('Debería obtener true si usuario anónimo se ha logueado', () => {
+    	return signInAnonimous().then(() => {
+    		const user = getCurrenUser();
+    		expect(user.isAnonymous).toEqual(true)
+    	})
+    })
+
+     it('Debería obtener abc@mail.com si usuario se inicia sesión con email abc@mail.com', () => {
+    	return emailLogIn('abc@mail.com', '123456').then(() => {
+    		const user = getCurrenUser();
+    		expect(user.isAnonymous).toEqual(false);
+    		expect(user.email).toEqual('abc@mail.com')
+    	})
+    })
+})

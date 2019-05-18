@@ -1,4 +1,5 @@
 import register from '../controller/signup.js';
+import { authFacebook, authGmail } from '../controller/login.js';
 import changeHash from './utils.js';
 
 export const signUpOnClick = () => {
@@ -35,10 +36,9 @@ export const signUp = () => {
       <p class="text-center content">¡Bienvenida amiga!</p>
       <form>
          <p id="register-correct" class="text-center register-correct"></p>
-         <input id="name-email" class=" login login-input" name="" placeholder="Nombre y Apellido">
-        <input id="email-register" class="login login-input" type="email" name="email" placeholder="Email">
-        <input id="password-register" class="login login-input" type="password" name="password" placeholder="Password">
-        <button id="sign-in-btn" type="button" class="login btn-login">Registrarse</button>
+        <input id="email-register" class="login login-input border" type="email" name="email" placeholder="Email">
+        <input id="password-register" class="login login-input border" type="password" name="password" placeholder="Password">
+        <button id="sign-in-btn" type="button" class="login btn-login bg-green color-white">Registrarse</button>
         <p id="error-message" class="text-center error-message"></p>
         <p class="text-center">O bien regístrate con...</p>
         <div class="text-center">
@@ -53,6 +53,22 @@ export const signUp = () => {
   div.innerHTML = form;
   const signUpBtn = div.querySelector('#sign-in-btn')
   signUpBtn.addEventListener('click', signUpOnClick);
+
+  const facebookLogInBtn = div.querySelector('#log-in-fb');
+  facebookLogInBtn.addEventListener('click', () => {
+    authFacebook()
+    .then((result) =>{
+     changeHash('#/home')
+    })
+    .catch(() => {})
+  });
+  
+  const googleLogInBtn = div.querySelector('#log-in-gmail');
+  googleLogInBtn.addEventListener('click', () => authGmail()
+    .then(() => changeHash('#/home'))
+    .catch(() => {})
+    );
+  
   return div;
 }
 

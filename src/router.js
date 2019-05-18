@@ -1,12 +1,15 @@
 import { logIn } from './view/Login.js';
 import { signUp } from './view/Signup.js';
 import { home } from './view/Wall.js';
-import { getAllPosts } from './controller/wall.js';
+import { navBar } from './view/Navbar.js'
+import profile from './view/Profile.js'
+import { getAllPosts, getPublicPosts } from './controller/wall.js';
+import { getCurrenUser, signInAnonimous } from './controller/login.js';
 
 const changeView = (hash) => {
   if (hash === '#/' || hash === '' || hash === '#') {
     return viewToShow('#/logIn');
-  } else if (hash === '#/signUp' || hash === '#/home') {
+  } else if (hash === '#/signUp' || hash === '#/home' || hash === '#/profile') {
     return viewToShow(hash);
   } else {
     return viewToShow('#/logIn');
@@ -22,11 +25,26 @@ const viewToShow = (routers) => {
     case 'signUp':
       root.appendChild(signUp());
       break;
-    case 'home':
-    getAllPosts((posts) =>{
-      root.innerHTML = '';
-      root.appendChild(home(posts));
-    })
+    case 'home': 
+    let user = getCurrenUser();  
+    if (user) {   
+      getAllPosts((posts) => {
+        root.innerHTML = '';
+        root.appendChild(navBar());
+        root.appendChild(home(posts));
+      })
+    } else {
+      signInAnonimous();
+      getPublicPosts((posts) => {
+        root.innerHTML = '';
+        root.appendChild(navBar());
+        root.appendChild(home(posts));
+      })
+    }
+      break;
+    case 'profile':
+      root.appendChild(navBar());
+      root.appendChild(profile());
       break;
     default:
       root.appendChild(logIn());

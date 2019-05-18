@@ -1,19 +1,14 @@
-export const getCurrenUser = () => {
-	return firebase.auth().currentUser;
-}
-export const createPost = (uid, userName,userPhoto, contentText, callback) => {
-	firebase.firestore().collection('posts').add({
+export const createPost = (uid, userName,userPhoto, contentText, privacy, postImage = null) => {
+  return firebase.firestore().collection('posts').add({
     userId: uid,
     user: userName,
-    userPhoto : userPhoto,
+    userPhoto: userPhoto,
     content: contentText,
     likes: 0,
-    date:firebase.firestore.FieldValue.serverTimestamp(),
-    // state: privacy
-})
-.then((response) => getAllPosts(callback))
-.catch((error) => console.error("Error creando el post: ", error));
-
+    date: new Date(),
+    state: privacy, 
+    image: postImage 
+  })
 } 
 export const getAllPosts = (callback) => {
     firebase.firestore().collection('posts')
@@ -27,21 +22,41 @@ export const getAllPosts = (callback) => {
       }); 
     }
 
+export const getPublicPosts = (callback) => {
+    firebase.firestore().collection('posts').where("state", "==", "public")
+    .get()
+    .then(function(querySnapshot) {
+        let data = [];
+        querySnapshot.forEach(function(doc) {
+            data.push({ id: doc.id, ...doc.data() })
+        });
+        callback(data);
+    })
+}
 
-export const updatePost = (idPost, content) => { 
+export const updatePost = (idPost, content, privacy) => { 
     let refPost = firebase.firestore().collection('posts').doc(idPost);
     return refPost.update({
     content: content,
-    })
-    .then(function() {
-        console.log("Document successfully updated!");
-    })
-    .catch(function(error) {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
+    state: privacy
     });
 }
 
 
 export const deletePost = (idPost) => firebase.firestore().collection('posts').doc(idPost).delete();
 
+export const uploadImage = (date, image) => {
+    const storageRef = firebase.storage().ref();
+    const postImageRef = storageRef.child(`images/${date}-${image.name}`);
+    const metadata = { contentType: image.type };
+    return postImageRef.put(image, metadata)
+    .then(snapshot => snapshot.ref.getDownloadURL());
+}
+
+export const likePost = (id, counter) => {
+      firebase.firestore().collection('posts').doc(id).update({
+      'likes': counter
+    });
+  }; 
+
+  

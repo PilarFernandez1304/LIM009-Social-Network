@@ -32,9 +32,9 @@ export const logIn = () => {
       <h1 class="title text-center">Mano Amiga</h1>
       <p class="text-center content">¡Bienvenida amiga!</p>
       <form>
-        <input id="email" class="login login-input" type="email" name="email" placeholder="Email">
-        <input id="password" class="login login-input" type="password" name="password" placeholder="Password">
-        <button id="log-in-btn" type="button" class="login btn-login">Log in</button>
+        <input id="email" class="login login-input border" type="email" name="email" placeholder="Email">
+        <input id="password" class="login login-input border" type="password" name="password" placeholder="Password">
+        <button id="log-in-btn" type="button" class="login btn-login bg-green color-white">Log in</button>
         <p id="error-message" class="text-center error-message"></p>
         <p class="text-center">O bien ingresa con...</p>
         <div class="text-center">
@@ -42,7 +42,7 @@ export const logIn = () => {
           <img id="log-in-gmail" class="btn-icon" src="../assets/btn-login-google.png" alt="google-login-button" />
         </div>
       </form>
-      <p class="text-center">¿No tienes una cuenta? <a  class="links" href="#/signUp" title="link de registro">Regístrate</a></p>
+      <p class="text-center">¿No tienes una cuenta? <a class="links" href="#/signUp" title="link de registro">Regístrate</a></p>
     </div>
   </div>`;
   let div = document.createElement('div');
