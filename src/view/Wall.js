@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost, createPostComment } from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
@@ -77,7 +77,7 @@ export const createPostOnClick = (event) => {
 	if (user && postDescription !== '') {
 		document.getElementById('post-list').innerHTML = '';
 		if (postImage.files[0] == undefined) {
-		createPost(user.uid, user.displayName, user.photoURL, postDescription, postPrivacy)
+		createPost(user.uid, user.displayName || user.email , user.photoURL, postDescription, postPrivacy)
 		.then((response) => getAllPosts(postListTemplate));
 	    } else {
 	    	const date = new Date().toString();
@@ -159,3 +159,4 @@ export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 		return updatePost(postObject.id, textArea.value, select.value)
 	}
 }
+

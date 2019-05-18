@@ -11,18 +11,6 @@ export const createPost = (uid, userName,userPhoto, contentText, privacy, postIm
   })
 } 
 
-export const createPostComment = (uid, userName,userPhoto, contentText, privacy, postImage = null) => {
-  return firebase.firestore().collection('posts').doc(id).collection('postComments').add({
-    userId: uid,
-    user: userName,
-    userPhoto: userPhoto,
-    content: contentText,
-    likes: 0,
-    date: new Date(),
-    state: privacy, 
-    image: postImage 
-  })
-}
 
 
 export const getAllPosts = (callback) => {
@@ -68,8 +56,8 @@ export const uploadImage = (date, image) => {
     .then(snapshot => snapshot.ref.getDownloadURL());
 }
 
-export const likePost = (id, counter) => {
-      firebase.firestore().collection('posts').doc(id).update({
+export const likePost = (idPost, counter) => {
+      firebase.firestore().collection('posts').doc(idPost).update({
       'likes': counter
     });
   }; 
