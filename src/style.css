@@ -191,6 +191,7 @@ body {
 
 .post-article {
 	width: 100%;
+	height: 18vh;
 	margin-top: 0px;
 }
 
@@ -221,12 +222,13 @@ body {
 
 .profile {
 	width: 100%;
-	height: 120px;
+	height: 18vh;
 	margin-bottom: 20px;
 }
 
 .posts {
 	width: 100%;
+	height: 18vh;
 }
 
 .border {
@@ -236,7 +238,7 @@ body {
 .container-head, .mobile-navbar{
 	width: 100%;
 	height: 50px;
-	margin: 0;
+	margin-bottom: 2rem;
 }
 
 .bg-green {
@@ -263,7 +265,6 @@ body {
 	justify-content: space-between;
 	align-items: center;
 }
-
 .img-header-logo{
 	width: 18vw;
 	height: 15vh;
@@ -273,7 +274,8 @@ header a {
 	display: inline-block;
 	text-decoration: none;
 	color: #fff;
-	padding: 10px 0px;
+	padding: 10px 2rem;
+
 }
 
 header img {
@@ -316,7 +318,16 @@ header img {
 	border-radius: 50%;
 	margin: 2px auto;
 }
-
+.container-profile{
+	width: 70vw;
+	height: 60vh;
+}
+.container-Update{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 @media screen and (min-width: 720px) {
   .flex-container {
     flex-direction: row;
@@ -334,7 +345,9 @@ header img {
   }
 
   .profile, .posts {
-  	width: 50%;
+	  width: 46%;
+	  height: 18vh;
+	  margin: 0 1rem
   }
   
   .profile {
