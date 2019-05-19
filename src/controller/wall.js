@@ -52,3 +52,10 @@ export const uploadImage = (date, image) => {
     return postImageRef.put(image, metadata)
     .then(snapshot => snapshot.ref.getDownloadURL());
 }
+
+export const likePost = (id, counter) => {
+      firebase.firestore().collection('posts').doc(id).update({
+      'likes': counter
+    });
+  }; 
+
