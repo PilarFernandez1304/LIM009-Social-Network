@@ -38,7 +38,7 @@ const fixtureData = {
 
 global.firebase = new MockFirebase(fixtureData, { isNaiveSnapshotListenerEnabled: true });
 
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost } from '../src/controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, likePost} from '../src/controller/wall.js';
 
 describe('getPublicPosts', () => {
      it('No debería leer todos los posts privados', (done) => {
@@ -134,3 +134,24 @@ describe('updatePost', () => {
     ));
   })
 })
+
+describe('likePost', () => {
+  it('debería ser una función', () => {
+    expect(typeof likePost).toBe('function');
+  });
+  it('Debería poder dar like', (done) => {
+  return likePost('GJR4GH4f', 1 )
+  .then(() => getAllPosts(
+    (data) => {
+      const result = data.find((post) => post.likes === 1);
+      expect(result.likes).toBe(1);
+      done()
+    }
+  ))
+})
+})
+
+
+
+
+

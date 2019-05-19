@@ -110,7 +110,7 @@ export const postListTemplate = (postObject) => {
 				  ${(postObject.image !== undefined && postObject.image !== null) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
         <div class="post-article bg-light-green post-footer border-box">
-				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="" /> <span class="post-total-like registry">${postObject.likes}</span>
+				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/como.png" alt=" likes" title="" /> <span class="post-total-like registry">${postObject.likes}</span>
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
 				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true">
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
@@ -132,14 +132,14 @@ export const postListTemplate = (postObject) => {
   	  editBtn.addEventListener('click', () => {
 		return toggleDisableTextarea(textArea, select, postObject, editBtn);
       });
-    }
-    let number = postObject.likes;
+		}
     const btnLike = article.querySelector(`#btnLike-${postObject.id}`);
-    btnLike.addEventListener('click', () => {
-      number = number + 1 ;
-      likePost(postObject.id, number);
+    btnLike.addEventListener('click',  () => {
+			const number = postObject.likes;
+			return toggleLikes(btnLike, number, postObject);
 		});
-		 const comments = article.querySelector(`#comments`);
+		
+		const comments = article.querySelector(`#comments`);
 		 comments.addEventListener('click', ()=> {
      alert("comenta!!!")
 		 })
@@ -160,3 +160,14 @@ export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 	}
 }
 
+export const toggleLikes = (btn, number, postObject) =>  {
+	if(btn.src = "../assets/como.png"){
+		btn.src = "../assets/heart.png";
+		number = number+1;
+		return  likePost(postObject.id,number);
+	} else {
+		btn.src = "../assets/como.png";
+		number = number-1;
+		return  likePost(postObject.id,number);
+	}
+}

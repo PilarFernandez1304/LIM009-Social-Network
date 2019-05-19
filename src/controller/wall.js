@@ -57,8 +57,8 @@ export const uploadImage = (date, image) => {
 }
 
 export const likePost = (idPost, counter) => {
-      firebase.firestore().collection('posts').doc(idPost).update({
-      'likes': counter
+      return firebase.firestore().collection('posts').doc(idPost).update({
+      likes: counter
     });
   }; 
 
