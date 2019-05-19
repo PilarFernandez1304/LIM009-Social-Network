@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost } from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
@@ -14,7 +14,7 @@ export const home = (posts) => {
         </div>
         <div class="container-user">
             ${user.photoURL === null ? `<img class="img-user" src="../assets/perfil-email.jpg"/>` : `<img class="img-user" src="${user.photoURL}"/>`}
-            <p id="inf-user"><strong>${user.displayName}</strong><p>    
+            ${user.displayName === null ? `<p id="inf-user"><strong> ${user.email}</strong><p>`:`<p id="inf-user"><strong>${user.displayName}</strong><p>` }  
         </div>
 	</section>
 	<section class="posts">
@@ -77,7 +77,7 @@ export const createPostOnClick = (event) => {
 	if (user && postDescription !== '') {
 		document.getElementById('post-list').innerHTML = '';
 		if (postImage.files[0] == undefined) {
-		createPost(user.uid, user.displayName, user.photoURL, postDescription, postPrivacy)
+		createPost(user.uid, user.displayName || user.email , user.photoURL, postDescription, postPrivacy)
 		.then((response) => getAllPosts(postListTemplate));
 	    } else {
 	    	const date = new Date().toString();
@@ -99,8 +99,8 @@ export const postListTemplate = (postObject) => {
 				`<div class="post-article post-head border-box bg-green">
 					<div class="col-2">
 					${postObject.userPhoto === null ? `<img class="round-image text-center" src="../assets/perfil-email.jpg"/>` : `<img class="round-image clear" src="${postObject.userPhoto}"/>`}
-					</div>
-					<p class="col-9">Publicado por ${postObject.user}</p>
+					</div> 
+					${postObject.user === null ? `<p class="col-9">Publicado por ${user.email}</p>`:`<p class="col-9">Publicado por ${postObject.user}</p>` } 
 					<div class="col-1">
 					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="block border-box btn-delete col-1 bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
 					</div>
@@ -110,11 +110,14 @@ export const postListTemplate = (postObject) => {
 				  ${(postObject.image !== undefined && postObject.image !== null) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
         <div class="post-article bg-light-green post-footer border-box">
-				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="" /> <span class="post-total-like registry">${postObject.likes}</span>
+				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/como.png" alt=" likes" title="" /> <span class="post-total-like registry">${postObject.likes}</span>
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
-				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true">
+				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> likes 2 Comentarios 
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
-	  			  </select>` : ``}
+						</select>` : ``}
+					<a class="comments" id='comments-${postObject.id}'title="commments">	Comentarios </a> 
+					<div id="comments-content-${postObject.id}" ></div>
+					<div id="comment-content-${postObject.id}" ></div>
 				</div>`;
 	const article = document.createElement('article');
 	article.setAttribute('id', postObject.id);
@@ -131,16 +134,34 @@ export const postListTemplate = (postObject) => {
   	  editBtn.addEventListener('click', () => {
 		return toggleDisableTextarea(textArea, select, postObject, editBtn);
       });
-    }
-    let number = postObject.likes;
+		}
     const btnLike = article.querySelector(`#btnLike-${postObject.id}`);
-    btnLike.addEventListener('click', () => {
-      number = number + 1 ;
-      likePost(postObject.id, number);
-    });
+    btnLike.addEventListener('click',  () => {
+			const number = postObject.likes;
+			return toggleLikes(btnLike, number, postObject);
+		});
+		
+		const comments = article.querySelector(`#comments-${postObject.id}`);
+		 comments.addEventListener('click', () => {
+      const divComment = article.querySelector(`#comment-content-${postObject.id}`)
+      divComment.appendChild(commenTemplate(postObject.id))
+    })
+
 
 	return article;
 }
+
+
+const commenTemplate = (id) => {
+  const divContentComment = document.createElement('div');
+  divContentComment.innerHTML = `  <input name="text" rows="8" cols="50" id="input-comment"
+  placeholder="Comentario"></input>
+  <button  id="btn-comment-post-${id}"> Comentar </button>  
+  `;
+  return divContentComment;
+}
+
+
 
 export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 	if (textArea.disabled && select.disabled) {
@@ -152,5 +173,17 @@ export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 		textArea.disabled = true;
 		select.disabled = true;
 		return updatePost(postObject.id, textArea.value, select.value)
+	}
+}
+
+export const toggleLikes = (btn, number, postObject) =>  {
+	if(btn.src = "../assets/como.png"){
+		btn.src = "../assets/heart.png";
+		number = number+1;
+		return  likePost(postObject.id,number);
+	} else {
+		btn.src = "../assets/como.png";
+		number = number-1;
+		return  likePost(postObject.id,number);
 	}
 }

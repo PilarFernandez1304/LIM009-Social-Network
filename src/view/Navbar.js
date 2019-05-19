@@ -16,7 +16,7 @@ export const navBar = () => {
           </div>
         </div>     
         <nav class="navbar bg-green">
-          ${!user.isAnonymous ? `<a id="update-profile" href="#/profile"><strong>${user.displayName}</strong><img class="icon-rout-profile" src="../assets/sort-down.png"/></a>
+          ${!user.isAnonymous ? `<a href="#/profile"><strong>${user.displayName || user.email}</strong><img class="icon-rout-profile" src="../assets/sort-down.png"/></a>
           <a class="title" href="#/home"><img src="../assets/mano.png" alt="logo" class="btn-icon"/>Mano Amiga</a>
           <a href="#/login" id="btn-logout"><strong>Cerrar Sesión</strong></a>` : '<a class="title" href="#/home"><img src="../assets/mano.png" alt="logo" class="btn-icon"/>Mano Amiga</a><a class="links" href="#/signUp" title="link de registro">Registrarse</a>'} 
         </nav>`;
