@@ -11,7 +11,8 @@ const fixtureData = {
           state: 'private',
           user: 'user-a',
           userId: '9URN4KSD9kw9HKNlo47B',
-          userPhoto: 'photo.jpg'
+          userPhoto: 'photo.jpg',
+          image: 'myImagen1.jpg'
         },
         UN3nm7kO: 
         {
@@ -20,7 +21,8 @@ const fixtureData = {
           state: 'public',
           user: 'user-a',
           userId: '9URN4KSD9kw9HKNlo47B',
-          userPhoto: 'photo.jpg'
+          userPhoto: 'photo.jpg',
+          image: 'myImagen2.jpg'
         },
         KJ8v55TS: 
         {
@@ -29,7 +31,8 @@ const fixtureData = {
           state: 'private',
           user: 'user-a',
           userId: '9URN4KSD9kw9HKNlo47B',
-          userPhoto: 'photo.jpg'
+          userPhoto: 'photo.jpg',
+          image: 'myImagen3.jpg'
         },
       }
     }

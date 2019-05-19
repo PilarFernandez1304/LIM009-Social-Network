@@ -112,10 +112,12 @@ export const postListTemplate = (postObject) => {
         <div class="post-article bg-light-green post-footer border-box">
 				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/como.png" alt=" likes" title="" /> <span class="post-total-like registry">${postObject.likes}</span>
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
-				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true">
+				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> likes 2 Comentarios 
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
 						</select>` : ``}
-					<a class="comments" id='comments'title="commments">	Comentarios </a>
+					<a class="comments" id='comments-${postObject.id}'title="commments">	Comentarios </a> 
+					<div id="comments-content-${postObject.id}" ></div>
+					<div id="comment-content-${postObject.id}" ></div>
 				</div>`;
 	const article = document.createElement('article');
 	article.setAttribute('id', postObject.id);
@@ -139,13 +141,27 @@ export const postListTemplate = (postObject) => {
 			return toggleLikes(btnLike, number, postObject);
 		});
 		
-		const comments = article.querySelector(`#comments`);
-		 comments.addEventListener('click', ()=> {
-     alert("comenta!!!")
-		 })
+		const comments = article.querySelector(`#comments-${postObject.id}`);
+		 comments.addEventListener('click', () => {
+      const divComment = article.querySelector(`#comment-content-${postObject.id}`)
+      divComment.appendChild(commenTemplate(postObject.id))
+    })
+
 
 	return article;
 }
+
+
+const commenTemplate = (id) => {
+  const divContentComment = document.createElement('div');
+  divContentComment.innerHTML = `  <input name="text" rows="8" cols="50" id="input-comment"
+  placeholder="Comentario"></input>
+  <button  id="btn-comment-post-${id}"> Comentar </button>  
+  `;
+  return divContentComment;
+}
+
+
 
 export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 	if (textArea.disabled && select.disabled) {
