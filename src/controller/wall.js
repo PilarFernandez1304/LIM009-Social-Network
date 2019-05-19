@@ -46,8 +46,7 @@ export const updatePost = (idPost, content, privacy) => {
 export const deletePost = (idPost) => firebase.firestore().collection('posts').doc(idPost).delete();
 
 export const uploadImage = (date, image) => {
-    const storageRef = firebase.storage().ref();
-    const postImageRef = storageRef.child(`images/${date}-${image.name}`);
+    const postImageRef = firebase.storage().ref().child(`images/${date}-${image.name}`);
     const metadata = { contentType: image.type };
     return postImageRef.put(image, metadata)
     .then(snapshot => snapshot.ref.getDownloadURL());

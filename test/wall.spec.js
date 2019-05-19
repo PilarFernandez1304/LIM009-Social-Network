@@ -38,7 +38,7 @@ const fixtureData = {
 
 global.firebase = new MockFirebase(fixtureData, { isNaiveSnapshotListenerEnabled: true });
 
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost } from '../src/controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage } from '../src/controller/wall.js';
 
 describe('getPublicPosts', () => {
      it('No debería leer todos los posts privados', (done) => {
