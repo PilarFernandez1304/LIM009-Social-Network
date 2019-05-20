@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost} from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost, addCommentPost, getAllComentPost} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
@@ -141,25 +141,56 @@ export const postListTemplate = (postObject) => {
 			return toggleLikes(btnLike, number, postObject);
 		});
 		
-		const comments = article.querySelector(`#comments-${postObject.id}`);
-		 comments.addEventListener('click', () => {
+		const btnComments = article.querySelector(`#comments-${postObject.id}`);
+		 btnComments.addEventListener('click', () => {
       const divComment = article.querySelector(`#comment-content-${postObject.id}`)
-      divComment.appendChild(commenTemplate(postObject.id))
-    })
+      divComment.appendChild(commentTemplate(postObject.id))
+		})
 
+		const divComments = article.querySelector(`#comments-content-${postObject.id}`)
+		getAllComentPost(postObject.id, (comments) => {
+			divComments.innerHTML = '';
+			comments.forEach(comment => {
+				divComments.appendChild(commentListTemplate(comment))
+			});
+		})
+		
 
 	return article;
 }
 
 
-const commenTemplate = (id) => {
+
+
+const commentTemplate = (id) => {
   const divContentComment = document.createElement('div');
-  divContentComment.innerHTML = `  <input name="text" rows="8" cols="50" id="input-comment"
-  placeholder="Comentario"></input>
-  <button  id="btn-comment-post-${id}"> Comentar </button>  
-  `;
+  divContentComment.innerHTML = `
+	<input id="comment-content-input" class="block post-input" type="text" name="comment-content" placeholder="¿Qué quieres comentar?" />
+	<button id="btn-comment-post" type="submit" class="block btn-share bg-green color-white">Comentar</button>
+	`;
+	const btnComment = divContentComment.querySelector('#btn-comment-post');
+	const currentComment= divContentComment.querySelector('#comment-content-input').value;
+  btnComment.addEventListener('click', () => {
+		addCommentPost(id, currentComment);
+  })
   return divContentComment;
 }
+
+const commentListTemplate = (commentsObject) => {
+	const commentList = `<textarea id="post-edit-${commentsObject.id}" class="border-box post-article textarea" disabled=true>${commentsObject.commentPost}</textarea>
+	`;
+	const article = document.createElement('article');
+	article.setAttribute('id', commentsObject.id);
+	article.classList.add('post-box', 'border');
+	article.innerHTML = commentList;
+		
+	return article;
+}
+
+
+
+
+
 
 
 
@@ -177,7 +208,7 @@ export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 }
 
 export const toggleLikes = (btn, number, postObject) =>  {
-	if(btn.src = "../assets/como.png"){
+	if(btn.src ="../assets/como.png"){
 		btn.src = "../assets/heart.png";
 		number = number+1;
 		return  likePost(postObject.id,number);
@@ -187,3 +218,4 @@ export const toggleLikes = (btn, number, postObject) =>  {
 		return  likePost(postObject.id,number);
 	}
 }
+
