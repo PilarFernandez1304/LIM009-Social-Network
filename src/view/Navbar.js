@@ -8,7 +8,7 @@ export const navBar = () => {
     header.classList.add('container-head', 'bg-green');
     const headerContent= `	  	    
         <div class="bg-green mobile-navbar">
-          ${!user.isAnonymous ? `<button id="btn-menu" class="border-box col-3 btn-menu bg-green" type="button"><i class="fa fa-bars" aria-hidden="true"></i>
+          ${!user.isAnonymous ? `<button id="btn-menu update-profile" class="border-box col-3 btn-menu bg-green" type="button"><i class="fa fa-bars" aria-hidden="true"></i>
           </button>` : ``}
           <div class="col-9 text-center">
             <img src="../assets/mano.png" alt="logo" class="btn-icon"/>
@@ -24,10 +24,16 @@ export const navBar = () => {
       if (!user.isAnonymous) {
         const buttonLogOut = header.querySelector("#btn-logout");
         buttonLogOut.addEventListener("click", logoutOnClick);
+        //const buttonUpdatePorfile=header.querySelector('#update-profile');
+        //buttonUpdatePorfile.addEventListener('click',updateOnclickProfile);
       }
         
     return header;
   }
+  /*export const updateOnclickProfile =()=>{
+    porfileUpdate()
+
+  }*/
 
 export const logoutOnClick = () => {
   logOut()
