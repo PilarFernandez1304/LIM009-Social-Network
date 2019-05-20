@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost, addCommentPost, getAllComentPost, likePostComments} from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost, addCommentPost, getAllComentPost, likePostComments, deletePostComment} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
@@ -113,13 +113,13 @@ export const postListTemplate = (postObject) => {
 				  <span class="color-black registry">${postObject.likes}</span>
 				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt="likes" title="likes" />
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
-				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> 
+					${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> 
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
 						</select>` : ``}
-					${(!user.isAnonymous) ? `<button id="comments-${postObject.id}" class="btn-share bg-green color-white" type="button">Comentar</button>` : '' }
-				</div>
+					</div>
 				<div class="border-box post-article post-comment border-bottom">
 				${(!user.isAnonymous) ? `<input id="comment-input" class="border-box input-comment bg-white border" type="text" placeholder="Escribe tu comentario" />` : '' }
+				${(!user.isAnonymous) ? ` <img id="post-comments-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/comments.png" alt="list-comments" />` : '' }
 				</div>
 				<div id="comment-content-${postObject.id}" class="border-box post-article">
 				</div>`;
@@ -153,7 +153,7 @@ export const postListTemplate = (postObject) => {
 			});
 		})
 	if (!user.isAnonymous) {
-	  const commentsBtn = article.querySelector(`#comments-${postObject.id}`);
+	  const commentsBtn = article.querySelector(`#post-comments-${postObject.id}`);
 	  const comment = article.querySelector('#comment-input');
 	  commentsBtn.addEventListener('click', () => {
 	  	if (comment.value !== '') {
@@ -180,6 +180,7 @@ const commentListTemplate = (commentsObject,postObject) => {
 	</div>
 	<div class="post-article post-footer border-box">
 	  <img id="btnLike-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="likes" /> <span class="color-black">${commentsObject.likes}</span>
+		${(user.uid === commentsObject.authorId) ? `<img id="btn-delete-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
 	</div>
 	`;
 	const article = document.createElement('article');
@@ -193,6 +194,14 @@ const commentListTemplate = (commentsObject,postObject) => {
 			let totalLikes = numberLike +1;
 		  return likePostComments(postObject.id, commentsObject.id, totalLikes);
 		});
+
+		if (user.uid === commentsObject.authorId) {
+			const deleteBtn = article.querySelector(`#btn-delete-${commentsObject.id}`);
+			deleteBtn.addEventListener('click', () => {
+				deletePostComment(postObject.id, commentsObject.id)
+			});
+		}
+
 	return article;
 }
 

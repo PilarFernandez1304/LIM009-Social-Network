@@ -71,6 +71,8 @@ export const updatePost = (idPost, content, privacy) => {
 
 export const deletePost = (idPost) => firebase.firestore().collection('posts').doc(idPost).delete();
 
+export const deletePostComment = (idPost,idComments) => firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments).delete();
+
 export const uploadImage = (date, image) => {
     const storageRef = firebase.storage().ref();
     const postImageRef = storageRef.child(`images/${date}-${image.name}`);
