@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost, addCommentPost} from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost, addCommentPost, getAllCommentPost} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
@@ -110,16 +110,19 @@ export const postListTemplate = (postObject) => {
 				  ${(postObject.image !== undefined && postObject.image !== null) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
         		<div class="post-article bg-light-green post-footer border-box">
-				  <span class="likes registry">${postObject.likes}</span>
+				  <span class="color-black registry">${postObject.likes}</span>
 				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt="likes" title="likes" />
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
 				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> 
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
 						</select>` : ``}
+					<span id="see-comments-btn-${postObject.id}" class="links color-black">Ver Comentarios</span>
 					${(!user.isAnonymous) ? `<button id="comments-${postObject.id}" class="btn-share bg-green color-white" type="button">Comentar</button>` : '' }
 				</div>
+				<div class="border-box post-article post-comment">
+				${(!user.isAnonymous) ? `<input id="comment-input" class="border-box input-comment bg-white border" type="text" placeholder="Escribe tu comentario" />` : '' }
+				</div>
 				<div id="comment-content-${postObject.id}" class="border-box post-article post-comment">
-				${(!user.isAnonymous) ? `<input id="comment-textarea" class="border-box input-comment bg-white border" type="text" placeholder="Escribe tu comentario" />` : '' }
 				</div>`;
 	const article = document.createElement('article');
 	article.setAttribute('id', postObject.id);
@@ -142,26 +145,31 @@ export const postListTemplate = (postObject) => {
 		const number = postObject.likes;
 		return toggleLikes(btnLike, number, postObject);
 	});
-	if (!user.isAnonymous) {
+    
+    if (!user.isAnonymous) {
 	  const commentsBtn = article.querySelector(`#comments-${postObject.id}`);
-	  const comment = article.querySelector('#comment-textarea');
-	  const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
+	  const comment = article.querySelector('#comment-input');
 	  commentsBtn.addEventListener('click', () => {
-  	    addCommentPost(postObject.id, comment.value)
-  	    .then(() => commentContainer.appendChild(commenTemplate(postObject.id, comment.value)))
-  	    .then(() => comment.value = '');
-  	  //commentsCounter = getComments().length;
-  	  //comment = article.querySelector(`#comment-textarea-${commentsCounter}`).value;
+	  	if (comment.value !== '') {
+  	      addCommentPost(postObject.id, comment.value, user.email)
+  	      .then(() => comment.value = '');
+        }
       });
 	}
+
+	const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
+	const seeCommentsBtn = article.querySelector(`#see-comments-btn-${postObject.id}`);
+	seeCommentsBtn.addEventListener('click', () => {
+		getAllCommentPost(postObject.id, commenTemplate)
+		.then((result) => commentContainer.appendChild(result));
+	});
+	
+
 	return article;
 }
 
-export const commenTemplate = (id, commentText) => {
-  const comment = document.createElement('p');
-  comment.setAttribute('id', `comment-${id}`);
-  comment.setAttribute('class', 'border-box input-comment bg-white border');
-  comment.innerHTML = commentText;
+export const commenTemplate = (commentObject) => {
+  const comment = `<p id="comment-${commentObject.author} class="border-box input-comment bg-white border">${commentObject.description}</p>`;
   return comment;
 }
 

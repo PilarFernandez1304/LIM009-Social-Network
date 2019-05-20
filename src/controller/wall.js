@@ -11,14 +11,17 @@ export const createPost = (uid, userName,userPhoto, contentText, privacy, postIm
   })
 } 
 
-export const addCommentPost = (idPost, comment) => {
+export const addCommentPost = (idPost, comment, user) => {
   return firebase.firestore().collection('posts').doc(idPost).collection('comments').add({
-    commentPost: comment
+    description: comment,
+    author: user,
+    date: new Date()
   })
 }
 
-export const getAllComentPost = (id, callback) => {
-  return firebase.firestore().doc(`posts/${id}`).collection('comments')
+export const getAllCommentPost = (id, callback) => {
+  firebase.firestore().doc(`posts/${id}`).collection('comments')
+    .orderBy('date', 'desc')
     .onSnapshot((querySnapshot) => {
       let data = [];
       querySnapshot.forEach((post) => {
@@ -28,7 +31,6 @@ export const getAllComentPost = (id, callback) => {
     });
    
 } 
-
 
 export const getAllPosts = (callback) => {
     firebase.firestore().collection('posts')
