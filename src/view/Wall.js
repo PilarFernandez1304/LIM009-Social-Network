@@ -141,8 +141,8 @@ export const postListTemplate = (postObject) => {
 		}
     const btnLike = article.querySelector(`#btnLike-${postObject.id}`);
     btnLike.addEventListener('click', () => {
-		const number = postObject.likes;
-		return toggleLikes(btnLike, number, postObject);
+		const number = postObject.likes + 1;
+		return likePost(postObject.id, number);
 	});
 	
 	const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
@@ -185,14 +185,14 @@ const commentListTemplate = (commentsObject) => {
 	article.setAttribute('id', commentsObject.id);
 	article.classList.add('post-article', 'border-bottom', 'border-box');
 	article.innerHTML = commentList;
-	
+	/*
 	const btnLike = article.querySelector(`#btnLike-${commentsObject.id}`);
 		const numberLike = commentsObject.likes;
     btnLike.addEventListener('click',  () => {
 			let totalLikes = numberLike +1;
-		  return  likePostComments(postObject.id, commentsObject, totalLikes);
+		  return likePostComments(commentsObject.id, commentsObject, totalLikes);
 		});
-
+*/
 	return article;
 }
 
