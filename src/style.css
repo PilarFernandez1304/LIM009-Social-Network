@@ -359,8 +359,8 @@ header img {
 
   .profile {
 	  height: 18vh;
-	  margin: 0 1rem
-      border: 1px solid #00c89b;
+	  margin: 0 1rem;
+    border: 1px solid #00c89b
   }
 
   .main-container {
