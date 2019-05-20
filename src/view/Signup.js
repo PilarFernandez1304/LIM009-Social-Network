@@ -68,7 +68,9 @@ export const signUp = () => {
     .then(() => changeHash('#/home'))
     .catch(() => {})
     );
+  /*const nameRegister = div.querySelector('#name-register').value;*/
   
   return div;
 }
 
+ 

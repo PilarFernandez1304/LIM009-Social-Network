@@ -11,7 +11,8 @@ const fixtureData = {
           state: 'private',
           user: 'user-a',
           userId: '9URN4KSD9kw9HKNlo47B',
-          userPhoto: 'photo.jpg'
+          userPhoto: 'photo.jpg',
+          image: 'myImagen1.jpg'
         },
         UN3nm7kO: 
         {
@@ -20,7 +21,8 @@ const fixtureData = {
           state: 'public',
           user: 'user-a',
           userId: '9URN4KSD9kw9HKNlo47B',
-          userPhoto: 'photo.jpg'
+          userPhoto: 'photo.jpg',
+          image: 'myImagen2.jpg'
         },
         KJ8v55TS: 
         {
@@ -29,7 +31,8 @@ const fixtureData = {
           state: 'private',
           user: 'user-a',
           userId: '9URN4KSD9kw9HKNlo47B',
-          userPhoto: 'photo.jpg'
+          userPhoto: 'photo.jpg',
+          image: 'myImagen3.jpg'
         },
       }
     }
@@ -38,7 +41,7 @@ const fixtureData = {
 
 global.firebase = new MockFirebase(fixtureData, { isNaiveSnapshotListenerEnabled: true });
 
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage } from '../src/controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost } from '../src/controller/wall.js';
 
 describe('getPublicPosts', () => {
      it('No debería leer todos los posts privados', (done) => {
@@ -134,3 +137,24 @@ describe('updatePost', () => {
     ));
   })
 })
+
+describe('likePost', () => {
+  it('debería ser una función', () => {
+    expect(typeof likePost).toBe('function');
+  });
+  it('Debería poder dar like', (done) => {
+  return likePost('GJR4GH4f', 1 )
+  .then(() => getAllPosts(
+    (data) => {
+      const result = data.find((post) => post.likes === 1);
+      expect(result.likes).toBe(1);
+      done()
+    }
+  ))
+})
+})
+
+
+
+
+

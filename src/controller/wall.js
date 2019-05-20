@@ -10,6 +10,26 @@ export const createPost = (uid, userName,userPhoto, contentText, privacy, postIm
     image: postImage 
   })
 } 
+
+export const addCommentPost = (idPost, comment) => {
+  return firebase.firestore().collection('posts').doc(idPost).collection('comments').add({
+    commentPost: comment
+  })
+}
+
+export const getAllComentPost = (id, callback) => {
+  return firebase.firestore().doc(`posts/${id}`).collection('comments')
+    .onSnapshot((querySnapshot) => {
+      let data = [];
+      querySnapshot.forEach((post) => {
+       data.push({id: post.id, ...post.data()})
+      });
+      callback(data)
+    });
+   
+} 
+
+
 export const getAllPosts = (callback) => {
     firebase.firestore().collection('posts')
     .orderBy('date', 'desc')
@@ -51,3 +71,10 @@ export const uploadImage = (date, image) => {
     return postImageRef.put(image, metadata)
     .then(snapshot => snapshot.ref.getDownloadURL());
 }
+
+export const likePost = (idPost, counter) => {
+      return firebase.firestore().collection('posts').doc(idPost).update({
+      likes: counter
+    });
+  }; 
+
