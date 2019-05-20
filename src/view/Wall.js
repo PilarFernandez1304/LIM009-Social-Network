@@ -149,7 +149,7 @@ export const postListTemplate = (postObject) => {
 	getAllComentPost(postObject.id, (comments) => {
 			commentContainer.innerHTML = '';
 			comments.forEach(comment => {
-				commentContainer.appendChild(commentListTemplate(comment))
+				commentContainer.appendChild(commentListTemplate(comment,postObject))
 			});
 		})
 	if (!user.isAnonymous) {
@@ -166,7 +166,7 @@ export const postListTemplate = (postObject) => {
 	return article;
 }
 
-const commentListTemplate = (commentsObject) => {
+const commentListTemplate = (commentsObject,postObject) => {
 	const user = getCurrenUser();
 	const commentList = `
 	<div class="col-2">
@@ -177,22 +177,22 @@ const commentListTemplate = (commentsObject) => {
 	</div>
 	<div class="post-article">
 	<p id="comment-${commentsObject.author}" class="clear block auto border-box input-comment bg-white border">${commentsObject.description}</p>
+	</div>
 	<div class="post-article post-footer border-box">
-	  <img id="btnLike-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="" /> <span class="color-black">${commentsObject.likes}</span>
+	  <img id="btnLike-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="likes" /> <span class="color-black">${commentsObject.likes}</span>
 	</div>
 	`;
 	const article = document.createElement('article');
 	article.setAttribute('id', commentsObject.id);
 	article.classList.add('post-article', 'border-bottom', 'border-box');
 	article.innerHTML = commentList;
-	/*
+
 	const btnLike = article.querySelector(`#btnLike-${commentsObject.id}`);
 		const numberLike = commentsObject.likes;
     btnLike.addEventListener('click',  () => {
 			let totalLikes = numberLike +1;
-		  return likePostComments(commentsObject.id, commentsObject, totalLikes);
+		  return likePostComments(postObject.id, commentsObject.id, totalLikes);
 		});
-*/
 	return article;
 }
 
