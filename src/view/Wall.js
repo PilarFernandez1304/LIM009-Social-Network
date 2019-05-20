@@ -27,8 +27,8 @@ export const home = (posts) => {
 	<section class="posts post-list">
 	<div id="post-list" class="post-article border-box"></div>
 	</section>`;
-  }
-  const contentContainer = document.createElement('main');
+}
+ const contentContainer = document.createElement('main');
 	contentContainer.classList.add('flex-container', 'border-box', 'main-container');
 	contentContainer.innerHTML = content;
     const wallAll = contentContainer.querySelector('#post-list');
@@ -46,7 +46,7 @@ export const createPostTemplate = () => {
 	createPostContainer.setAttribute('id', 'create-post-container');
 	const createPostForm = `
 	<form>
-	  <input id="post-content-input" class="block post-input" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
+	  <input id="post-content-input" class="block post-input border" type="text" name="post-content" placeholder="¿Qué quieres compartir?" />
 	  <div class="btn-post-input">
 	  <img id="btn-upload-image" class="block border-box btn-icon-post bg-green" src="../assets/image.png" alt="subir-imagen" title="subir imagen" />
 	  <select id="post-privacy-select" class="block select bg-green color-white border-none">
@@ -102,24 +102,26 @@ export const postListTemplate = (postObject) => {
 					</div> 
 					${postObject.user === null ? `<p class="col-9">Publicado por ${user.email}</p>`:`<p class="col-9">Publicado por ${postObject.user}</p>` } 
 					<div class="col-1">
-					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="block border-box btn-delete col-1 bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
+					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="block border-box auto btn-delete bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
 					</div>
 				</div>
 				<div class="post-content clear">
-				  <textarea id="post-edit-${postObject.id}" class="border-box post-article textarea" disabled=true>${postObject.content}</textarea>
+				  <textarea id="post-edit-${postObject.id}" class="border-box post-article textarea border-none" disabled=true>${postObject.content}</textarea>
 				  ${(postObject.image !== undefined && postObject.image !== null) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
-        <div class="post-article bg-light-green post-footer border-box">
-				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="" /> <span class="post-total-like registry">${postObject.likes}</span>
+        		<div class="post-article bg-light-green post-footer border-box">
+				  <span class="color-black registry">${postObject.likes}</span>
+				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt="likes" title="likes" />
 				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
-					${(!user.isAnonymous) ? `<img id="comments-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/comments.png" alt="ver-comments" />` : '' }
-					${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> likes 2 Comentarios 
+				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> 
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
 						</select>` : ``}
+					${(!user.isAnonymous) ? `<button id="comments-${postObject.id}" class="btn-share bg-green color-white" type="button">Comentar</button>` : '' }
 				</div>
-				<div id="comment-content-${postObject.id}" class="border-box post-article post-comment">
-				<div id="comment-content-${postObject.id}" ></div>
-				<div id="comments-content-${postObject.id}" ></div>
+				<div class="border-box post-article post-comment border-bottom">
+				${(!user.isAnonymous) ? `<input id="comment-input" class="border-box input-comment bg-white border" type="text" placeholder="Escribe tu comentario" />` : '' }
+				</div>
+				<div id="comment-content-${postObject.id}" class="border-box post-article">
 				</div>`;
 	const article = document.createElement('article');
 	article.setAttribute('id', postObject.id);
@@ -137,65 +139,51 @@ export const postListTemplate = (postObject) => {
 		return toggleDisableTextarea(textArea, select, postObject, editBtn);
       });
 		}
-		const btnLike = article.querySelector(`#btnLike-${postObject.id}`);
-		const numberLike = postObject.likes;
-    btnLike.addEventListener('click',  () => {
-			let totalLikes = numberLike +1;
-		  return  likePost(postObject.id,totalLikes);
-		});
-		
-		const btnComments = article.querySelector(`#comments-${postObject.id}`);
-		 btnComments.addEventListener('click', () => {
-      const divComment = article.querySelector(`#comment-content-${postObject.id}`)
-      divComment.appendChild(commentTemplate(postObject.id))
-		})
-
-		const divComments = article.querySelector(`#comments-content-${postObject.id}`)
-		getAllComentPost(postObject.id, (comments) => {
-			divComments.innerHTML = '';
+    const btnLike = article.querySelector(`#btnLike-${postObject.id}`);
+    btnLike.addEventListener('click', () => {
+		const number = postObject.likes;
+		return toggleLikes(btnLike, number, postObject);
+	});
+	
+	const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
+	getAllComentPost(postObject.id, (comments) => {
+			commentContainer.innerHTML = '';
 			comments.forEach(comment => {
-				divComments.appendChild(commentListTemplate(comment))
+				commentContainer.appendChild(commentListTemplate(comment))
 			});
 		})
-		
-
+	if (!user.isAnonymous) {
+	  const commentsBtn = article.querySelector(`#comments-${postObject.id}`);
+	  const comment = article.querySelector('#comment-input');
+	  commentsBtn.addEventListener('click', () => {
+	  	if (comment.value !== '') {
+	  	  addCommentPost(user.uid, postObject.id, comment.value, user.displayName, user.photoURL)
+	  	  .then((response) => comment.value = '');
+        }
+      });
+	}
+	
 	return article;
-}
-
-
-
-
-const commentTemplate = (id) => {
-  const divContentComment = document.createElement('div');
-  divContentComment.innerHTML = `
-	<input id="comment-content-input" class="block post-input" type="text" name="comment-content" placeholder="¿Qué quieres comentar?" />
-	<button id="btn-comment-post" type="submit" class="block btn-share bg-green color-white">Comentar</button>
-	`;
-	const btnComment = divContentComment.querySelector('#btn-comment-post');
-	const currentComment= divContentComment.querySelector('#comment-content-input');
-  btnComment.addEventListener('click', () => {
-		const user = getCurrenUser();
-		addCommentPost(user.uid, id, currentComment.value,user.displayName,user.photoURL);
-  })
-  return divContentComment;
 }
 
 const commentListTemplate = (commentsObject) => {
 	const user = getCurrenUser();
 	const commentList = `
 	<div class="col-2">
-	${commentsObject.userPhoto === null ? `<img class="round-image text-center" src="../assets/perfil-email.jpg"/>` : `<img class="round-image clear" src="${commentsObject.userPhoto}"/>`}
+	${commentsObject.authorPhoto === null ? `<img class="round-image text-center" src="../assets/perfil-email.jpg"/>` : `<img class="round-image clear" src="${commentsObject.authorPhoto}"/>`}
 	</div>
-	<div class="col-10">
-	<textarea id="post-edit-${commentsObject.id}" class='border-box input-comment bg-white border' disabled=true>${commentsObject.user} : ${commentsObject.commentPost}</textarea>
+	<div class="col-10 color-black">
+	<p>${commentsObject.author}</p>
 	</div>
-	<div class="post-article bg-light-green post-footer border-box">
-				  <img id="btnLike-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="" /> <span class="post-total-like registry">${commentsObject.likes}</span>
-				  ${(user.uid === commentsObject.userId) ? `<img id="btn-edit-${commentsObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
+	<div class="post-article">
+	<p id="comment-${commentsObject.author}" class="clear block auto border-box input-comment bg-white border">${commentsObject.description}</p>
+	<div class="post-article post-footer border-box">
+	  <img id="btnLike-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="" /> <span class="color-black">${commentsObject.likes}</span>
+	</div>
 	`;
 	const article = document.createElement('article');
 	article.setAttribute('id', commentsObject.id);
-	article.classList.add('post-box', 'border');
+	article.classList.add('post-article', 'border-bottom', 'border-box');
 	article.innerHTML = commentList;
 	
 	const btnLike = article.querySelector(`#btnLike-${commentsObject.id}`);
