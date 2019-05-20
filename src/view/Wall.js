@@ -6,7 +6,7 @@ let postImage;
 export const home = (posts) => {
 	let user = getCurrenUser();
 	let content;
-  if (!user.isAnonymous) {
+  if (user) {
 	content = `
 	<section id="profile-container" class="profile border-box">
         <div class="container-background">
@@ -32,7 +32,7 @@ export const home = (posts) => {
 	contentContainer.classList.add('flex-container', 'border-box', 'main-container');
 	contentContainer.innerHTML = content;
     const wallAll = contentContainer.querySelector('#post-list');
-    if (!user.isAnonymous) {wallAll.appendChild(createPostTemplate())};
+    if (user) {wallAll.appendChild(createPostTemplate())};
     posts.forEach((post) => {
       wallAll.appendChild(postListTemplate(post));    
     });
@@ -102,7 +102,7 @@ export const postListTemplate = (postObject) => {
 					</div> 
 					${postObject.user === null ? `<p class="col-9">Publicado por ${user.email}</p>`:`<p class="col-9">Publicado por ${postObject.user}</p>` } 
 					<div class="col-1">
-					${(user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="block border-box auto btn-delete bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
+					${(user && user.uid === postObject.userId) ? `<img id="btn-delete-${postObject.id}" class="block border-box auto btn-delete bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
 					</div>
 				</div>
 				<div class="post-content clear">
@@ -112,14 +112,14 @@ export const postListTemplate = (postObject) => {
         		<div class="post-article bg-light-green post-footer border-box">
 				  <span class="color-black registry">${postObject.likes}</span>
 				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt="likes" title="likes" />
-				  ${(user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
-				  ${(user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> 
+				  ${(user && user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
+				  ${(user && user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> 
 				  	${(postObject.state === 'public') ? `<option value="public">Public</option><option value="private">Private</option>` : `<option value="private">Private</option><option value="public">Public</option>`}
 						</select>` : ``}
-					${(!user.isAnonymous) ? `<button id="comments-${postObject.id}" class="btn-share bg-green color-white" type="button">Comentar</button>` : '' }
+					${(user) ? `<button id="comments-${postObject.id}" class="btn-share bg-green color-white" type="button">Comentar</button>` : '' }
 				</div>
 				<div class="border-box post-article post-comment border-bottom">
-				${(!user.isAnonymous) ? `<input id="comment-input" class="border-box input-comment bg-white border" type="text" placeholder="Escribe tu comentario" />` : '' }
+				${(user) ? `<input id="comment-input" class="border-box input-comment bg-white border" type="text" placeholder="Escribe tu comentario" />` : '' }
 				</div>
 				<div id="comment-content-${postObject.id}" class="border-box post-article">
 				</div>`;
@@ -127,7 +127,7 @@ export const postListTemplate = (postObject) => {
 	article.setAttribute('id', postObject.id);
 	article.classList.add('post-box', 'border');
 	article.innerHTML = postsList;
-	if (user.uid === postObject.userId) {
+	if (user && user.uid === postObject.userId) {
 	  const deleteBtn = article.querySelector(`#btn-delete-${postObject.id}`);
 	  deleteBtn.addEventListener('click', () => {
 		deletePost(postObject.id)
@@ -152,7 +152,7 @@ export const postListTemplate = (postObject) => {
 				commentContainer.appendChild(commentListTemplate(comment))
 			});
 		})
-	if (!user.isAnonymous) {
+	if (user) {
 	  const commentsBtn = article.querySelector(`#comments-${postObject.id}`);
 	  const comment = article.querySelector('#comment-input');
 	  commentsBtn.addEventListener('click', () => {
@@ -178,7 +178,7 @@ const commentListTemplate = (commentsObject) => {
 	<div class="post-article">
 	<p id="comment-${commentsObject.author}" class="clear block auto border-box input-comment bg-white border">${commentsObject.description}</p>
 	<div class="post-article post-footer border-box">
-	  <img id="btnLike-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="" /> <span class="color-black">${commentsObject.likes}</span>
+	  <img id="btnLike-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt="likes" title="likes" /> <span class="color-black">${commentsObject.likes}</span>
 	</div>
 	`;
 	const article = document.createElement('article');

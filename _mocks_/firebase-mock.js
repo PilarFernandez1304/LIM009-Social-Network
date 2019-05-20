@@ -1,8 +1,9 @@
-export const firebasemock = require('firebase-mock');
+const firebasemock = require('firebase-mock');
 
-export const mockauth = new firebasemock.MockAuthentication();
-export const mockfirestore = new firebasemock.MockFirestore();
-export const mocksdk = new firebasemock.MockFirebaseSdk(
+const mockauth = new firebasemock.MockAuthentication();
+const mockfirestore = new firebasemock.MockFirestore();
+const mockstorage = new firebasemock.MockStorage();
+export default new firebasemock.MockFirebaseSdk(
   // use null if your code does not use RTDB
   (path) => {
   	return (path ? mockdatabase.child(path) : null)
@@ -12,5 +13,20 @@ export const mocksdk = new firebasemock.MockFirebaseSdk(
   },
   () => {
     return mockfirestore;
-  }
+  },
+  () => ({
+    ref: () => ({
+      child: path => ({
+        put: (image, metadata) => (
+          new Promise(resolve => {
+            resolve({
+              ref: {
+                getDownloadURL: () => ({ path })
+              }
+            })
+          })
+        )
+      })
+    })
+  })
 );

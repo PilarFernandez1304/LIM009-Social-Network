@@ -3,7 +3,7 @@ mockauth.autoFlush();
 
 global.firebase = mocksdk;
 
-import { emailLogIn, authFacebook, authGmail, signInAnonimous, logOut, getCurrenUser } from '../src/controller/login.js';
+import { emailLogIn, authFacebook, authGmail, logOut, getCurrenUser } from '../src/controller/login.js';
 
 describe('emailLogIn', () => {
 	it('Debería ser una función', () => {
@@ -42,7 +42,7 @@ describe('authGmail', () => {
 		});
 	});
 });
-
+/*
 describe('signInAnonimous', () => {
 	it('Debería ser una función', () => {
 		expect(typeof signInAnonimous).toBe('function');
@@ -53,7 +53,7 @@ describe('signInAnonimous', () => {
 		});
 	});
 });
-
+*/
 describe('logOut', () => {
 	it('Debería ser una función', () => {
 		expect(typeof logOut).toBe('function');
