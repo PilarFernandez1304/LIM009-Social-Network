@@ -23,6 +23,9 @@ body {
 	border: none;
 }
 
+.border-bottom {
+	border-bottom: 1px solid #00c89b;
+}
 .auto {
 	margin: auto;
 }
@@ -226,7 +229,7 @@ body {
 }
 
 .input-comment {
-	width: 100%;
+	width: 90%;
 	padding: 5px 10px;
 	border-radius: 5px;
 }
@@ -361,8 +364,8 @@ header img {
 
   .profile {
 	  height: 18vh;
-	  margin: 0 1rem
-      border: 1px solid #00c89b;
+	  margin: 0 1rem;
+    border: 1px solid #00c89b
   }
 
   .main-container {

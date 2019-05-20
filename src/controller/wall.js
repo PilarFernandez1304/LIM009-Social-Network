@@ -11,16 +11,19 @@ export const createPost = (uid, userName,userPhoto, contentText, privacy, postIm
   })
 } 
 
-export const addCommentPost = (idPost, comment, user) => {
+export const addCommentPost = (uid, idPost, comment,userName,userPhoto) => {
   return firebase.firestore().collection('posts').doc(idPost).collection('comments').add({
+    authorId: uid,
     description: comment,
-    author: user,
-    date: new Date()
+    author:userName,
+    authorPhoto: userPhoto,
+    date: new Date(),
+    likes:0
   })
 }
 
-export const getAllCommentPost = (id, callback) => {
-  firebase.firestore().doc(`posts/${id}`).collection('comments')
+export const getAllComentPost = (id, callback) => {
+  return firebase.firestore().doc(`posts/${id}`).collection('comments')
     .orderBy('date', 'desc')
     .onSnapshot((querySnapshot) => {
       let data = [];
@@ -79,4 +82,10 @@ export const likePost = (idPost, counter) => {
       likes: counter
     });
   }; 
+
+export const likePostComments = (idPost, idComments, counter) => {
+    return firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments).update({
+    likes: counter
+  });
+}; 
 

@@ -4,7 +4,7 @@ import { home } from './view/Wall.js';
 import { navBar } from './view/Navbar.js'
 import profile from './view/Profile.js'
 import { getAllPosts, getPublicPosts } from './controller/wall.js';
-import { getCurrenUser, signInAnonimous } from './controller/login.js';
+import { getCurrenUser } from './controller/login.js';
 
 const changeView = (hash) => {
   if (hash === '#/' || hash === '' || hash === '#') {
@@ -34,7 +34,6 @@ const viewToShow = (routers) => {
         root.appendChild(home(posts));
       })
     } else {
-      signInAnonimous();
       getPublicPosts((posts) => {
         root.innerHTML = '';
         root.appendChild(navBar());
