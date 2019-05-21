@@ -118,6 +118,7 @@ export const postListTemplate = (postObject) => {
 				</div>
 				<div class="border-box post-article post-comment border-bottom">
 				${(user) ? `<input id="comment-input" class="border-box input-comment bg-white border" type="text" placeholder="Escribe tu comentario" />` : '' }
+				${(user) ? ` <img id="post-comments-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/comments.png" alt="list-comments" />` : '' }
 				</div>
 				<div id="comment-content-${postObject.id}" class="border-box post-article">
 				</div>`;
@@ -173,15 +174,27 @@ export const postListTemplate = (postObject) => {
 		
 	});
 
+const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
+getAllComentPost(postObject.id, (comments) => {
+	commentContainer.innerHTML = '';
+	comments.forEach(comment => {
+		commentContainer.appendChild(commentListTemplate(comment,postObject))
+	});
+})
 	if (user) {
-		const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
-		getAllComentPost(postObject.id, (comments) => {
-			commentContainer.innerHTML = '';
-			comments.forEach(comment => {
-				commentContainer.appendChild(commentListTemplate(comment))
-			});
-		})
+	  const commentsBtn = article.querySelector(`#post-comments-${postObject.id}`);
+	  const comment = article.querySelector('#comment-input');
+	  commentsBtn.addEventListener('click', () => {
+	  	if (comment.value !== '') {
+	  	  addCommentPost(user.uid, postObject.id, comment.value, user.displayName, user.photoURL)
+	  	  .then((response) => comment.value = '');
+        }
+      });
 	}
+
+
+
+
 
 	return article;
 }
@@ -203,14 +216,7 @@ const commentListTemplate = (commentsObject) => {
 	article.setAttribute('id', commentsObject.id);
 	article.classList.add('post-article', 'border-bottom', 'border-box');
 	article.innerHTML = commentList;
-	/*
-	const btnLike = article.querySelector(`#btnLike-${commentsObject.id}`);
-		const numberLike = commentsObject.likes;
-    btnLike.addEventListener('click',  () => {
-			let totalLikes = numberLike +1;
-		  return likePostComments(commentsObject.id, commentsObject, totalLikes);
-		});
-*/
+	
 	return article;
 
 }
