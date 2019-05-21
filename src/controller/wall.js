@@ -59,7 +59,8 @@ export const addCommentPost = (uid, idPost, comment,userName,userPhoto) => {
     description: comment,
     author:userName,
     authorPhoto: userPhoto,
-    date: new Date()
+    date: new Date(), 
+    idPost: idPost
   })
 }
 
@@ -74,6 +75,16 @@ export const getAllComentPost = (id, callback) => {
       callback(data)
     }); 
 }
+
+
+export const updatePostComments = (idPost,idComments, editComments) => {
+   let refPostComments = firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments)
+   return refPostComments.update({
+     description : editComments
+   })
+}
+
+export const deletePostComment = (idPost,idComments) => firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments).delete();
 
 export const addLikeToPost = (id, user) => {
   return firebase.firestore().collection('posts').doc(id).collection('likes').add({

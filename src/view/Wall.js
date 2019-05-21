@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, addLikeToPost, removeLikeToPost, getAllLikesPost, addCommentPost, getAllComentPost} from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, addLikeToPost, removeLikeToPost, getAllLikesPost, addCommentPost, getAllComentPost, deletePostComment, updatePostComments} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
@@ -191,10 +191,6 @@ getAllComentPost(postObject.id, (comments) => {
       });
 	}
 
-
-
-
-
 	return article;
 }
 
@@ -209,6 +205,8 @@ const commentListTemplate = (commentsObject) => {
 	</div>
 	<div class="post-article">
 	<p id="comment-${commentsObject.author}" class="clear block auto border-box input-comment bg-white border">${commentsObject.description}</p>
+	${(user.uid === commentsObject.authorId) ? `<img id="btn-delete-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
+	  ${(user.uid === commentsObject.authorId) ? `<img id="btn-edit-${commentsObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
 	</div>
 	`;
 	const article = document.createElement('article');
@@ -216,8 +214,19 @@ const commentListTemplate = (commentsObject) => {
 	article.classList.add('post-article', 'border-bottom', 'border-box');
 	article.innerHTML = commentList;
 	
-	return article;
+	if (user.uid === commentsObject.authorId) {
+		const deleteBtn = article.querySelector(`#btn-delete-${commentsObject.id}`);
+		deleteBtn.addEventListener('click', () => {
+			deletePostComment(commentsObject.idPost, commentsObject.id)
+		});
+		const editBtn = article.querySelector(`#btn-edit-${commentsObject.id}`);
+  	    const textArea = article.querySelector(`#comment-${commentsObject.id}`);
+  	    editBtn.addEventListener('click', () => {
+		  return toggleDisableTextareaComments(textArea, commentsObject, editBtn);
+        });
+    }
 
+	return article;
 }
 
 
@@ -234,5 +243,13 @@ export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 	}
 }
 
-
-
+export const toggleDisableTextareaComments = (textArea, commentsObject, btn) => {
+	if (textArea.disabled) {
+		btn.src = "../assets/save.png";
+		textArea.disabled = false;
+	} else {
+		btn.src = "../assets/paper-plane.png";
+		textArea.disabled = true;
+		return updatePostComments(commentsObject.id, commentsObject.id, textArea.value)
+	}
+}
