@@ -6,7 +6,7 @@ import changeHash from './utils.js';
 let postImage;
 export const home = (posts) => {
 	let user = getCurrenUser();
-	searchEmailUser(user.email,user.uid,user.displayName,user.photoURL)
+	(user) ? searchEmailUser(user.email,user.uid,user.displayName,user.photoURL) : '';
 	
 	let content;
   if (user) {
