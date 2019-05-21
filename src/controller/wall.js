@@ -67,7 +67,12 @@ export const updatePost = (idPost, content, privacy) => {
     state: privacy
     });
 }
-
+ export const updatePostComments = (idPost,idComments, editComments) => {
+   let refPostComments = firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments)
+   return refPostComments.update({
+     description : editComments
+   })
+  }
 
 export const deletePost = (idPost) => firebase.firestore().collection('posts').doc(idPost).delete();
 

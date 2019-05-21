@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost, addCommentPost, getAllComentPost, likePostComments, deletePostComment} from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost, addCommentPost, getAllComentPost, likePostComments, deletePostComment, updatePostComments } from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
@@ -175,13 +175,14 @@ const commentListTemplate = (commentsObject,postObject) => {
 	<div class="col-10 color-black">
 	<p>${commentsObject.author}</p>
 	</div>
-	<div class="post-article">
-	<p id="comment-${commentsObject.author}" class="clear block auto border-box input-comment bg-white border">${commentsObject.description}</p>
+	<div class="post-article"> 
+	<textarea id="comment-${commentsObject.id}" class="clear block auto border-box input-comment bg-white border" disabled=true >${commentsObject.description}</textarea>
 	</div>
 	<div class="post-article post-footer border-box">
 	  <img id="btnLike-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt=" likes" title="likes" /> <span class="color-black">${commentsObject.likes}</span>
 		${(user.uid === commentsObject.authorId) ? `<img id="btn-delete-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
-	</div>
+	  ${(user.uid === commentsObject.authorId) ? `<img id="btn-edit-${commentsObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
+		</div>
 	`;
 	const article = document.createElement('article');
 	article.setAttribute('id', commentsObject.id);
@@ -200,6 +201,11 @@ const commentListTemplate = (commentsObject,postObject) => {
 			deleteBtn.addEventListener('click', () => {
 				deletePostComment(postObject.id, commentsObject.id)
 			});
+			const editBtn = article.querySelector(`#btn-edit-${commentsObject.id}`);
+  	  const textArea = article.querySelector(`#comment-${commentsObject.id}`);
+  	  editBtn.addEventListener('click', () => {
+		return toggleDisableTextareaComments(textArea,  postObject, commentsObject, editBtn);
+      });
 		}
 
 	return article;
@@ -220,4 +226,14 @@ export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 }
 
 
+export const toggleDisableTextareaComments = (textArea, postObject, commentsObject, btn) => {
+	if (textArea.disabled) {
+		btn.src = "../assets/save.png";
+		textArea.disabled = false;
+	} else {
+		btn.src = "../assets/paper-plane.png";
+		textArea.disabled = true;
+		return updatePostComments(postObject.id, commentsObject.id, textArea.value)
+	}
+}
 
