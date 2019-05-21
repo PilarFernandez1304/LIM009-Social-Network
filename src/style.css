@@ -380,3 +380,42 @@ header img {
   	display: flex;
   }
 }
+
+
+*{
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+	}
+								
+	li{
+	list-style-type:none;
+	position:relative;
+	width:120px;
+	}
+							
+	li a{
+	text-decoration:none;
+	display:inline-block;
+	padding:5px 10px;
+	width:120px;
+	height:30px;
+	border:1px solid #000;
+	color:#fff;
+	background-color:#000;
+	}
+					
+	li a:hover{
+	color:#000;
+	background-color:#fff;
+							
+	}
+	
+	nav li ul{
+			display:none;
+			position:absolute;
+			top:0px;
+			left:120px;
+	}
+					
+	nav li:hover ul{display:block;}

@@ -8,8 +8,9 @@ export const navBar = () => {
     header.classList.add('container-head', 'bg-green');
     const headerContent= `	  	    
         <div class="bg-green mobile-navbar">
-          ${ user ? `<button id="btn-menu update-profile" class="border-box col-3 btn-menu bg-green" type="button"><i class="fa fa-bars" aria-hidden="true"></i>
-          </button>` : ``}
+          ${ user ? `<button id="btn-menu" class="border-box col-3 btn-menu bg-green" type="button"><i class="fa fa-bars" aria-hidden="true"></i>
+          </button>`: ``}
+          <div id='nav2'> </div>
           <div class="col-9 text-center">
             <img src="../assets/mano.png" alt="logo" class="btn-icon"/>
             <a class="title" href="#/home">Mano Amiga</a>
@@ -26,14 +27,35 @@ export const navBar = () => {
         buttonLogOut.addEventListener("click", logoutOnClick);
         //const buttonUpdatePorfile=header.querySelector('#update-profile');
         //buttonUpdatePorfile.addEventListener('click',updateOnclickProfile);
+        const btnNav = header.querySelector('#btn-menu');
+      btnNav.addEventListener('click', ()=> {
+        const nav2 =header.querySelector('#nav2');
+        nav2.innerHTML = nav;
+      })
       }
-        
+
     return header;
   }
   /*export const updateOnclickProfile =()=>{
     porfileUpdate()
 
   }*/
+  const  nav = () => {
+   let nav1 =
+  ` <ul>
+            <li><a href="#/home">Home</a></li>
+            <li><a href="#/profile">Perfil</a></li>
+            <li><a href="#/login" id='logout'>Cerrar Sesión</a></li>
+               >
+        </ul>`
+  const nav =document.createElement('nav')
+  nav.innerHTML = nav1;
+  const btnLogout=nav.querySelector('#logout');
+  btnLogout.addEventListener('click', logoutOnClick);
+
+  return nav;
+  }
+
 
 export const logoutOnClick = () => {
   logOut()
