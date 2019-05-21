@@ -1,4 +1,4 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost, addCommentPost, getAllComentPost, likePostComments} from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, addLikeToPost, removeLikeToPost, getAllLikesPost, addCommentPost, getAllComentPost} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import changeHash from './utils.js';
 
@@ -93,8 +93,6 @@ export const createPostOnClick = (event) => {
 
 export const postListTemplate = (postObject) => {
 	const user = getCurrenUser();
-	/*const date = (postObject.date.toDate()).toString();
-  const newDate = date.substr(4, date.length - 37);*/
 	const postsList = 
 				`<div class="post-article post-head border-box bg-green">
 					<div class="col-2">
@@ -110,7 +108,7 @@ export const postListTemplate = (postObject) => {
 				  ${(postObject.image !== undefined && postObject.image !== null) ? `<img class="image-post" src="${postObject.image}" alt="post-image" title="post image" />` : ``}
 				</div>
         		<div class="post-article bg-light-green post-footer border-box">
-				  <span class="color-black registry">${postObject.likes}</span>
+				  <span id="likes-count-${postObject.id}" class="color-black registry">${postObject.likes}</span>
 				  <img id="btnLike-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt="likes" title="likes" />
 				  ${(user && user.uid === postObject.userId) ? `<img id="btn-edit-${postObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
 				  ${(user && user.uid === postObject.userId) ? `<select id="edit-privacy-${postObject.id}" class="select-privacy select bg-green color-white border-none" disabled="true"> 
@@ -138,13 +136,43 @@ export const postListTemplate = (postObject) => {
   	  editBtn.addEventListener('click', () => {
 		return toggleDisableTextarea(textArea, select, postObject, editBtn);
       });
-		}
-    const btnLike = article.querySelector(`#btnLike-${postObject.id}`);
+	}
+	// show likes total in span
+	const btnLike = article.querySelector(`#btnLike-${postObject.id}`);
+	let userLikes;
+	getAllLikesPost(postObject.id, (likes) => {
+    	const likesCounter = likes.length;
+    	const likesSpan = article.querySelector(`#likes-count-${postObject.id}`);
+    	likesSpan.innerHTML = likesCounter;
+    	userLikes = likes.find((comment) => comment.userName === user.email);
+    	(userLikes !== undefined) ? btnLike.src = '../assets/heart.png' : btnLike.src = '../assets/heart-empty.png';
+    });
+
     btnLike.addEventListener('click', () => {
-		const number = postObject.likes + 1;
-		return likePost(postObject.id, number);
-	});
+    	if (userLikes === undefined) {
+    	  addLikeToPost(postObject.id, user.email)
+    	  .then((response) => getAllLikesPost(postObject.id, (likes) => {
+    	  	btnLike.src = '../assets/heart.png';
+    	    const likesCounter = likes.length;
+    	    const likesSpan = article.querySelector(`#likes-count-${postObject.id}`);
+    	    likesSpan.innerHTML = likesCounter;
+    	    userLikes = likes.find((comment) => comment.userName === user.email);
+            })
+    	  );	
+    	}  else {
+    	  removeLikeToPost(postObject.id, userLikes.id)
+    	  .then((response) => getAllLikesPost(postObject.id, (likes) => {
+    	  	btnLike.src = '../assets/heart-empty.png';
+    	    const likesCounter = likes.length;
+    	    const likesSpan = article.querySelector(`#likes-count-${postObject.id}`);
+    	    likesSpan.innerHTML = likesCounter;
+    	    userLikes = undefined;
+            })
+    	  );
+    	}
 		
+	});
+
 	if (user) {
 		const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
 		getAllComentPost(postObject.id, (comments) => {
@@ -154,14 +182,6 @@ export const postListTemplate = (postObject) => {
 			});
 		})
 	}
-
-	const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
-	const seeCommentsBtn = article.querySelector(`#see-comments-btn-${postObject.id}`);
-	seeCommentsBtn.addEventListener('click', () => {
-		getAllCommentPost(postObject.id, commenTemplate)
-		.then((result) => commentContainer.appendChild(result));
-	});
-	
 
 	return article;
 }
