@@ -197,8 +197,6 @@ const commentListTemplate = (commentsObject) => {
 	</div>
 	<div class="post-article">
 	<p id="comment-${commentsObject.author}" class="clear block auto border-box input-comment bg-white border">${commentsObject.description}</p>
-	<div class="post-article post-footer border-box">
-	  <img id="btnLike-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/heart.png" alt="likes" title="likes" /> <span class="color-black">${commentsObject.likes}</span>
 	</div>
 	`;
 	const article = document.createElement('article');
