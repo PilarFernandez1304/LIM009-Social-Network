@@ -325,8 +325,8 @@ header img {
 }
 
 .img-user{
-	width: 60px;
-	height: 60px;
+	width: 80px;
+	height: 80px;
 	border-radius: 5rem;
 }
 
@@ -340,11 +340,26 @@ header img {
 	width: 70vw;
 	height: 60vh;
 }
+.container-profile h2{
+	width: 40vw;
+	margin:0;
+	margin-top: 2rem;
+	background-color: #00c89b;
+	text-align: center;
+	border: 2px solid #00c89b;
+}
+
 .container-Update{
+	
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+.profile-border{
+	width: 40vw;
+	height: 60vh;
+	border: 2px solid #00c89b;
 }
 @media screen and (min-width: 720px) {
   .flex-container {

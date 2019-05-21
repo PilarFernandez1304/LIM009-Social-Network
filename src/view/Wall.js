@@ -1,10 +1,13 @@
 import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, addLikeToPost, removeLikeToPost, getAllLikesPost, addCommentPost, getAllComentPost, deletePostComment, updatePostComments} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
+import {searchEmailUser} from '../controller/wall.js'
 import changeHash from './utils.js';
 
 let postImage;
 export const home = (posts) => {
 	let user = getCurrenUser();
+	searchEmailUser(user.email,user.uid,user.displayName,user.photoURL)
+	
 	let content;
   if (user) {
 	content = `
@@ -83,7 +86,7 @@ export const createPostOnClick = (event) => {
 	    	const date = new Date().toString();
 	    	console.log(date);
 	    	uploadImage(date, postImage.files[0])
-	    	.then((url) => createPost(user.uid, user.displayName, user.photoURL, postDescription, postPrivacy, url))
+	    	.then((url) => createPost(user.uid, user.displayName, user.photoURL,postDescription, postPrivacy, url))
 	    	.then((response) => getAllPosts(postListTemplate));
 	    }
 		formElem.querySelector('#post-content-input').value = '';

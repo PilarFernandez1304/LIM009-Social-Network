@@ -2,7 +2,7 @@ export const createPost = (uid, userName,userPhoto, contentText, privacy, postIm
   return firebase.firestore().collection('posts').add({
     userId: uid,
     user: userName,
-    userPhoto: userPhoto,
+    userPhoto: userPhoto,    
     content: contentText,
     likes: 0,
     date: new Date(),
@@ -116,3 +116,53 @@ export const likePostComments = (idPost, idComments, counter) => {
 };
 */ 
 
+export const CreateUsers = (email,uid,userName,userPhoto)=>{
+  return firebase.firestore().collection('users').add({
+    userId:uid,
+    userName:userName,
+    email:email,
+    userPhoto:userPhoto,
+    userOccupation: null 
+    })
+}
+
+
+/*
+export const getUser =()=>{
+  return firebase.firestore().doc('Id').get()
+  .then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+
+  })   
+
+  } 
+
+  */
+
+
+
+export const searchEmailUser= (email,uid,name,photo) =>{
+  return firebase.firestore().collection("users").get().then(function(querySnapshot) {
+    let aux=false;
+
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        //console.log(doc.data());
+        if(doc.data().email==email){
+          aux=true;
+        
+        }  
+    });
+
+    if(!aux){
+      CreateUsers(email,uid,name,photo)
+
+    }
+
+  });
+  }
