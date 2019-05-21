@@ -11,31 +11,6 @@ export const createPost = (uid, userName,userPhoto, contentText, privacy, postIm
   })
 } 
 
-export const addCommentPost = (uid, idPost, comment,userName,userPhoto) => {
-  return firebase.firestore().collection('posts').doc(idPost).collection('comments').add({
-    authorId: uid,
-    description: comment,
-    author:userName,
-    authorPhoto: userPhoto,
-    date: new Date(),
-    likes:0
-  })
-}
-
-export const getAllComentPost = (id, callback) => {
-  return firebase.firestore().doc(`posts/${id}`).collection('comments')
-    .orderBy('date', 'desc')
-    .onSnapshot((querySnapshot) => {
-      let data = [];
-      querySnapshot.forEach((post) => {
-       data.push({id: post.id, ...post.data()})
-      });
-      callback(data)
-    });
-   
-} 
-
-
 export const getAllPosts = (callback) => {
     firebase.firestore().collection('posts')
     .orderBy('date', 'desc')
@@ -79,22 +54,61 @@ export const deletePost = (idPost) => firebase.firestore().collection('posts').d
 export const deletePostComment = (idPost,idComments) => firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments).delete();
 
 export const uploadImage = (date, image) => {
-    const storageRef = firebase.storage().ref();
-    const postImageRef = storageRef.child(`images/${date}-${image.name}`);
+    const postImageRef = firebase.storage().ref().child(`images/${date}-${image.name}`);
     const metadata = { contentType: image.type };
     return postImageRef.put(image, metadata)
     .then(snapshot => snapshot.ref.getDownloadURL());
 }
 
-export const likePost = (idPost, counter) => {
-      return firebase.firestore().collection('posts').doc(idPost).update({
-      likes: counter
-    });
-  }; 
+export const addCommentPost = (uid, idPost, comment,userName,userPhoto) => {
+  return firebase.firestore().collection('posts').doc(idPost).collection('comments').add({
+    authorId: uid,
+    description: comment,
+    author:userName,
+    authorPhoto: userPhoto,
+    date: new Date()
+  })
+}
 
+export const getAllComentPost = (id, callback) => {
+  return firebase.firestore().doc(`posts/${id}`).collection('comments')
+    .orderBy('date', 'desc')
+    .onSnapshot((querySnapshot) => {
+      let data = [];
+      querySnapshot.forEach((post) => {
+       data.push({id: post.id, ...post.data()})
+      });
+      callback(data)
+    }); 
+}
+
+export const addLikeToPost = (id, user) => {
+  return firebase.firestore().collection('posts').doc(id).collection('likes').add({
+    userName: user,
+    postId: id
+  })
+};
+
+export const removeLikeToPost = (idPost, idLike) => {
+  return firebase.firestore().collection('posts').doc(idPost).collection('likes').doc(idLike).delete();
+  };
+
+export const getAllLikesPost = (idPost, callback) => {
+  return firebase.firestore().doc(`posts/${idPost}`).collection('likes')
+    .onSnapshot((querySnapshot) => {
+      let data = [];
+      querySnapshot.forEach((post) => {
+       data.push({id: post.id, ...post.data()})
+      });
+      callback(data)
+    }); 
+}
+
+/*
 export const likePostComments = (idPost, idComments, counter) => {
     return firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments).update({
     likes: counter
   });
-}; 
+};
+*/ 
 

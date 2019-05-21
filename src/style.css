@@ -178,6 +178,7 @@ body {
 
 .links {
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .color-black {

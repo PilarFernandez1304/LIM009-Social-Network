@@ -16,7 +16,7 @@ export const logOut = () => {
   return firebase.auth().signOut();
 }
 
-export const signInAnonimous = () => firebase.auth().signInAnonymously();
+//export const signInAnonimous = () => firebase.auth().signInAnonymously();
 
 export const getCurrenUser = () => {
 	return firebase.auth().currentUser;
