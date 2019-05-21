@@ -1,5 +1,6 @@
-import { firebasemock, mockauth, mockfirestore, mocksdk } from '../_mocks_/firebase-mock.js';
+import { mockauth, mocksdk } from '../_mocks_/firebase-mock.js';
 mockauth.autoFlush();
+
 global.firebase = mocksdk;
 
 import register from '../src/controller/signup.js';
