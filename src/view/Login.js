@@ -53,7 +53,7 @@ export const logIn = () => {
 
   const facebookLogInBtn = div.querySelector('#log-in-fb');
   facebookLogInBtn.addEventListener('click', () => {
-    authFacebook()
+    authFacebook() 
     .then((result) =>{
      changeHash('#/home')
     })
