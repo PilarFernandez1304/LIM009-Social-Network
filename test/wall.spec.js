@@ -41,7 +41,7 @@ const fixtureData = {
 
 global.firebase = new MockFirebase(fixtureData, { isNaiveSnapshotListenerEnabled: true });
 
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, likePost } from '../src/controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, addLikeToPost, removeLikeToPost, getAllLikesPost } from '../src/controller/wall.js';
 
 describe('getPublicPosts', () => {
      it('No debería leer todos los posts privados', (done) => {
@@ -138,21 +138,35 @@ describe('updatePost', () => {
   })
 })
 
-describe('likePost', () => {
+describe('addLikeToPost', () => {
   it('debería ser una función', () => {
-    expect(typeof likePost).toBe('function');
+    expect(typeof addLikeToPost).toBe('function');
   });
-  it('Debería poder dar like', (done) => {
-  return likePost('GJR4GH4f', 1 )
-  .then(() => getAllPosts(
-    (data) => {
-      const result = data.find((post) => post.likes === 1);
-      expect(result.likes).toBe(1);
-      done()
-    }
-  ))
+  it('Debería poder dar like con mi usuario logueado', (done) => {
+    return addLikeToPost('CD5GGH3SDDHGFG', 'abc@mail.com')
+    .then((data) => { 
+      getAllLikesPost(data._data.postId, 
+      (likes) => {
+        const userLikes = likes.find((user) => user.userName === 'abc@mail.com');
+        expect(userLikes.postId).toBe('CD5GGH3SDDHGFG')
+        done()
+      })
+    })
+  })
 })
-})
+
+describe('removeLikeToPost', () => {
+  it('debería ser una función', () => {
+    expect(typeof removeLikeToPost).toBe('function');
+  });
+  it('Debería poder dar like con mi usuario logueado', (done) => {
+    return removeLikeToPost('CD5GGH3SDDHGFG', 'abc@mail.com')
+    .then((data) => { 
+        expect(data).toBe(undefined);
+        done()
+      })
+    })
+  })
 
 
 

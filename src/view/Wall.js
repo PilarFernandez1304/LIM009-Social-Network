@@ -176,7 +176,14 @@ export const postListTemplate = (postObject) => {
 		
 	});
 
-	if (!user.isAnonymous) {
+	const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
+	getAllComentPost(postObject.id, (comments) => {
+		commentContainer.innerHTML = '';
+		comments.forEach(comment => {
+			commentContainer.appendChild(commentListTemplate(comment,postObject))
+		});
+	})
+	if (user) {
 	  const commentsBtn = article.querySelector(`#post-comments-${postObject.id}`);
 	  const comment = article.querySelector('#comment-input');
 	  commentsBtn.addEventListener('click', () => {
@@ -186,19 +193,11 @@ export const postListTemplate = (postObject) => {
         }
       });
 	}
-	const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
-getAllComentPost(postObject.id, (comments) => {
-	commentContainer.innerHTML = '';
-	comments.forEach(comment => {
-		commentContainer.appendChild(commentListTemplate(comment,postObject))
-	});
-})
-
-
+	
 	return article;
 }
 
-const commentListTemplate = (commentsObject,postObject) => {
+const commentListTemplate = (commentsObject) => {
 	const user = getCurrenUser();
 	const commentList = `
 	<div class="col-2">

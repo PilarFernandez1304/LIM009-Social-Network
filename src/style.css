@@ -90,7 +90,7 @@ body {
 .login {
 	display: block;
 	margin: 12px auto;
-	height: 25px;
+	height: 15px;
 	padding: 5px 10px;
 	border-radius: 15px;
 	line-height: 0.5;
@@ -361,6 +361,47 @@ header img {
 	height: 60vh;
 	border: 2px solid #00c89b;
 }
+
+/** navbar **/
+li{
+	list-style-type:none;
+	position:relative;
+	width:120px;
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+
+	}
+							
+li a{
+	text-decoration:none;
+	display:inline-block;
+	padding:5px 10px;
+	width:170px;
+	height:40px;
+	border:1px solid #008165;
+	color:#fff;
+	background-color:#00c89b;
+	box-sizing:border-box;
+	margin:0;
+}
+					
+li a:hover{
+	color:#000;
+	background-color:whitesmoke;
+}
+	
+nav li ul{
+	display:none;
+	position:absolute;
+	top:0px;
+	left:120px;
+}
+					
+.door-logout{
+	float: right;
+}
+
 @media screen and (min-width: 720px) {
   .flex-container {
     flex-direction: row;
@@ -395,44 +436,5 @@ header img {
   	display: flex;
   }
 }
-
-
-*{
-	box-sizing:border-box;
-	margin:0;
-	padding:0;
-	}
 								
-	li{
-	list-style-type:none;
-	position:relative;
-	width:120px;
-	}
-							
-	li a{
-	text-decoration:none;
-	display:inline-block;
-	padding:5px 10px;
-	width:170px;
-	height:40px;
-	border:1px solid #008165;
-	color:#fff;
-	background-color:#00c89b;
-	}
-					
-	li a:hover{
-	color:#000;
-	background-color:whitesmoke;
-							
-	}
 	
-	nav li ul{
-			display:none;
-			position:absolute;
-			top:0px;
-			left:120px;
-	}
-					
-  .door-logout{
-		float: right;
-	}
