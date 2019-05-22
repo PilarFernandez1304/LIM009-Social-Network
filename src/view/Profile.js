@@ -22,7 +22,7 @@ export default() => {
     const createProfileUser = document.createElement('div');
     createProfileUser.innerHTML = profileUser; 
     
-    const Ocupation=createProfileUser.querySelector('#userOcupation').value;
+    //const Ocupation=createProfileUser.querySelector('#userOcupation').value;
     const buttonSave=createProfileUser.querySelector('#buttonSave');
 
 
