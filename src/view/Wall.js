@@ -1,10 +1,13 @@
-import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, addLikeToPost, removeLikeToPost, getAllLikesPost, addCommentPost, getAllComentPost, deletePostComment, updatePostComments } from '../controller/wall.js';
+import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, addLikeToPost, removeLikeToPost, getAllLikesPost, addCommentPost, getAllComentPost, deletePostComment, updatePostComments} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
+import {searchEmailUser} from '../controller/wall.js'
 import changeHash from './utils.js';
 
 let postImage;
 export const home = (posts) => {
 	let user = getCurrenUser();
+	(user) ? searchEmailUser(user.email,user.uid,user.displayName,user.photoURL) : '';
+	
 	let content;
   if (user) {
 	content = `
@@ -83,7 +86,7 @@ export const createPostOnClick = (event) => {
 	    	const date = new Date().toString();
 	    	console.log(date);
 	    	uploadImage(date, postImage.files[0])
-	    	.then((url) => createPost(user.uid, user.displayName, user.photoURL, postDescription, postPrivacy, url))
+	    	.then((url) => createPost(user.uid, user.displayName, user.photoURL,postDescription, postPrivacy, url))
 	    	.then((response) => getAllPosts(postListTemplate));
 	    }
 		formElem.querySelector('#post-content-input').value = '';
@@ -117,7 +120,7 @@ export const postListTemplate = (postObject) => {
 				</div>
 				<div class="border-box post-article post-comment border-bottom">
 				${(user) ? `<input id="comment-input" class="border-box input-comment bg-white border" type="text" placeholder="Escribe tu comentario" />` : '' }
-				${(user) ? `<img id="comments-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/comments.png" alt="comments-post" />`: ''}
+				${(user) ? ` <img id="post-comments-${postObject.id}" class="border-box btn-icon-post bg-green" src="../assets/comments.png" alt="list-comments" />` : '' }
 				</div>
 				<div id="comment-content-${postObject.id}" class="border-box post-article">
 				</div>`;
@@ -173,20 +176,8 @@ export const postListTemplate = (postObject) => {
 		
 	});
 
-
-	if (user) {
-		const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
-		getAllComentPost(postObject.id, (comments) => {
-			commentContainer.innerHTML = '';
-			comments.forEach(comment => {
-				commentContainer.appendChild(commentListTemplate(comment,postObject))
-			});
-		})
-	}
-
 	if (!user.isAnonymous) {
-
-	  const commentsBtn = article.querySelector(`#comments-${postObject.id}`);
+	  const commentsBtn = article.querySelector(`#post-comments-${postObject.id}`);
 	  const comment = article.querySelector('#comment-input');
 	  commentsBtn.addEventListener('click', () => {
 	  	if (comment.value !== '') {
@@ -195,7 +186,13 @@ export const postListTemplate = (postObject) => {
         }
       });
 	}
-
+	const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
+getAllComentPost(postObject.id, (comments) => {
+	commentContainer.innerHTML = '';
+	comments.forEach(comment => {
+		commentContainer.appendChild(commentListTemplate(comment,postObject))
+	});
+})
 
 
 	return article;
@@ -211,32 +208,29 @@ const commentListTemplate = (commentsObject,postObject) => {
 	<p>${commentsObject.author}</p>
 	</div>
 	<div class="post-article">
-	<textarea id="comment-${commentsObject.id}" class="clear block auto border-box input-comment bg-white border" disabled=true>${commentsObject.description}</textarea>
-	</div>
-	<div class="post-article post-footer border-box">
-		${(user.uid === commentsObject.authorId) ? `<img id="btn-delete-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
+	<textarea id="comment-${commentsObject.id}" class="clear block auto border-box input-comment bg-white border" disabled="true">${commentsObject.description}</textarea>
+	${(user.uid === commentsObject.authorId) ? `<img id="btn-delete-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
 	  ${(user.uid === commentsObject.authorId) ? `<img id="btn-edit-${commentsObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
-		</div>
+	</div>
 	`;
 	const article = document.createElement('article');
 	article.setAttribute('id', commentsObject.id);
 	article.classList.add('post-article', 'border-bottom', 'border-box');
 	article.innerHTML = commentList;
-
-		if (user.uid === commentsObject.authorId) {
-			const deleteBtn = article.querySelector(`#btn-delete-${commentsObject.id}`);
-			deleteBtn.addEventListener('click', () => {
-				deletePostComment(postObject.id, commentsObject.id)
-			});
-			const editBtn = article.querySelector(`#btn-edit-${commentsObject.id}`);
-  	  const textArea = article.querySelector(`#comment-${commentsObject.id}`);
-  	  editBtn.addEventListener('click', () => {
-		return toggleDisableTextareaComments(textArea,  postObject, commentsObject, editBtn);
-      });
-		}
+	
+	if (user.uid === commentsObject.authorId) {
+		const deleteBtn = article.querySelector(`#btn-delete-${commentsObject.id}`);
+		deleteBtn.addEventListener('click', () => {
+			deletePostComment(commentsObject.idPost, commentsObject.id)
+		});
+		const editBtn = article.querySelector(`#btn-edit-${commentsObject.id}`);
+  	    const textArea = article.querySelector(`#comment-${commentsObject.id}`);
+  	    editBtn.addEventListener('click', () => {
+		  return toggleDisableTextareaComments(textArea, commentsObject, editBtn);
+        });
+    }
 
 	return article;
-
 }
 
 
@@ -253,14 +247,13 @@ export const toggleDisableTextarea = (textArea, select, postObject, btn) => {
 	}
 }
 
-
-export const toggleDisableTextareaComments = (textArea, postObject, commentsObject, btn) => {
+export const toggleDisableTextareaComments = (textArea, commentsObject, btn) => {
 	if (textArea.disabled) {
 		btn.src = "../assets/save.png";
 		textArea.disabled = false;
 	} else {
 		btn.src = "../assets/paper-plane.png";
 		textArea.disabled = true;
-		return updatePostComments(postObject.id, commentsObject.id, textArea.value)
+		return updatePostComments(commentsObject.id, commentsObject.id, textArea.value)
 	}
 }

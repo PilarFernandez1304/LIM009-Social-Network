@@ -10,12 +10,12 @@ export const navBar = () => {
         <div class="bg-green mobile-navbar">
           ${ user ? `<button id="btn-menu" class="border-box col-3 btn-menu bg-green" type="button"><i class="fa fa-bars" aria-hidden="true"></i>
           </button>`: ``}
-          <div id='nav2'> </div>
           <div class="col-9 text-center">
             <img src="../assets/mano.png" alt="logo" class="btn-icon"/>
             <a class="title" href="#/home">Mano Amiga</a>
           </div>
-        </div>     
+          <div id='nav2'> </div> 
+        </div>    
         <nav class="navbar bg-green">
           ${ user ? `<a href="#/profile"><strong>${user.displayName || user.email}</strong><img class="icon-rout-profile" src="../assets/sort-down.png"/></a>
           <a class="title" href="#/home"><img src="../assets/mano.png" alt="logo" class="btn-icon"/>Mano Amiga</a>
@@ -30,7 +30,7 @@ export const navBar = () => {
         const btnNav = header.querySelector('#btn-menu');
       btnNav.addEventListener('click', ()=> {
         const nav2 =header.querySelector('#nav2');
-        nav2.innerHTML = nav;
+        nav2.appendChild(nav())
       })
       }
 
@@ -45,8 +45,7 @@ export const navBar = () => {
   ` <ul>
             <li><a href="#/home">Home</a></li>
             <li><a href="#/profile">Perfil</a></li>
-            <li><a href="#/login" id='logout'>Cerrar Sesión</a></li>
-               >
+            <li><a id='logout'>Cerrar Sesión</a></li>
         </ul>`
   const nav =document.createElement('nav')
   nav.innerHTML = nav1;
