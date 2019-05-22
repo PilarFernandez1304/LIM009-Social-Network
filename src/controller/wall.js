@@ -42,9 +42,16 @@ export const updatePost = (idPost, content, privacy) => {
     state: privacy
     });
 }
-
+ export const updatePostComments = (idPost,idComments, editComments) => {
+   let refPostComments = firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments)
+   return refPostComments.update({
+     description : editComments
+   })
+  }
 
 export const deletePost = (idPost) => firebase.firestore().collection('posts').doc(idPost).delete();
+
+export const deletePostComment = (idPost,idComments) => firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments).delete();
 
 export const uploadImage = (date, image) => {
     const postImageRef = firebase.storage().ref().child(`images/${date}-${image.name}`);
@@ -76,15 +83,6 @@ export const getAllComentPost = (id, callback) => {
     }); 
 }
 
-
-export const updatePostComments = (idPost,idComments, editComments) => {
-   let refPostComments = firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments)
-   return refPostComments.update({
-     description : editComments
-   })
-}
-
-export const deletePostComment = (idPost,idComments) => firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments).delete();
 
 export const addLikeToPost = (id, user) => {
   return firebase.firestore().collection('posts').doc(id).collection('likes').add({

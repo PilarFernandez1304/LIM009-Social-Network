@@ -176,14 +176,7 @@ export const postListTemplate = (postObject) => {
 		
 	});
 
-const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
-getAllComentPost(postObject.id, (comments) => {
-	commentContainer.innerHTML = '';
-	comments.forEach(comment => {
-		commentContainer.appendChild(commentListTemplate(comment,postObject))
-	});
-})
-	if (user) {
+	if (!user.isAnonymous) {
 	  const commentsBtn = article.querySelector(`#post-comments-${postObject.id}`);
 	  const comment = article.querySelector('#comment-input');
 	  commentsBtn.addEventListener('click', () => {
@@ -193,11 +186,19 @@ getAllComentPost(postObject.id, (comments) => {
         }
       });
 	}
+	const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
+getAllComentPost(postObject.id, (comments) => {
+	commentContainer.innerHTML = '';
+	comments.forEach(comment => {
+		commentContainer.appendChild(commentListTemplate(comment,postObject))
+	});
+})
+
 
 	return article;
 }
 
-const commentListTemplate = (commentsObject) => {
+const commentListTemplate = (commentsObject,postObject) => {
 	const user = getCurrenUser();
 	const commentList = `
 	<div class="col-2">

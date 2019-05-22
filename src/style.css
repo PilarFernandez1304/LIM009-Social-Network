@@ -90,7 +90,7 @@ body {
 .login {
 	display: block;
 	margin: 12px auto;
-	height: 15px;
+	height: 25px;
 	padding: 5px 10px;
 	border-radius: 15px;
 	line-height: 0.5;
@@ -395,3 +395,44 @@ header img {
   	display: flex;
   }
 }
+
+
+*{
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+	}
+								
+	li{
+	list-style-type:none;
+	position:relative;
+	width:120px;
+	}
+							
+	li a{
+	text-decoration:none;
+	display:inline-block;
+	padding:5px 10px;
+	width:170px;
+	height:40px;
+	border:1px solid #008165;
+	color:#fff;
+	background-color:#00c89b;
+	}
+					
+	li a:hover{
+	color:#000;
+	background-color:whitesmoke;
+							
+	}
+	
+	nav li ul{
+			display:none;
+			position:absolute;
+			top:0px;
+			left:120px;
+	}
+					
+  .door-logout{
+		float: right;
+	}
