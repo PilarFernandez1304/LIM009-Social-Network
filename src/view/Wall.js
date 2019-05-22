@@ -176,13 +176,13 @@ export const postListTemplate = (postObject) => {
 		
 	});
 
-const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
-getAllComentPost(postObject.id, (comments) => {
-	commentContainer.innerHTML = '';
-	comments.forEach(comment => {
-		commentContainer.appendChild(commentListTemplate(comment,postObject))
-	});
-})
+	const commentContainer = article.querySelector(`#comment-content-${postObject.id}`);
+	getAllComentPost(postObject.id, (comments) => {
+		commentContainer.innerHTML = '';
+		comments.forEach(comment => {
+			commentContainer.appendChild(commentListTemplate(comment,postObject))
+		});
+	})
 	if (user) {
 	  const commentsBtn = article.querySelector(`#post-comments-${postObject.id}`);
 	  const comment = article.querySelector('#comment-input');
@@ -193,7 +193,7 @@ getAllComentPost(postObject.id, (comments) => {
         }
       });
 	}
-
+	
 	return article;
 }
 
@@ -207,7 +207,7 @@ const commentListTemplate = (commentsObject) => {
 	<p>${commentsObject.author}</p>
 	</div>
 	<div class="post-article">
-	<p id="comment-${commentsObject.author}" class="clear block auto border-box input-comment bg-white border">${commentsObject.description}</p>
+	<textarea id="comment-${commentsObject.id}" class="clear block auto border-box input-comment bg-white border" disabled="true">${commentsObject.description}</textarea>
 	${(user.uid === commentsObject.authorId) ? `<img id="btn-delete-${commentsObject.id}" class="border-box btn-icon-post bg-green" src="../assets/close.png" alt="eliminar-post" />`: ''}
 	  ${(user.uid === commentsObject.authorId) ? `<img id="btn-edit-${commentsObject.id}" class="border-box btn-icon btn-icon-post bg-green" src="../assets/paper-plane.png" alt="editar-post" />`: ''}
 	</div>
