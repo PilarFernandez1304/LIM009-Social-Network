@@ -127,9 +127,8 @@ export const CreateUsers = (email,uid,userName,userPhoto)=>{
 }
 
 
-/*
 export const getUser =()=>{
-  return firebase.firestore().doc('Id').get()
+  return firebase.firestore().collection('users').doc().get()
   .then(function(doc) {
     if (doc.exists) {
         console.log("Document data:", doc.data());
@@ -142,7 +141,7 @@ export const getUser =()=>{
 
   } 
 
-  */
+
 
 
 

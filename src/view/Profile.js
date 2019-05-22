@@ -1,9 +1,10 @@
 import { getCurrenUser } from '../controller/login.js'
 import { updateUser } from '../controller/profile.js';
 import changeHash from './utils.js'
+import { getUser } from '../controller/wall.js';
 
 export default() => {
-    const user =getCurrenUser();
+    const user =getUser();
     const profileUser = `
     <div class="container-profile container-Update">
     <h2>Actualiza tu Perfil</h2>
