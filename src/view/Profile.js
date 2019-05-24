@@ -4,7 +4,7 @@ import changeHash from './utils.js'
 import { getUser } from '../controller/wall.js';
 
 export default() => {
-    const user =getUser();
+    const user =getCurrenUser();
     const profileUser = `
     <div class="container-profile container-Update">
     <h2>Actualiza tu Perfil</h2>

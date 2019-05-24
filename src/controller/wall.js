@@ -107,13 +107,6 @@ export const getAllLikesPost = (idPost, callback) => {
     }); 
 }
 
-/*
-export const likePostComments = (idPost, idComments, counter) => {
-    return firebase.firestore().collection('posts').doc(idPost).collection('comments').doc(idComments).update({
-    likes: counter
-  });
-};
-*/ 
 
 export const CreateUsers = (email,uid,userName,userPhoto)=>{
   return firebase.firestore().collection('users').add({
@@ -126,31 +119,24 @@ export const CreateUsers = (email,uid,userName,userPhoto)=>{
 }
 
 
-export const getUser =()=>{
-  return firebase.firestore().collection('users').doc().get()
-  .then(function(doc) {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-
-  })   
+export const getUser =(callback)=>{
+  return firebase.firestore().collection('users').where("email","==",true).
+  get()
+    .then(function(querySnapshot) {
+      let data = [];
+      querySnapshot.forEach(function(doc) {
+          data.push({ id: doc.id, ...doc.data() })
+      });
+      callback(data);
+  })
 
   } 
-
-
-
-
 
 export const searchEmailUser= (email,uid,name,photo) =>{
   return firebase.firestore().collection("users").get().then(function(querySnapshot) {
     let aux=false;
 
     querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-        //console.log(doc.data());
         if(doc.data().email==email){
           aux=true;
         

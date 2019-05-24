@@ -1,14 +1,18 @@
+// importando funciones que se van a usar
 import { createPost, getAllPosts, getPublicPosts, updatePost, deletePost, uploadImage, addLikeToPost, removeLikeToPost, getAllLikesPost, addCommentPost, getAllComentPost, deletePostComment, updatePostComments} from '../controller/wall.js';
 import { getCurrenUser } from '../controller/login.js';
 import {searchEmailUser} from '../controller/wall.js'
 import changeHash from './utils.js';
 
 let postImage;
+// creando funcion home nuestra primera vista con su parametro post
 export const home = (posts) => {
+	// invocando la funcion getCurrentUser para obtener la informacion del perfil del usuario actualmente activo
 	let user = getCurrenUser();
-	(user) ? searchEmailUser(user.email,user.uid,user.displayName,user.photoURL) : '';
-	
+	// invocando la funcion para poder crear la coleccion user en firebase
+	searchEmailUser(user.email,user.uid,user.displayName,user.photoURL);
 	let content;
+	// condicional si usuario esta logeado muestrame la parte del perfil del usuario
   if (user) {
 	content = `
 	<section id="profile-container" class="profile border-box">
@@ -25,24 +29,30 @@ export const home = (posts) => {
 	</section>`;
 	
   } else {
+		// si no esta logeado muestrame solo los post publicos y añadele la opcion de iniciar sesion
   	content = `
   	<a href="#/login" title="link de iniciar sesion">Iniciar Sesión</a>
 	<section class="posts post-list">
 	<div id="post-list" class="post-article border-box"></div>
 	</section>`;
 }
+// crea el elemento main que contiene a todo el contenido
  const contentContainer = document.createElement('main');
+ // añadiendo clases a la elemento content container
 	contentContainer.classList.add('flex-container', 'border-box', 'main-container');
 	contentContainer.innerHTML = content;
-    const wallAll = contentContainer.querySelector('#post-list');
-    if (user) {wallAll.appendChild(createPostTemplate())};
+		const wallAll = contentContainer.querySelector('#post-list');
+		// si el usuario logeado llamame a wallall y agregame un nuevo nodo llamando a la funcion createPostTemplate
+		if (user) {wallAll.appendChild(createPostTemplate())};
+		// recorre el post que contiene todos los post y creame creame llamando la funcion postListTemplate
     posts.forEach((post) => {
       wallAll.appendChild(postListTemplate(post));    
-    });
-
+		});
+		// y devuelve el contendor con todos los post
 	return contentContainer;
 }
 
+// creando funcion que crea el template de los post
 export const createPostTemplate = () => {
 	const createPostContainer = document.createElement('div');
 	createPostContainer.classList.add('post-article', 'post-box', 'border');
@@ -61,6 +71,7 @@ export const createPostTemplate = () => {
 	  <input id="input-file" class="none" type="file" accept="image/*" />
 	</form>`;
 	createPostContainer.innerHTML = createPostForm;
+	// Carga de imagen a post
 	postImage = createPostContainer.querySelector('#input-file');
 	const uploadImageBtn = createPostContainer.querySelector('#btn-upload-image');
 	uploadImageBtn.addEventListener('click', () => {
@@ -72,7 +83,7 @@ export const createPostTemplate = () => {
 }
 
 export const createPostOnClick = (event) => {
-	event.preventDefault();
+	event.preventDefault();eventevent
 	const formElem = event.target.closest('form')
 	const postDescription = formElem.querySelector('#post-content-input').value;
 	const postPrivacy = formElem.querySelector('#post-privacy-select').value;
